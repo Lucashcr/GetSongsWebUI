@@ -1,0 +1,11 @@
+* {
+  font-family: Ubuntu, sans-serif;
+}
+
+.toast-sucess {
+  background-color: #006305;
+}
+
+.toast-error {
+  background-color: #8a0000;
+}
