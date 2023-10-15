@@ -7,73 +7,54 @@ const useMainStore = defineStore("main", {
       {
         title: "Página inicial",
         to: "/",
-        props: {
-          prependIcon: "mdi-apps",
-        },
+        icon: "mdi-apps",
       },
     ],
     hymaryItems: [
       {
         title: "Novo hinário",
         to: "/hymnary/new",
-        props: {
-          prependIcon: "mdi-note-plus-outline",
-        },
+        icon: "mdi-note-plus-outline",
       },
       {
         title: "Meus hinários",
         to: "/hymnary",
-        props: {
-          prependIcon: "mdi-note-multiple-outline",
-        },
+        icon: "mdi-note-multiple-outline",
       },
     ],
     authItems: [
       {
         title: "Perfil",
         to: "/auth/profile",
-        props: {
-          prependIcon: "mdi-account",
-        },
+        icon: "mdi-account",
       },
       {
         title: "Sair",
         to: "/auth/logout",
-        props: {
-          prependIcon: "mdi-logout",
-        },
+        icon: "mdi-logout",
       },
     ],
     notAuthItems: [
       {
         title: "Entrar",
         to: "/auth/login",
-        props: {
-          prependIcon: "mdi-login",
-        },
+        icon: "mdi-login",
       },
       {
         title: "Cadastrar",
         to: "/auth/register",
-        props: {
-          prependIcon: "mdi-account-plus",
-        },
       },
     ],
     endItems: [
       {
         title: "Contato",
         to: "/contact",
-        props: {
-          prependIcon: "mdi-email",
-        },
+        icon: "mdi-email",
       },
       {
         title: "Sobre",
         to: "/about",
-        props: {
-          prependIcon: "mdi-help",
-        },
+        icon: "mdi-help",
       },
     ],
   }),

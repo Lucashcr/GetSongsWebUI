@@ -2,13 +2,16 @@
   <v-app dark>
     <v-navigation-drawer fixed app>
       <!-- <v-layout column full-height> -->
-      <v-layout class="column">
-        <MenuList :items="$store.startItems" />
-        <!-- <MenuList :items="$store.hymaryItems" v-if="$auth.loggedIn" /> -->
-        <!-- <v-spacer></v-spacer> -->
-        <!-- <MenuList :items="$auth.loggedIn ? $store.authItems : $store.notAuthItems" /> -->
-        <MenuList :items="$store.endItems" />
-      </v-layout>
+      <v-list-item v-for="item in $store.startItems" :key="item.to" :to="item.to" router exact :prepend-icon="item.icon"
+        :title="item.title"></v-list-item>
+      <v-spacer></v-spacer>
+      <v-list-item v-for="item in $store.endItems" :key="item.to" :to="item.to" router exact :prepend-icon="item.icon"
+        :title="item.title"></v-list-item>
+      <!-- <MenuList :items="$store.startItems" /> -->
+      <!-- <MenuList :items="$store.hymaryItems" v-if="$auth.loggedIn" /> -->
+      <!-- <v-spacer></v-spacer> -->
+      <!-- <MenuList :items="$auth.loggedIn ? $store.authItems : $store.notAuthItems" /> -->
+      <!-- <MenuList :items="$store.endItems" /> -->
       <!-- </v-layout> -->
     </v-navigation-drawer>
     <v-app-bar fixed app>
