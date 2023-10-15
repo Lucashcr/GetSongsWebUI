@@ -43,7 +43,7 @@ export default {
     title: "Homepage",
   },
   created() {
-    // this.$store.setAppBarTitle("Bem vindo ao GetSongs!");
+    this.$store.setAppBarTitle("Bem vindo ao GetSongs!");
     //  commit("global/setAppBarTitle", "Bem vindo ao GetSongs!");
   },
 };
