@@ -1,5 +1,16 @@
+<script setup>
+import nuxtStorage from "nuxt-storage";
+import { useTheme } from "vuetify";
+
+const theme = useTheme();
+
+theme.global.name.value = nuxtStorage.localStorage.getData("dark")
+  ? "dark"
+  : "light";
+</script>
+
 <template>
-  <v-app dark>
+  <v-app>
     <v-navigation-drawer expand-on-hover rail>
       <v-list-item
         v-for="item in $store.startItems"
@@ -10,6 +21,7 @@
         :prepend-icon="item.icon"
         :title="item.title"
       ></v-list-item>
+      <v-spacer vertical></v-spacer>
       <v-list-item
         v-for="item in $store.endItems"
         :key="item.to"
@@ -22,6 +34,7 @@
     </v-navigation-drawer>
     <v-app-bar :elevation="2">
       <img src="/logo.png" height="40px" class="mx-4" />
+      <!-- <v-img src="/logo.png"></v-img> -->
       <h2>{{ $store.appBarTitle }}</h2>
       <v-spacer></v-spacer>
       <ThemeToggleButton />
@@ -29,3 +42,10 @@
     <NuxtLayout />
   </v-app>
 </template>
+
+<style scoped>
+.v-list-item {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+</style>

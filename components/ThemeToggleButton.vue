@@ -1,3 +1,21 @@
+<script setup>
+import nuxtStorage from "nuxt-storage";
+import { useTheme } from "vuetify";
+
+const theme = useTheme();
+
+function toggleTheme() {
+  theme.global.name.value = theme.global.current.value.dark ? "light" : "dark";
+  nuxtStorage.localStorage.setData("dark", theme.global.current.value.dark);
+}
+
+const icon = computed(() => {
+  return theme.global.current.value.dark
+    ? "mdi-white-balance-sunny"
+    : "mdi-weather-night";
+});
+</script>
+
 <template>
   <v-btn icon @click="toggleTheme">
     <v-icon>{{ icon }}</v-icon>
@@ -6,17 +24,6 @@
 
 <script>
 export default {
-  name: 'ThemeToggleButton',
-  computed: {
-    icon() {
-      return this.$vuetify.theme.dark ? 'mdi-white-balance-sunny' : 'mdi-weather-night'
-    },
-  },
-  methods: {
-    toggleTheme() {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
-      localStorage.setItem('dark', this.$vuetify.theme.dark)
-    }
-  }
-}
+  name: "ThemeToggleButton",
+};
 </script>
