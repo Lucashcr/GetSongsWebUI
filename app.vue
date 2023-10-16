@@ -33,8 +33,12 @@ theme.global.name.value = nuxtStorage.localStorage.getData("dark")
       ></v-list-item>
     </v-navigation-drawer>
     <v-app-bar :elevation="2">
-      <img src="/logo.png" height="40px" class="mx-4" />
-      <!-- <v-img src="/logo.png"></v-img> -->
+      <v-img
+        src="/logo.png"
+        :height="40"
+        :width="40"
+        class="flex-grow-0 mx-4"
+      ></v-img>
       <h2>{{ $store.appBarTitle }}</h2>
       <v-spacer></v-spacer>
       <ThemeToggleButton />
