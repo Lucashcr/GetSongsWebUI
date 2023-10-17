@@ -10,15 +10,15 @@
 </template>
 
 <script>
+definePageMeta({
+  layout: "centered",
+});
+
 export default {
-  name: 'Profile',
-  layout: 'centered',
-  head: {
-    title: 'Perfil'
-  },
-  middleware: ['auth'],
+  name: "ProfileView",
+  middleware: ["auth"],
   created() {
-    this.$store.setAppBarTitle('Deseja editar seu perfil?')
+    this.$store.setAppBarTitle("Deseja editar seu perfil?");
   },
-}
+};
 </script>

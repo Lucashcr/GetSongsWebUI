@@ -38,10 +38,7 @@
 
 <script>
 export default {
-  name: "Homepage",
-  head: {
-    title: "Homepage",
-  },
+  name: "HomeView",
   created() {
     this.$store.setAppBarTitle("Bem vindo ao GetSongs!");
     //  commit("global/setAppBarTitle", "Bem vindo ao GetSongs!");

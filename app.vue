@@ -7,6 +7,16 @@ const theme = useTheme();
 theme.global.name.value = nuxtStorage.localStorage.getData("dark")
   ? "dark"
   : "light";
+
+useHead({
+  title: "GetSongs",
+  meta: [
+    {
+      name: "description",
+      content: "Plataforma de montagem e geração automática de hinários.",
+    },
+  ],
+});
 </script>
 
 <template>

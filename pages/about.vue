@@ -2,10 +2,14 @@
   <section class="mt-8">
     <p>
       A plataforma
-      <CustomLink to="https://github.com/Lucashcr/GetSongsWeb">GetSongs</CustomLink>
+      <CustomLink to="https://github.com/Lucashcr/GetSongsWeb"
+        >GetSongs</CustomLink
+      >
       foi desenvolvida com a intenção de tornar a montagem de hinários mais
       fácil e rápida. A ideia surgiu a partir da experiência do seu criador,
-      <CustomLink to="https://www.linkedin.com/in/lucas-rocha-8b6655216/">Lucas Rocha</CustomLink>
+      <CustomLink to="https://www.linkedin.com/in/lucas-rocha-8b6655216/"
+        >Lucas Rocha</CustomLink
+      >
       , em igrejas e outras organizações religiosas, onde era comum encontrar
       dificuldades para criar hinários personalizados para eventos, missas,
       entre outros. Além disso, com a ajuda da tecnologia, o GetSongs foi
@@ -17,7 +21,9 @@
     <p>
       Para criar a aplicação, foram utilizados o framework
       <CustomLink to="https://www.djangoproject.com/">Django</CustomLink> e
-      <CustomLink to="https://www.django-rest-framework.org/">Django REST Framework</CustomLink>
+      <CustomLink to="https://www.django-rest-framework.org/"
+        >Django REST Framework</CustomLink
+      >
       para construção do <em>back-end</em> e
       <CustomLink to="https://v2.nuxt.com/">Nuxt</CustomLink>,
       <CustomLink to="https://v2.vuejs.org/">Vuejs</CustomLink> e
@@ -32,20 +38,17 @@
 
     <p>
       Em resumo, o GetSongs é o resultado do trabalho e dedicação do seu criador
-      como primeiro projeto <em>full-stack</em>, tornando a montagem de hinários mais fácil e
-      acessível para todos. Com tecnologias confiáveis e modernas, a plataforma
-      oferece uma solução inovadora para a criação de hinários personalizados
-      para eventos religiosos e outras ocasiões.
+      como primeiro projeto <em>full-stack</em>, tornando a montagem de hinários
+      mais fácil e acessível para todos. Com tecnologias confiáveis e modernas,
+      a plataforma oferece uma solução inovadora para a criação de hinários
+      personalizados para eventos religiosos e outras ocasiões.
     </p>
   </section>
 </template>
 
 <script>
 export default {
-  name: "Sobre",
-  head: {
-    title: "Sobre",
-  },
+  name: "AboutView",
   mounted() {
     this.$store.setAppBarTitle("Curioso sobre o projeto?");
   },

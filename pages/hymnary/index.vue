@@ -1,10 +1,17 @@
 <template>
   <section>
     <div class="d-flex align-center justify-center flex-wrap" v-if="hymnaries">
-      <v-card v-for="hymnary in hymnaries" :key="hymnary.id" width="33%" class="ma-1"
-        @click="$router.push(`hymnary/${hymnary.id}`)">
+      <v-card
+        v-for="hymnary in hymnaries"
+        :key="hymnary.id"
+        width="33%"
+        class="ma-1"
+        @click="$router.push(`hymnary/${hymnary.id}`)"
+      >
         <v-card-title>{{ hymnary.title }}</v-card-title>
-        <v-card-text>Criado em: {{ formatDateTime(hymnary.created_at) }}</v-card-text>
+        <v-card-text
+          >Criado em: {{ formatDateTime(hymnary.created_at) }}</v-card-text
+        >
       </v-card>
     </div>
     <Loading v-else />
@@ -13,7 +20,7 @@
 
 <script>
 export default {
-  name: "HymnaryList",
+  name: "HymnaryListView",
   head: {
     title: "Hinários",
   },
@@ -21,7 +28,8 @@ export default {
   mounted() {
     // this.$store.commit("global/setAppBarTitle", "Aqui estão seus hinários!");
     this.$store.setAppBarTitle("Aqui estão seus hinários!");
-    this.$axios.get("/api/hymnary")
+    this.$axios
+      .get("/api/hymnary")
       .then((res) => {
         this.hymnaries = res.data;
         if (!this.hymnaries.length) {

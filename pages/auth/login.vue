@@ -19,15 +19,11 @@
 
 <script>
 definePageMeta({
-  layout: 'centered',
-})
+  layout: "centered",
+});
 
 export default {
   name: "Login",
-  layout: "centered",
-  head: {
-    title: "Entrar",
-  },
   created() {
     // this.$store.global.setAppBarTitle('Bem-vindo de volta!')
     // this.$axios.get('/api/category/')
@@ -37,8 +33,8 @@ export default {
   },
   data() {
     return {
-      user: {}
-    }
+      user: {},
+    };
   },
   methods: {
     async login() {
@@ -58,22 +54,22 @@ export default {
       //   .catch(err => {
       //     console.log(err)
       //   }
-      $fetch('http://localhost:8000/user/token/', {
-        method: 'POST',
+      $fetch("http://localhost:8000/user/token/", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(this.user)
+        body: JSON.stringify(this.user),
       })
-        .then(res => {
-          console.log(res)
+        .then((res) => {
+          console.log(res);
           // this.$auth.setUserToken(res.access)
           // this.$auth.setUser(res.user)
         })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-  }
-}
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+};
 </script>

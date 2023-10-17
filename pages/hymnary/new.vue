@@ -1,15 +1,24 @@
 <template>
   <v-card class="pa-4 rounded-xl">
     <v-form class="d-flex flex-column align-center">
-      <v-text-field v-model="newHymnary.title" label="Título" required></v-text-field>
-      <v-btn @click="saveHymnary" :disabled="setButtonDisabled()" color="primary">Salvar</v-btn>
+      <v-text-field
+        v-model="newHymnary.title"
+        label="Título"
+        required
+      ></v-text-field>
+      <v-btn
+        @click="saveHymnary"
+        :disabled="setButtonDisabled()"
+        color="primary"
+        >Salvar</v-btn
+      >
     </v-form>
   </v-card>
 </template>
 
 <script>
 export default {
-  name: "HymnaryNew",
+  name: "HymnaryNewView",
   layout: "centered",
   head: {
     title: "Novo Hinário",
@@ -32,14 +41,16 @@ export default {
     return {
       hymnaries: [],
       newHymnary: {
-        title: ""
-      }
+        title: "",
+      },
     };
   },
   methods: {
     setButtonDisabled() {
       if (this.newHymnary.title === "") return true;
-      return this.hymnaries.some(hymnary => hymnary.title === this.newHymnary.title);
+      return this.hymnaries.some(
+        (hymnary) => hymnary.title === this.newHymnary.title
+      );
     },
     saveHymnary() {
       this.$axios
@@ -58,5 +69,5 @@ export default {
         });
     },
   },
-}
+};
 </script>

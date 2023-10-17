@@ -96,7 +96,7 @@ import { Drag, DropList, Drop } from 'vue-easy-dnd';
 
 <script>
 export default {
-  name: "HymnaryDetail",
+  name: "HymnaryDetailView",
   components: {
     SongEditItem,
     Drag, DropList, Drop

@@ -8,24 +8,24 @@
 </template>
 
 <script>
+definePageMeta({
+  layout: "centered",
+});
+
 export default {
-  name: 'Logout',
-  layout: 'centered',
-  head: {
-    title: 'Sair'
-  },
-  middleware: ['auth'],
+  name: "LogoutView",
+  middleware: ["auth"],
   created() {
-    this.$store.setAppBarTitle('Já vai? 😢')
+    this.$store.setAppBarTitle("Já vai? 😢");
   },
   methods: {
     async logout() {
       this.$toast.global.defaultSuccess({
-        msg: `Até a próxima, ${this.$auth.user.first_name}! 😉`
-      })
-      await this.$auth.logout()
-      this.$router.push('/')
-    }
-  }
-}
+        msg: `Até a próxima, ${this.$auth.user.first_name}! 😉`,
+      });
+      await this.$auth.logout();
+      this.$router.push("/");
+    },
+  },
+};
 </script>
