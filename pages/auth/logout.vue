@@ -1,3 +1,9 @@
+<script setup>
+definePageMeta({
+  layout: "centered",
+});
+</script>
+
 <template>
   <v-card class="d-flex flex-column align-center rounded-lg">
     <v-card-title>Tem certeza que deseja sair?</v-card-title>
@@ -8,9 +14,7 @@
 </template>
 
 <script>
-definePageMeta({
-  layout: "centered",
-});
+import { useAuthStore } from "~/store/auth";
 
 export default {
   name: "LogoutView",
@@ -20,10 +24,8 @@ export default {
   },
   methods: {
     async logout() {
-      this.$toast.global.defaultSuccess({
-        msg: `Até a próxima, ${this.$auth.user.first_name}! 😉`,
-      });
-      await this.$auth.logout();
+      const auth = useAuthStore();
+      await auth.logout();
       this.$router.push("/");
     },
   },

@@ -1,12 +1,13 @@
 <script setup>
-import nuxtStorage from "nuxt-storage";
 import { useTheme } from "vuetify";
+import { useAuthStore } from "~/store/auth";
 
 const theme = useTheme();
+const auth = useAuthStore();
 
-theme.global.name.value = nuxtStorage.localStorage.getData("dark")
-  ? "dark"
-  : "light";
+auth.verifyToken();
+
+theme.global.name.value = localStorage.getItem("theme");
 
 useHead({
   title: "GetSongs",
@@ -31,6 +32,28 @@ useHead({
         :prepend-icon="item.icon"
         :title="item.title"
       ></v-list-item>
+      <v-list-item
+        v-if="auth.isAuthenticated"
+        v-for="item in $store.authItems"
+        :key="item.to"
+        :to="item.to"
+        router
+        exact
+        :prepend-icon="item.icon"
+        :title="item.title"
+      >
+      </v-list-item>
+      <v-list-item
+        v-else
+        v-for="item in $store.notAuthItems"
+        :key="item.to"
+        :to="item.to"
+        router
+        exact
+        :prepend-icon="item.icon"
+        :title="item.title"
+      >
+      </v-list-item>
       <v-spacer vertical></v-spacer>
       <v-list-item
         v-for="item in $store.endItems"

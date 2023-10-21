@@ -1,3 +1,11 @@
+<script setup>
+definePageMeta({
+  name: "Login",
+  layout: "centered",
+  auth: false,
+});
+</script>
+
 <template>
   <v-card width="400px" class="pa-2 rounded-xl">
     <v-card-title>Entrar</v-card-title>
@@ -18,18 +26,11 @@
 </style>
 
 <script>
-definePageMeta({
-  layout: "centered",
-});
+import { useAuthStore } from "~/store/auth";
 
 export default {
-  name: "Login",
   created() {
-    // this.$store.global.setAppBarTitle('Bem-vindo de volta!')
-    // this.$axios.get('/api/category/')
-    //   .then(res => {
-    //     console.log(res.data)
-    //   })
+    this.$store.setAppBarTitle("Bem-vindo de volta!");
   },
   data() {
     return {
@@ -38,37 +39,23 @@ export default {
   },
   methods: {
     async login() {
-      // $fetch('http://localhost:8000/api/token/', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify(this.user)
-      // })
-      //   .then(res => res.json())
-      //   .then(res => {
-      //     console.log(res)
-      //     // this.$auth.setUserToken(res.access)
-      //     // this.$auth.setUser(res.user)
-      //   })
-      //   .catch(err => {
-      //     console.log(err)
-      //   }
-      $fetch("http://localhost:8000/user/token/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(this.user),
-      })
-        .then((res) => {
-          console.log(res);
-          // this.$auth.setUserToken(res.access)
-          // this.$auth.setUser(res.user)
-        })
-        .catch((err) => {
-          console.log(err);
+      try {
+        const auth = useAuthStore();
+        const tokenData = await $fetch("http://localhost:8000/user/token/", {
+          method: "POST",
+          body: this.user,
         });
+        auth.setToken(tokenData.access);
+        const userData = await $fetch("http://localhost:8000/user/me/", {
+          headers: {
+            Authorization: `Bearer ${tokenData.access}`,
+          },
+        });
+        auth.setUser(userData);
+        this.$router.push("/");
+      } catch (error) {
+        alert("Usuário ou senha incorretos");
+      }
     },
   },
 };

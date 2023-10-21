@@ -16,14 +16,19 @@
   </v-card>
 </template>
 
-<script>
-export default {
+<script setup>
+definePageMeta({
   name: "HymnaryNewView",
   layout: "centered",
   head: {
     title: "Novo Hinário",
   },
   middleware: ["auth"],
+});
+</script>
+
+<script>
+export default {
   created() {
     this.$store.setAppBarTitle("Vamos criar um novo hinário!");
     this.$axios

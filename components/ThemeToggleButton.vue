@@ -1,16 +1,15 @@
 <script setup>
-import nuxtStorage from "nuxt-storage";
 import { useTheme } from "vuetify";
 
 const theme = useTheme();
 
 function toggleTheme() {
   theme.global.name.value = theme.global.current.value.dark ? "light" : "dark";
-  nuxtStorage.localStorage.setData("dark", theme.global.current.value.dark);
+  localStorage.setItem("theme", theme.global.name.value);
 }
 
 const icon = computed(() => {
-  return theme.global.current.value.dark
+  return theme.global.name.value === "dark"
     ? "mdi-white-balance-sunny"
     : "mdi-weather-night";
 });

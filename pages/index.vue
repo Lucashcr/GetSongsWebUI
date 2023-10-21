@@ -37,11 +37,10 @@
 </template>
 
 <script>
-export default {
+export default defineComponent({
   name: "HomeView",
   created() {
     this.$store.setAppBarTitle("Bem vindo ao GetSongs!");
-    //  commit("global/setAppBarTitle", "Bem vindo ao GetSongs!");
   },
-};
+});
 </script>
