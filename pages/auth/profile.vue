@@ -1,9 +1,9 @@
 <script setup>
 import useAuthStore from "~/store/auth";
-import useMainStore from "~/store";
+import useglobalStore from "~/store";
 
 const auth = useAuthStore();
-const mainStore = useMainStore();
+const globalStore = useglobalStore();
 
 definePageMeta({
   name: "Profile",
@@ -12,7 +12,7 @@ definePageMeta({
 });
 
 onMounted(() => {
-  mainStore.setAppBarTitle("Deseja editar o seu perfil?");
+  globalStore.setAppBarTitle("Deseja editar o seu perfil?");
 });
 </script>
 

@@ -1,19 +1,19 @@
 <script setup>
-import useMainStore from "~/store";
+import useglobalStore from "~/store";
 import useAuthStore from "~/store/auth";
 
 const backendURL = useRuntimeConfig().public.backendURL;
 
 const auth = useAuthStore();
-const mainStore = useMainStore();
+const globalStore = useglobalStore();
 
 definePageMeta({
   name: "Login",
   layout: "centered",
 });
 
-onBeforeMount(() => {
-  mainStore.setAppBarTitle("Bem-vindo de volta!");
+onMounted(() => {
+  globalStore.setAppBarTitle("Bem-vindo de volta!");
 });
 
 const user = reactive({

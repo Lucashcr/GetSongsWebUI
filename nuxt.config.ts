@@ -18,6 +18,8 @@ export default defineNuxtConfig({
     },
   },
 
+  plugins: ["~/plugins/fetchApi.ts", "~/plugins/utils.ts"],
+
   runtimeConfig: {
     public: {
       backendURL: "http://localhost:8000",

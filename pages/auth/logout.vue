@@ -2,16 +2,20 @@
 import useAuthStore from "~/store/auth";
 const auth = useAuthStore();
 
+function logout() {
+  auth.logout();
+  navigateTo("/");
+}
+
 definePageMeta({
   name: "Logout",
   layout: "centered",
   middleware: ["auth"],
 });
 
-function logout() {
-  auth.logout();
-  navigateTo("/");
-}
+onMounted(() => {
+  globalStore.setAppBarTitle("Já vai?");
+});
 </script>
 
 <template>

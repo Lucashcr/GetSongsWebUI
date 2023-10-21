@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import useAuthStore from "~/store/auth";
-import useMainStore from "~/store";
+import useglobalStore from "~/store";
 
 const auth = useAuthStore();
-const mainStore = useMainStore();
+const globalStore = useglobalStore();
 
 const message = reactive({
   name: auth.isAuthenticated ? auth.user.full_name : "",
@@ -41,7 +41,7 @@ definePageMeta({
 });
 
 onMounted(() => {
-  mainStore.setAppBarTitle("Fale conosco!");
+  globalStore.setAppBarTitle("Fale conosco!");
 });
 </script>
 

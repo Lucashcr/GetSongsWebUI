@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import useMainStore from "~/store";
+import useglobalStore from "~/store";
 
-const mainStore = useMainStore();
+const globalStore = useglobalStore();
 
 definePageMeta({
   name: "Home",
@@ -9,7 +9,7 @@ definePageMeta({
 });
 
 onMounted(() => {
-  mainStore.setAppBarTitle("Bem-vindo ao GetSongs!");
+  globalStore.setAppBarTitle("Bem-vindo ao GetSongs!");
 });
 </script>
 

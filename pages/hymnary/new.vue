@@ -1,22 +1,31 @@
-<template>
-  <v-card class="pa-4 rounded-xl">
-    <v-form class="d-flex flex-column align-center">
-      <v-text-field
-        v-model="newHymnary.title"
-        label="Título"
-        required
-      ></v-text-field>
-      <v-btn
-        @click="saveHymnary"
-        :disabled="setButtonDisabled()"
-        color="primary"
-        >Salvar</v-btn
-      >
-    </v-form>
-  </v-card>
-</template>
+<script setup lang="ts">
+import useglobalStore from "~/store";
 
-<script setup>
+const { $fetchApi } = useNuxtApp();
+
+const globalStore = useglobalStore();
+
+const backendURL = useRuntimeConfig().public.backendURL;
+
+const newHymnary = reactive({
+  title: "",
+});
+
+const hymnaries = ref([] as any[]);
+
+function setButtonDisabled() {
+  if (newHymnary.title === "") return true;
+  return hymnaries.value.some((hymnary) => hymnary.title === newHymnary.title);
+}
+
+async function saveHymnary() {
+  const response = await $fetchApi.post("/hymnary/", newHymnary);
+  console.log(response);
+  // if (response?.status === 200) {
+  //   navigateTo("/hymnary/");
+  // }
+}
+
 definePageMeta({
   name: "HymnaryNewView",
   layout: "centered",
@@ -25,54 +34,39 @@ definePageMeta({
   },
   middleware: ["auth"],
 });
+
+onMounted(() => {
+  globalStore.setAppBarTitle("Vamos criar um novo hinário!");
+  $fetchApi.get("/hymnary").then((res) => {
+    console.log(res);
+    hymnaries.value = res as any[];
+    console.log(hymnaries.value);
+  });
+  // $fetch(`${backendURL}/api/hymnary`, {}).then((res) => {
+  //   console.log(res);
+  // });
+});
 </script>
 
-<script>
-export default {
-  created() {
-    this.$store.setAppBarTitle("Vamos criar um novo hinário!");
-    this.$axios
-      .get("/api/hymnary")
-      .then((res) => {
-        this.hymnaries = res.data;
-      })
-      .catch((err) => {
-        this.$toasted.global.defaultError({
-          msg: "Não foi possível carregar seus hinários.",
-        });
-      });
-  },
-  data() {
-    return {
-      hymnaries: [],
-      newHymnary: {
-        title: "",
-      },
-    };
-  },
-  methods: {
-    setButtonDisabled() {
-      if (this.newHymnary.title === "") return true;
-      return this.hymnaries.some(
-        (hymnary) => hymnary.title === this.newHymnary.title
-      );
-    },
-    saveHymnary() {
-      this.$axios
-        .post(`/api/hymnary`, this.newHymnary)
-        .then((res) => {
-          this.$toasted.global.defaultSuccess({
-            msg: "Hinário criado com sucesso!",
-          });
-          console.log(res.data);
-          this.$router.push(`/hymnary/${res.data.id}`);
-        })
-        .catch((err) => {
-          this.$toasted.global.defaultError({
-            msg: "Não foi possível criar o hinário.",
-          });
-        });
-    },
-  },
-};
-</script>
+<template>
+  <v-card width="500px" class="pa-4 rounded-xl">
+    <v-form
+      class="d-flex flex-column align-center"
+      @submit.prevent="saveHymnary"
+    >
+      <v-text-field
+        v-model="newHymnary.title"
+        label="Título"
+        required
+        width="100%"
+      ></v-text-field>
+      <v-btn
+        type="submit"
+        :disabled="setButtonDisabled()"
+        color="primary"
+        width="100%"
+        >Salvar</v-btn
+      >
+    </v-form>
+  </v-card>
+</template>

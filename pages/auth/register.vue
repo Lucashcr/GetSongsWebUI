@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import useMainStore from "~/store";
-const mainStore = useMainStore();
+import useglobalStore from "~/store";
+const globalStore = useglobalStore();
 
 const backendURL = useRuntimeConfig().public.backendURL;
 
@@ -10,7 +10,7 @@ definePageMeta({
 });
 
 onMounted(() => {
-  mainStore.setAppBarTitle("Junte-se a nós!");
+  globalStore.setAppBarTitle("Junte-se a nós!");
 });
 
 const user = reactive({

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-const useMainStore = defineStore("main", {
+const useglobalStore = defineStore("main", {
   state: () => ({
     appBarTitle: "",
     startItems: [
@@ -64,4 +64,4 @@ const useMainStore = defineStore("main", {
   },
 });
 
-export default useMainStore;
+export default useglobalStore;
