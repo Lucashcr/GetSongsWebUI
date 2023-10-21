@@ -1,3 +1,95 @@
+<script setup lang="ts">
+import useMainStore from "~/store";
+const mainStore = useMainStore();
+
+const backendURL = useRuntimeConfig().public.backendURL;
+
+definePageMeta({
+  name: "Register",
+  layout: "centered",
+});
+
+onMounted(() => {
+  mainStore.setAppBarTitle("Junte-se a nós!");
+});
+
+const user = reactive({
+  first_name: "",
+  last_name: "",
+  username: "",
+  email: "",
+  password: "",
+  password_confirmation: "",
+});
+const errorMessages = ref([] as string[]);
+
+function validateData() {
+  let error = false;
+  errorMessages.value = [];
+
+  if (!user.first_name) {
+    errorMessages.value.push("Nome é obrigatório.");
+    error = true;
+  }
+
+  if (!user.username) {
+    errorMessages.value.push("Usuário é obrigatório.");
+    error = true;
+  }
+
+  if (!user.email) {
+    errorMessages.value.push("E-mail é obrigatório.");
+    error = true;
+  }
+
+  if (!user.password) {
+    errorMessages.value.push("Senha é obrigatória.");
+    error = true;
+  }
+
+  if (!user.password_confirmation) {
+    errorMessages.value.push("Confirmação de senha é obrigatória.");
+    error = true;
+  }
+
+  if (user.password !== user.password_confirmation) {
+    errorMessages.value.push("As senhas não conferem.");
+    error = true;
+  }
+
+  if (error) return false;
+  else return true;
+}
+
+const EMAIL_REGEX = /^.+@.+\..+$/;
+
+const rules = {
+  email: [
+    (v: string) => !!v || "E-mail é obrigatório.",
+    (v: string) => EMAIL_REGEX.test(v) || "E-mail deve ser válido.",
+  ],
+};
+
+async function register() {
+  if (!validateData()) return;
+
+  await $fetch("/user/register/", {
+    method: "POST",
+    body: user,
+  })
+    .then((res) => {
+      alert("Usuário criado com sucesso!");
+      navigateTo("/auth/login");
+    })
+    .catch((err) => {
+      if (err.response.status === 400) {
+        const errorMessages = err.response.data;
+      } else if (err.response.status === 500) {
+      }
+    });
+}
+</script>
+
 <template>
   <v-card width="600px" class="pa-4 rounded-xl">
     <v-card-title>Criar conta</v-card-title>
@@ -14,18 +106,12 @@
         />
         <v-text-field label="Sobrenome" v-model="user.last_name" type="text" />
         <v-text-field label="Usuário" v-model="user.username" type="text" />
-        <v-text-field
-          label="E-mail"
-          v-model="user.email"
-          type="email"
-          :rules="[...rules.email]"
-        />
+        <v-text-field label="E-mail" v-model="user.email" type="email" />
         <v-text-field label="Senha" v-model="user.password" type="password" />
         <v-text-field
           label="Confirme a senha"
           v-model="user.password_confirmation"
           type="password"
-          :rules="[rules.password_confirmation]"
         />
         <v-btn color="primary" type="submit">Enviar</v-btn>
       </v-form>
@@ -43,89 +129,3 @@
   width: 100%;
 }
 </style>
-
-<script>
-definePageMeta({
-  layout: "centered",
-});
-
-export default {
-  name: "RegisterView",
-  mounted() {
-    this.$store.setAppBarTitle("Junte-se a nós!");
-  },
-  data() {
-    return {
-      user: {},
-      rules: {
-        password_confirmation: (v) =>
-          v === this.user.password || "As senhas não conferem.",
-        email: [
-          (v) => /.+@.+\..+/.test(v) || "E-mail inválido.",
-          (v) => !!v || "E-mail é obrigatório.",
-        ],
-      },
-      errorMessages: [],
-    };
-  },
-  methods: {
-    async register() {
-      if (!this.validateData()) return;
-
-      await this.$axios
-        .post("/user/register/", this.user)
-        .then((res) => {
-          this.$toasted.global.defaultSuccess({
-            msg: "Usuário criado com sucesso!",
-          });
-          this.$router.push("/auth/login");
-        })
-        .catch((err) => {
-          if (err.response.status === 400)
-            this.errorMessages = err.response.data;
-          else if (err.response.status === 500)
-            this.$toasted.global.defaultError({
-              msg: "Erro ao criar usuário. Contate o administrador do sistema.",
-            });
-        });
-    },
-    validateData() {
-      let error = false;
-      this.errorMessages = [];
-
-      if (!this.user.first_name) {
-        this.errorMessages.push("Nome é obrigatório.");
-        error = true;
-      }
-
-      if (!this.user.username) {
-        this.errorMessages.push("Usuário é obrigatório.");
-        error = true;
-      }
-
-      if (!this.user.email) {
-        this.errorMessages.push("E-mail é obrigatório.");
-        error = true;
-      }
-
-      if (!this.user.password) {
-        this.errorMessages.push("Senha é obrigatória.");
-        error = true;
-      }
-
-      if (!this.user.password_confirmation) {
-        this.errorMessages.push("Confirmação de senha é obrigatória.");
-        error = true;
-      }
-
-      if (this.user.password !== this.user.password_confirmation) {
-        this.errorMessages.push("As senhas não conferem.");
-        error = true;
-      }
-
-      if (error) return false;
-      else return true;
-    },
-  },
-};
-</script>

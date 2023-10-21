@@ -1,3 +1,18 @@
+<script setup lang="ts">
+import useMainStore from "~/store";
+
+const mainStore = useMainStore();
+
+definePageMeta({
+  name: "Home",
+  layout: "default",
+});
+
+onMounted(() => {
+  mainStore.setAppBarTitle("Bem-vindo ao GetSongs!");
+});
+</script>
+
 <template>
   <section class="mt-8">
     <p>
@@ -35,12 +50,3 @@
     </p>
   </section>
 </template>
-
-<script>
-export default defineComponent({
-  name: "HomeView",
-  created() {
-    this.$store.setAppBarTitle("Bem vindo ao GetSongs!");
-  },
-});
-</script>

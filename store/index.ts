@@ -10,7 +10,7 @@ const useMainStore = defineStore("main", {
         icon: "mdi-apps",
       },
     ],
-    hymaryItems: [
+    authItems: [
       {
         title: "Novo hinário",
         to: "/hymnary/new",
@@ -21,8 +21,6 @@ const useMainStore = defineStore("main", {
         to: "/hymnary",
         icon: "mdi-note-multiple-outline",
       },
-    ],
-    authItems: [
       {
         title: "Perfil",
         to: "/auth/profile",
@@ -43,6 +41,7 @@ const useMainStore = defineStore("main", {
       {
         title: "Cadastrar",
         to: "/auth/register",
+        icon: "mdi-account-plus",
       },
     ],
     endItems: [

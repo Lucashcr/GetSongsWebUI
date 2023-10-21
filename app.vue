@@ -1,6 +1,6 @@
 <script setup>
 import { useTheme } from "vuetify";
-import { useAuthStore } from "~/store/auth";
+import useAuthStore from "~/store/auth";
 
 const theme = useTheme();
 const auth = useAuthStore();

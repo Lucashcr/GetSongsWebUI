@@ -1,9 +1,7 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 
-import http from "~/plugins/http";
-
-export const useAuthStore = defineStore("auth", () => {
+const useAuthStore = defineStore("auth", () => {
   const token = ref(localStorage.getItem("token"));
   const user = ref(JSON.parse(localStorage.getItem("user") || "{}"));
   const isAuthenticated = ref(false);
@@ -19,9 +17,10 @@ export const useAuthStore = defineStore("auth", () => {
   }
 
   async function verifyToken() {
+    const backendURL = useRuntimeConfig().public.backendURL;
     try {
       const token = "Bearer " + localStorage.getItem("token");
-      const response = await $fetch("http://localhost:8000/user/me/", {
+      const response = await $fetch(`http://localhost:8000/user/me/`, {
         headers: {
           Authorization: token,
         },
@@ -50,3 +49,5 @@ export const useAuthStore = defineStore("auth", () => {
     logout,
   };
 });
+
+export default useAuthStore;

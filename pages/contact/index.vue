@@ -1,3 +1,50 @@
+<script setup lang="ts">
+import useAuthStore from "~/store/auth";
+import useMainStore from "~/store";
+
+const auth = useAuthStore();
+const mainStore = useMainStore();
+
+const message = reactive({
+  name: auth.isAuthenticated ? auth.user.full_name : "",
+  email: auth.isAuthenticated ? auth.user.email : "",
+  text: "",
+});
+
+function sendMessage() {
+  const data = {
+    name: message.name,
+    email: message.email,
+    message: message.text,
+  };
+
+  if (!EMAIL_REGEX.test(message.email)) {
+    alert("Por favor, digite um email válido!");
+    return;
+  }
+
+  navigateTo("/thanks");
+}
+
+const EMAIL_REGEX = /^.+@.+\..+$/;
+
+const rules = {
+  email: [
+    (v: string) => !!v || "E-mail é obrigatório.",
+    (v: string) => EMAIL_REGEX.test(v) || "E-mail deve ser válido.",
+  ],
+};
+
+definePageMeta({
+  name: "Contact",
+  layout: "centered",
+});
+
+onMounted(() => {
+  mainStore.setAppBarTitle("Fale conosco!");
+});
+</script>
+
 <template>
   <v-card class="pa-4 rounded-xl">
     <v-card-title>
@@ -30,48 +77,3 @@
     </v-card-text>
   </v-card>
 </template>
-
-<script>
-const EMAIL_REGEX = /^.+@.+\..+$/;
-
-export default {
-  name: "ContactView",
-  layout: "centered",
-  created() {
-    this.$store.setAppBarTitle("Fale conosco!");
-  },
-  data() {
-    return {
-      message: {
-        name: this.$auth.loggedIn
-          ? this.$store.state.global.user.full_name
-          : "",
-        email: this.$auth.loggedIn ? this.$store.state.global.user.email : "",
-        text: "",
-      },
-      rules: {
-        email: [
-          (v) => !!v || "E-mail é obrigatório",
-          (v) => EMAIL_REGEX.test(v) || "E-mail deve ser válido",
-        ],
-      },
-    };
-  },
-  methods: {
-    sendMessage() {
-      const data = {
-        name: this.name,
-        email: this.email,
-        message: this.message,
-      };
-
-      if (!EMAIL_REGEX.test(this.message.email)) {
-        alert("Por favor, digite um email válido!");
-        return;
-      }
-
-      this.$router.push("/thanks");
-    },
-  },
-};
-</script>

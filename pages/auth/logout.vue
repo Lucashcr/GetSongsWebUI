@@ -1,7 +1,17 @@
 <script setup>
+import useAuthStore from "~/store/auth";
+const auth = useAuthStore();
+
 definePageMeta({
+  name: "Logout",
   layout: "centered",
+  middleware: ["auth"],
 });
+
+function logout() {
+  auth.logout();
+  navigateTo("/");
+}
 </script>
 
 <template>
@@ -12,22 +22,3 @@ definePageMeta({
     </v-form>
   </v-card>
 </template>
-
-<script>
-import { useAuthStore } from "~/store/auth";
-
-export default {
-  name: "LogoutView",
-  middleware: ["auth"],
-  created() {
-    this.$store.setAppBarTitle("Já vai? 😢");
-  },
-  methods: {
-    async logout() {
-      const auth = useAuthStore();
-      await auth.logout();
-      this.$router.push("/");
-    },
-  },
-};
-</script>

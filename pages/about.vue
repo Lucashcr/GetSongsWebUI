@@ -1,3 +1,18 @@
+<script setup lang="ts">
+import useMainStore from "~/store";
+
+const mainStore = useMainStore();
+
+definePageMeta({
+  name: "About",
+  layout: "default",
+});
+
+onMounted(() => {
+  mainStore.setAppBarTitle("Curioso sobre o projeto?");
+});
+</script>
+
 <template>
   <section class="mt-8">
     <p>
@@ -45,12 +60,3 @@
     </p>
   </section>
 </template>
-
-<script>
-export default {
-  name: "AboutView",
-  mounted() {
-    this.$store.setAppBarTitle("Curioso sobre o projeto?");
-  },
-};
-</script>
