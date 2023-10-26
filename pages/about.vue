@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import CustomLink from "~/components/CustomLink.vue";
+
 import useglobalStore from "~/store";
 
 const globalStore = useglobalStore();

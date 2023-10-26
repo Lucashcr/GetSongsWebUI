@@ -1,16 +1,19 @@
 <script setup>
 import useAuthStore from "~/store/auth";
-const auth = useAuthStore();
+import useglobalStore from "~/store";
+
+const authStore = useAuthStore();
+const globalStore = useglobalStore();
 
 function logout() {
-  auth.logout();
+  authStore.logout();
   navigateTo("/");
 }
 
 definePageMeta({
   name: "Logout",
   layout: "centered",
-  middleware: ["auth"],
+  requiresAuth: true,
 });
 
 onMounted(() => {

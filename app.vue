@@ -1,4 +1,13 @@
 <script setup>
+import {
+  VApp,
+  VNavigationDrawer,
+  VListItem,
+  VSpacer,
+  VAppBar,
+  VImg,
+} from "vuetify/lib/components/index.mjs";
+
 import { useTheme } from "vuetify";
 import useAuthStore from "~/store/auth";
 

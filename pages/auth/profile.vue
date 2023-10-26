@@ -8,7 +8,7 @@ const globalStore = useglobalStore();
 definePageMeta({
   name: "Profile",
   layout: "centered",
-  middleware: ["auth"],
+  requiresAuth: true,
 });
 
 onMounted(() => {

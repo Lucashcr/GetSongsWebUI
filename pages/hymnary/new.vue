@@ -5,8 +5,6 @@ const { $fetchApi } = useNuxtApp();
 
 const globalStore = useglobalStore();
 
-const backendURL = useRuntimeConfig().public.backendURL;
-
 const newHymnary = reactive({
   title: "",
 });
@@ -20,19 +18,13 @@ function setButtonDisabled() {
 
 async function saveHymnary() {
   const response = await $fetchApi.post("/hymnary/", newHymnary);
-  console.log(response);
-  // if (response?.status === 200) {
-  //   navigateTo("/hymnary/");
-  // }
+  navigateTo(`/hymnary/${response.id}`);
 }
 
 definePageMeta({
   name: "HymnaryNewView",
   layout: "centered",
-  head: {
-    title: "Novo Hinário",
-  },
-  middleware: ["auth"],
+  requiresAuth: true,
 });
 
 onMounted(() => {
@@ -42,9 +34,6 @@ onMounted(() => {
     hymnaries.value = res as any[];
     console.log(hymnaries.value);
   });
-  // $fetch(`${backendURL}/api/hymnary`, {}).then((res) => {
-  //   console.log(res);
-  // });
 });
 </script>
 
@@ -58,15 +47,16 @@ onMounted(() => {
         v-model="newHymnary.title"
         label="Título"
         required
-        width="100%"
       ></v-text-field>
-      <v-btn
-        type="submit"
-        :disabled="setButtonDisabled()"
-        color="primary"
-        width="100%"
+      <v-btn type="submit" :disabled="setButtonDisabled()" color="primary"
         >Salvar</v-btn
       >
     </v-form>
   </v-card>
 </template>
+
+<style scoped>
+.v-text-field {
+  width: 100%;
+}
+</style>

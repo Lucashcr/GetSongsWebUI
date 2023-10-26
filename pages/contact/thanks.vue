@@ -1,3 +1,14 @@
+<script setup>
+definePageMeta({
+  name: "ThanksContactView",
+  layout: "centered",
+});
+
+onMounted(() => {
+  this.$store.setAppBarTitle("Mensagem enviada!");
+});
+</script>
+
 <template>
   <v-card class="pa-4 rounded-xl" width="600px">
     <h2>Obrigado por entrar em contato</h2>
@@ -8,14 +19,3 @@
     </p>
   </v-card>
 </template>
-
-<script>
-export default {
-  name: "ThanksContactView",
-  layout: "centered",
-  created() {
-    this.$store.setAppBarTitle("Mensagem enviada!");
-    // this.$store.$state.appBarTitle = "Mensagem enviada!";
-  },
-};
-</script>

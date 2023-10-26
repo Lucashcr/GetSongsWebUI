@@ -1,11 +1,21 @@
+<script setup>
+defineComponent({
+  name: "CustomLink",
+});
+
+defineProps({
+  to: { type: String, required: true },
+});
+</script>
+
 <template>
-  <a :href="to" target="_blank">
+  <NuxtLink :href="to" target="_blank">
     <slot></slot> <v-icon small>mdi-open-in-new</v-icon>
-  </a>
+  </NuxtLink>
 </template>
 
 <style scoped lang="scss">
-@import '~/assets/variables.scss';
+@import "~/assets/variables.scss";
 
 a {
   background-color: $darkgray;
@@ -18,15 +28,3 @@ a {
   border-radius: 50px;
 }
 </style>
-
-<script>
-export default {
-  name: 'CustomLink',
-  props: {
-    to: {
-      type: String,
-      required: true
-    }
-  }
-}
-</script>
