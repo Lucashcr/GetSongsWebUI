@@ -1,13 +1,17 @@
 import { defineStore } from "pinia";
 
 const useAuthStore = defineStore("auth", () => {
-  const token = ref(localStorage.getItem("token"));
+  const backendURL = useRuntimeConfig().public.backendURL;
+  const accessToken = ref(localStorage.getItem("access_token"));
+  const refreshToken = ref(localStorage.getItem("refresh_token"));
   const user = ref(JSON.parse(localStorage.getItem("user") || "{}"));
   const isAuthenticated = ref(false);
 
-  function setToken(tokenValue: string) {
-    localStorage.setItem("token", tokenValue);
-    token.value = tokenValue;
+  function setToken(tokenObj: { access: string; refresh: string }) {
+    localStorage.setItem("access_token", tokenObj.access);
+    localStorage.setItem("refresh_token", tokenObj.refresh);
+    accessToken.value = tokenObj.access;
+    refreshToken.value = tokenObj.refresh;
   }
 
   function setUser(userValue: Object) {
@@ -16,8 +20,7 @@ const useAuthStore = defineStore("auth", () => {
   }
 
   async function verifyToken() {
-    const backendURL = useRuntimeConfig().public.backendURL;
-    const token = "Bearer " + localStorage.getItem("token");
+    const token = "Bearer " + localStorage.getItem("access_token");
     const response = await $fetch(`${backendURL}/user/me/`, {
       headers: {
         Authorization: token,
@@ -27,19 +30,21 @@ const useAuthStore = defineStore("auth", () => {
   }
 
   function logout() {
-    localStorage.removeItem("token");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
     localStorage.removeItem("user");
-    token.value = "";
+    accessToken.value = "";
+    refreshToken.value = "";
     user.value = {};
     isAuthenticated.value = false;
   }
 
   return {
-    token,
     user,
+    accessToken,
     isAuthenticated,
-    setToken,
     setUser,
+    setToken,
     verifyToken,
     logout,
   };

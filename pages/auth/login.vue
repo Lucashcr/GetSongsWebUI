@@ -27,7 +27,7 @@ async function login() {
       method: "POST",
       body: user,
     });
-    auth.setToken(tokenData.access);
+    auth.setToken(tokenData);
     const userData = await $fetch(`${backendURL}/user/me/`, {
       headers: {
         Authorization: `Bearer ${tokenData.access}`,
