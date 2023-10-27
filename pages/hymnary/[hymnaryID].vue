@@ -1,5 +1,6 @@
 <script setup>
 import useglobalStore from "~/store";
+import draggable from "vuedraggable";
 
 const { $fetchApi } = useNuxtApp();
 
@@ -36,6 +37,15 @@ async function exportHymnary(hymnaryID) {
   link.href = window.URL.createObjectURL(blob);
   link.download = `${hymnary.title}.pdf`;
   link.click();
+}
+
+function reorderSongs(item) {
+  console.log(item);
+}
+
+function removeSong(songID) {
+  const index = hymnary.songs.findIndex((song) => song.id === songID);
+  hymnary.songs.splice(index, 1);
 }
 </script>
 
@@ -91,25 +101,39 @@ async function exportHymnary(hymnaryID) {
       </v-sheet>
     </v-sheet>
     <v-sheet class="ma-2">
-      <v-card
-        :elevation="2"
-        rounded="lg"
-        color="secondary"
-        class="mb-2 pa-4"
-        v-for="song in hymnary.songs"
+      <draggable
+        v-model="hymnary.songs"
+        animation="200"
+        @start="drag = true"
+        @end="
+          drag = false;
+          reorderSongs(item);
+        "
+        item-key="id"
       >
-        <div class="d-flex justify-space-between align-start">
-          <h3>{{ song.name }}</h3>
-          <v-icon>mdi-close</v-icon>
-        </div>
-        <div class="d-flex justify-space-between align-center">
-          <p>{{ song.artist.name }}</p>
-          <p>{{ song.category.name }}</p>
-        </div>
-      </v-card>
+        <template #item="{ element }">
+          <SongEditItem :song="element" @deleted="removeSong(element.id)" />
+        </template>
+      </draggable>
     </v-sheet>
   </v-card>
 </template>
+
+<style scoped lang="scss">
+@import "~/assets/variables.scss";
+
+.sortable-ghost {
+  background: transparent !important;
+}
+
+.sortable-ghost * {
+  opacity: 0;
+}
+
+.drag-preview {
+  scale: 0.5;
+}
+</style>
 
 <script>
 const templatesSelect = [

@@ -10,7 +10,7 @@ const useglobalStore = defineStore("main", {
         icon: "mdi-apps",
       },
     ],
-    authItems: [
+    hymnaryItems: [
       {
         title: "Novo hinário",
         to: "/hymnary/new",
@@ -21,6 +21,8 @@ const useglobalStore = defineStore("main", {
         to: "/hymnary",
         icon: "mdi-note-multiple-outline",
       },
+    ],
+    authItems: [
       {
         title: "Perfil",
         to: "/auth/profile",

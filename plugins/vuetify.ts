@@ -14,8 +14,9 @@ export default defineNuxtPlugin((nuxtApp) => {
       themes: {
         light: {
           colors: {
-            primary: "#2d4f7b",
-            secondary: "#ededed",
+            background: "DADADA",
+            primary: "#2D4F7B",
+            secondary: "#F1F1F1",
             accent: "#82B1FF",
             error: "#FF5252",
             info: "#2196F3",
@@ -25,7 +26,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         },
         dark: {
           colors: {
-            primary: "#2d4f7b",
+            primary: "#2D4F7B",
             secondary: "#343434",
             accent: "#FF4081",
             error: "#FF5252",

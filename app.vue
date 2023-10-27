@@ -26,47 +26,62 @@ useHead({
 <template>
   <v-app>
     <v-navigation-drawer expand-on-hover rail>
-      <v-list-item
-        v-for="item in $store.startItems"
-        :key="item.to"
-        :to="item.to"
-        router
-        exact
-        :prepend-icon="item.icon"
-        :title="item.title"
-      ></v-list-item>
-      <v-list-item
-        v-if="auth.isAuthenticated"
-        v-for="item in $store.authItems"
-        :key="item.to"
-        :to="item.to"
-        router
-        exact
-        :prepend-icon="item.icon"
-        :title="item.title"
-      >
-      </v-list-item>
-      <v-list-item
-        v-else
-        v-for="item in $store.notAuthItems"
-        :key="item.to"
-        :to="item.to"
-        router
-        exact
-        :prepend-icon="item.icon"
-        :title="item.title"
-      >
-      </v-list-item>
-      <v-spacer vertical></v-spacer>
-      <v-list-item
-        v-for="item in $store.endItems"
-        :key="item.to"
-        :to="item.to"
-        router
-        exact
-        :prepend-icon="item.icon"
-        :title="item.title"
-      ></v-list-item>
+      <v-list>
+        <v-list-item
+          v-for="item in $store.startItems"
+          :key="item.to"
+          :to="item.to"
+          router
+          exact
+          :prepend-icon="item.icon"
+          :title="item.title"
+        ></v-list-item>
+      </v-list>
+      <v-list>
+        <v-list-item
+          v-if="auth.isAuthenticated"
+          v-for="item in $store.hymnaryItems"
+          :key="item.to"
+          :to="item.to"
+          router
+          exact
+          :prepend-icon="item.icon"
+          :title="item.title"
+        ></v-list-item>
+      </v-list>
+      <v-list>
+        <v-list-item
+          v-if="auth.isAuthenticated"
+          v-for="item in $store.authItems"
+          :key="item.to"
+          :to="item.to"
+          router
+          exact
+          :prepend-icon="item.icon"
+          :title="item.title"
+        >
+        </v-list-item>
+        <v-list-item
+          v-if="!auth.isAuthenticated"
+          v-for="item in $store.notAuthItems"
+          :key="item.to"
+          :to="item.to"
+          router
+          exact
+          :prepend-icon="item.icon"
+          :title="item.title"
+        >
+        </v-list-item>
+        <v-list-item
+          v-for="item in $store.endItems"
+          :key="item.to"
+          :to="item.to"
+          router
+          exact
+          :prepend-icon="item.icon"
+          :title="item.title"
+        ></v-list-item>
+      </v-list>
     </v-navigation-drawer>
     <v-app-bar :elevation="2">
       <v-img
@@ -79,6 +94,7 @@ useHead({
       <v-spacer></v-spacer>
       <ThemeToggleButton />
     </v-app-bar>
+
     <NuxtLayout />
   </v-app>
 </template>

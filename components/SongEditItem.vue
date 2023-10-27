@@ -1,32 +1,25 @@
+<script setup>
+defineComponent({
+  name: "SongEditItem",
+});
+
+defineProps({
+  song: {
+    type: Object,
+    required: true,
+  },
+});
+</script>
+
 <template>
-  <v-card class="pa-4 rounded-lg" color="secondary">
-    <v-container>
-      <v-layout row>
-        <v-layout column>
-          <v-card-title class="pa-0">{{ song.name }}</v-card-title>
-          <v-card-text class="pa-0">{{ song.artist }}</v-card-text>
-        </v-layout>
-        <v-layout column align-end>
-          <v-card-actions class="pa-0">
-            <v-btn text icon @click="$emit('deleted', song.id)">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-card-actions>
-          <v-card-text class="pa-0 text-right">{{ song.category }}</v-card-text>
-        </v-layout>
-      </v-layout>
-    </v-container>
+  <v-card :elevation="2" rounded="lg" color="secondary" class="mb-2 pa-4">
+    <div class="d-flex justify-space-between align-start">
+      <h3>{{ song.name }}</h3>
+      <v-icon @click="$emit('deleted')">mdi-close</v-icon>
+    </div>
+    <div class="d-flex justify-space-between align-center">
+      <p>{{ song.artist.name }}</p>
+      <p>{{ song.category.name }}</p>
+    </div>
   </v-card>
 </template>
-
-<script>
-export default {
-  name: 'SongEditItem',
-  props: {
-    song: {
-      type: Object,
-      default: null
-    }
-  }
-}
-</script>
