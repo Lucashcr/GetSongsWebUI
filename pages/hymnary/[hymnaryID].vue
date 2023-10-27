@@ -14,7 +14,9 @@ definePageMeta({
 <template>
   <v-card class="mb-2">
     <v-card-title primary-title>{{ hymnary.title }}</v-card-title>
-    <div class="d-flex px-3">
+    <div class="d-flex flex-column px-3">
+      <p>Criado em: {{ $formatDateTime(hymnary.created_at) }}</p>
+      <p>Atualizado em: {{ $formatDateTime(hymnary.updated_at) }}</p>
       <v-select
         :items="templatesSelect"
         v-model="hymnary.template"

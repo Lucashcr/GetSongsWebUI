@@ -11,7 +11,6 @@ auth.verifyToken();
 theme.global.name.value = localStorage.getItem("theme")
   ? localStorage.getItem("theme")
   : theme.global.name.value;
-console.log("THEME:", theme.global.name.value);
 
 useHead({
   title: "GetSongs",
