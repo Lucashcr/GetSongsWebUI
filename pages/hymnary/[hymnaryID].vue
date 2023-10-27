@@ -27,11 +27,21 @@ async function updateHymnary(field, value) {
     [field]: value,
   });
 }
+
+async function exportHymnary(hymnaryID) {
+  const data = await $fetchApi.get(`/hymnary/${hymnaryID}/export`);
+  console.log(data);
+  const blob = new Blob([data], { type: "application/pdf" });
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = `${hymnary.title}.pdf`;
+  link.click();
+}
 </script>
 
 <template>
   <v-card class="mb-2 pa-4">
-    <h1 v-if="editHymnaryTitle" class="pa-4 d-flex ga-4 align-center">
+    <div v-if="editHymnaryTitle" class="pa-4 d-flex ga-4 align-center">
       <v-text-field
         v-model="hymnary.title"
         label="Título do Hinário"
@@ -45,13 +55,18 @@ async function updateHymnary(field, value) {
       >
         Salvar
       </v-btn>
-      <v-btn color="secondary" @click="editHymnaryTitle = false"
-        >Cancelar</v-btn
-      >
-    </h1>
-    <h1 v-else @click="editHymnaryTitle = true" class="pa-4">
-      {{ hymnary.title }} <v-icon>mdi-note-edit-outline</v-icon>
-    </h1>
+      <v-btn color="secondary" @click="editHymnaryTitle = false">
+        Cancelar
+      </v-btn>
+    </div>
+    <div v-else class="pa-4 d-flex ga-4 align-center justify-space-between">
+      <h2 @click="editHymnaryTitle = true">
+        {{ hymnary.title }} <v-icon>mdi-note-edit-outline</v-icon>
+      </h2>
+      <v-btn color="primary" @click="exportHymnary(hymnary.id)">
+        Exportar
+      </v-btn>
+    </div>
     <div class="d-flex flex-column">
       <p>Criado em: {{ $formatDateTime(hymnary.created_at) }}</p>
       <p>Atualizado em: {{ $formatDateTime(hymnary.updated_at) }}</p>
@@ -70,7 +85,8 @@ async function updateHymnary(field, value) {
       ></v-checkbox>
     </div>
     <v-card
-      :elevation="1"
+      :elevation="2"
+      rounded="lg"
       color="secondary"
       class="mb-2 pa-4"
       v-for="song in hymnary.songs"
