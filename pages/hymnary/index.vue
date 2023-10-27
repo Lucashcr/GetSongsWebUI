@@ -10,6 +10,7 @@ const hymnaries = await $fetchApi.get("/hymnary");
 definePageMeta({
   name: "HymnaryList",
   layout: "default",
+  requiresAuth: true,
 });
 
 onMounted(() => {

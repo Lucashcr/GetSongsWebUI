@@ -15,6 +15,7 @@ const editHymnaryTitle = ref(false);
 definePageMeta({
   name: "HymnaryEdit",
   layout: "default",
+  requiresAuth: true,
 });
 
 onMounted(() => {
