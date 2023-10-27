@@ -1,7 +1,9 @@
 <script setup>
-const { $fetchApi, $formatDateTime } = useNuxtApp();
+import useglobalStore from "~/store";
 
+const { $fetchApi, $formatDateTime } = useNuxtApp();
 const router = useRouter();
+const globalStore = useglobalStore();
 
 const hymnaries = await $fetchApi.get("/hymnary");
 
