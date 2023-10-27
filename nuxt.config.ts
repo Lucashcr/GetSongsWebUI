@@ -30,7 +30,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      backendURL: "http://localhost:8000",
+      backendURL: process.env.BACKEND_URL,
     },
   },
 });

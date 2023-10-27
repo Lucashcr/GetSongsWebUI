@@ -1,4 +1,3 @@
-import { ref } from "vue";
 import { defineStore } from "pinia";
 
 const useAuthStore = defineStore("auth", () => {
@@ -18,17 +17,13 @@ const useAuthStore = defineStore("auth", () => {
 
   async function verifyToken() {
     const backendURL = useRuntimeConfig().public.backendURL;
-    try {
-      const token = "Bearer " + localStorage.getItem("token");
-      const response = await $fetch(`http://localhost:8000/user/me/`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      isAuthenticated.value = true;
-    } catch (error) {
-      isAuthenticated.value = false;
-    }
+    const token = "Bearer " + localStorage.getItem("token");
+    const response = await $fetch(`${backendURL}/user/me/`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    isAuthenticated.value = true;
   }
 
   function logout() {
