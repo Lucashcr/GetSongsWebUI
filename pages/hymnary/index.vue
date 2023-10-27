@@ -9,6 +9,10 @@ definePageMeta({
   name: "HymnaryList",
   layout: "default",
 });
+
+onMounted(() => {
+  globalStore.setAppBarTitle("Aqui estão seus hinários!");
+});
 </script>
 
 <template>
