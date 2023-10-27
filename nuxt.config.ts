@@ -7,7 +7,7 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  css: ["vuetify/lib/styles/main.sass"],
+  css: ["vuetify/lib/styles/main.sass", "~/assets/global.css"],
 
   modules: ["@pinia/nuxt"],
 
