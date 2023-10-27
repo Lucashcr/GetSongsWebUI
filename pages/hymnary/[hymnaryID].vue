@@ -60,46 +60,54 @@ async function exportHymnary(hymnaryID) {
       </v-btn>
     </div>
     <div v-else class="pa-4 d-flex ga-4 align-center justify-space-between">
-      <h2 @click="editHymnaryTitle = true">
+      <h2 @click="editHymnaryTitle = true" style="cursor: pointer">
         {{ hymnary.title }} <v-icon>mdi-note-edit-outline</v-icon>
       </h2>
       <v-btn color="primary" @click="exportHymnary(hymnary.id)">
         Exportar
       </v-btn>
     </div>
-    <div class="d-flex flex-column">
-      <p>Criado em: {{ $formatDateTime(hymnary.created_at) }}</p>
-      <p>Atualizado em: {{ $formatDateTime(hymnary.updated_at) }}</p>
-      <v-select
-        :items="templatesSelect"
-        v-model="hymnary.template"
-        label="Template"
-        @update:model-value="updateHymnary('template', hymnary.template)"
-      ></v-select>
-      <v-checkbox
-        label="Exibir categoria"
-        v-model="hymnary.print_category"
-        @update:model-value="
-          updateHymnary('print_category', hymnary.print_category)
-        "
-      ></v-checkbox>
-    </div>
-    <v-card
-      :elevation="2"
-      rounded="lg"
-      color="secondary"
-      class="mb-2 pa-4"
-      v-for="song in hymnary.songs"
-    >
-      <div class="d-flex justify-space-between align-start">
-        <h3>{{ song.name }}</h3>
-        <v-icon>mdi-close</v-icon>
-      </div>
-      <div class="d-flex justify-space-between align-center">
-        <p>{{ song.artist.name }}</p>
-        <p>{{ song.category.name }}</p>
-      </div>
-    </v-card>
+    <v-sheet class="d-flex flex-column">
+      <v-sheet class="mx-4 mb-6">
+        <p>Criado em: {{ $formatDateTime(hymnary.created_at) }}</p>
+        <p>Atualizado em: {{ $formatDateTime(hymnary.updated_at) }}</p>
+      </v-sheet>
+      <v-sheet class="d-flex ga-4 mx-2">
+        <v-select
+          :items="templatesSelect"
+          v-model="hymnary.template"
+          label="Template"
+          @update:model-value="updateHymnary('template', hymnary.template)"
+          class="flex-1-1"
+        ></v-select>
+        <v-checkbox
+          label="Exibir categoria"
+          v-model="hymnary.print_category"
+          @update:model-value="
+            updateHymnary('print_category', hymnary.print_category)
+          "
+          class="flex-0-0"
+        ></v-checkbox>
+      </v-sheet>
+    </v-sheet>
+    <v-sheet class="ma-2">
+      <v-card
+        :elevation="2"
+        rounded="lg"
+        color="secondary"
+        class="mb-2 pa-4"
+        v-for="song in hymnary.songs"
+      >
+        <div class="d-flex justify-space-between align-start">
+          <h3>{{ song.name }}</h3>
+          <v-icon>mdi-close</v-icon>
+        </div>
+        <div class="d-flex justify-space-between align-center">
+          <p>{{ song.artist.name }}</p>
+          <p>{{ song.category.name }}</p>
+        </div>
+      </v-card>
+    </v-sheet>
   </v-card>
 </template>
 

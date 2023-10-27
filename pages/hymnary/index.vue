@@ -30,10 +30,5 @@ onMounted(() => {
       <p>Atualizado em: {{ $formatDateTime(hymnary.updated_at) }}</p>
       <p>Qtd de músicas: {{ hymnary.songs.length }}</p>
     </v-card-text>
-    <v-card-actions v-if="hymnary.file">
-      <v-btn text color="primary" @click="router.push(hymnary.file)">
-        Ver hinário
-      </v-btn>
-    </v-card-actions>
   </v-card>
 </template>
