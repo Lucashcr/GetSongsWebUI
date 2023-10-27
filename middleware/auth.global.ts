@@ -5,7 +5,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
   if (to.meta?.requiresAuth) {
     if (!auth.isAuthenticated) {
       console.log("Not authenticated, redirecting to /auth/login");
-      return navigateTo("/auth/login");
+      return navigateTo("/auth/login?next=" + to.path);
     }
   }
 });

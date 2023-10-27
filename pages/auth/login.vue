@@ -35,7 +35,13 @@ async function login() {
     });
     auth.setUser(userData);
     auth.isAuthenticated = true;
-    navigateTo("/hymnary");
+
+    const next = useRoute().query.next;
+    if (next) {
+      return navigateTo(next);
+    } else {
+      navigateTo("/hymnary");
+    }
   } catch (error) {
     alert("Usuário ou senha incorretos");
   }

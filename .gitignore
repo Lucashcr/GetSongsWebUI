@@ -91,3 +91,4 @@ sw.*
 
 # Custom
 yarn.lock
+.aliases.sh
