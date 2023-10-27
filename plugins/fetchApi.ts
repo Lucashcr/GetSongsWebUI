@@ -27,6 +27,40 @@ export default defineNuxtPlugin(() => {
           });
           return response;
         },
+
+        async put(path: string, body: any) {
+          const response = await $fetch(`${backendURL}/api${path}`, {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${authStore.token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+          });
+          return response;
+        },
+
+        async patch(path: string, body: any) {
+          const response = await $fetch(`${backendURL}/api${path}`, {
+            method: "PATCH",
+            headers: {
+              Authorization: `Bearer ${authStore.token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+          });
+          return response;
+        },
+
+        async delete(path: string) {
+          const response = await $fetch(`${backendURL}/api${path}`, {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${authStore.token}`,
+            },
+          });
+          return response;
+        },
       },
     },
   };
