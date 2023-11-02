@@ -9,22 +9,7 @@ defineProps({
 </script>
 
 <template>
-  <NuxtLink :href="to" target="_blank">
-    <slot></slot> <v-icon small>mdi-open-in-new</v-icon>
-  </NuxtLink>
+  <v-btn color="gray" variant="text" :to="to" append-icon="mdi-open-in-new" size="small" class="py-0 px-1">
+    <slot />
+  </v-btn>
 </template>
-
-<style scoped lang="scss">
-@import "~/assets/variables.scss";
-
-a {
-  background-color: $darkgray;
-  color: $white;
-
-  font-size: small;
-  text-decoration: none;
-
-  padding: 7px;
-  border-radius: 50px;
-}
-</style>

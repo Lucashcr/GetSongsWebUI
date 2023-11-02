@@ -25,7 +25,7 @@ useHead({
 
 <template>
   <v-app>
-    <v-navigation-drawer expand-on-hover rail>
+    <v-navigation-drawer app expand-on-hover rail permanent>
       <v-list>
         <v-list-item
           v-for="item in $store.startItems"

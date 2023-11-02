@@ -14,7 +14,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       themes: {
         light: {
           colors: {
-            background: "DADADA",
+            background: "#DADADA",
             primary: "#2D4F7B",
             secondary: "#F1F1F1",
             accent: "#82B1FF",
@@ -22,17 +22,19 @@ export default defineNuxtPlugin((nuxtApp) => {
             info: "#2196F3",
             success: "#4CAF50",
             warning: "#FB8C00",
+            gray: "#3D3D3D",
           },
         },
         dark: {
           colors: {
             primary: "#2D4F7B",
             secondary: "#343434",
-            accent: "#FF4081",
+            accent: "#82B1FF",
             error: "#FF5252",
             info: "#2196F3",
             success: "#4CAF50",
             warning: "#FB8C00",
+            gray: "#D1D1D1",
           },
         },
       },

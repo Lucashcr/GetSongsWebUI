@@ -25,8 +25,13 @@ const useAuthStore = defineStore("auth", () => {
       headers: {
         Authorization: token,
       },
-    });
-    isAuthenticated.value = true;
+    })
+      .then((response) => {
+        isAuthenticated.value = true;
+      })
+      .catch((error) => {
+        isAuthenticated.value = false;
+      })
   }
 
   function logout() {
