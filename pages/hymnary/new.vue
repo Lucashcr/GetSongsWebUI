@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import useglobalStore from "~/store";
+import Hymnary from "~/types/hymnary";
 
 const { $fetchApi } = useNuxtApp();
 
@@ -9,7 +10,7 @@ const newHymnary = reactive({
   title: "",
 });
 
-const hymnaries = ref([] as any[]);
+const hymnaries = ref([] as Hymnary[]);
 
 function setButtonDisabled() {
   if (newHymnary.title === "") return true;
@@ -17,7 +18,7 @@ function setButtonDisabled() {
 }
 
 async function saveHymnary() {
-  const response = await $fetchApi.post("/hymnary/", newHymnary);
+  const response = await $fetchApi.post("/hymnary/", newHymnary) as Hymnary;
   navigateTo(`/hymnary/${response.id}`);
 }
 
@@ -30,9 +31,7 @@ definePageMeta({
 onMounted(() => {
   globalStore.setAppBarTitle("Vamos criar um novo hinário!");
   $fetchApi.get("/hymnary").then((res) => {
-    console.log(res);
     hymnaries.value = res as any[];
-    console.log(hymnaries.value);
   });
 });
 </script>

@@ -53,3 +53,9 @@ onMounted(() => {
     </section>
   </v-card>
 </template>
+
+<style scoped>
+p {
+  margin-bottom: 1rem;
+}
+</style>

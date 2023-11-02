@@ -2,7 +2,7 @@
 import useglobalStore from "~/store";
 import draggable from "vuedraggable";
 
-const { $fetchApi } = useNuxtApp();
+const { $fetchApi, $exportHymnary } = useNuxtApp();
 
 const route = useRoute();
 const globalStore = useglobalStore();
@@ -27,16 +27,6 @@ async function updateHymnary(field, value) {
   await $fetchApi.patch(`/hymnary/${route.params.hymnaryID}/`, {
     [field]: value,
   });
-}
-
-async function exportHymnary(hymnaryID) {
-  const data = await $fetchApi.get(`/hymnary/${hymnaryID}/export`);
-  console.log(data);
-  const blob = new Blob([data], { type: "application/pdf" });
-  const link = document.createElement("a");
-  link.href = window.URL.createObjectURL(blob);
-  link.download = `${hymnary.title}.pdf`;
-  link.click();
 }
 
 function reorderSongs(item) {
@@ -73,7 +63,7 @@ function removeSong(songID) {
       <h2 @click="editHymnaryTitle = true" style="cursor: pointer">
         {{ hymnary.title }} <v-icon>mdi-note-edit-outline</v-icon>
       </h2>
-      <v-btn color="primary" @click="exportHymnary(hymnary.id)">
+      <v-btn color="primary" @click="$exportHymnary(hymnary)">
         Exportar
       </v-btn>
     </div>

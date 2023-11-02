@@ -1,7 +1,7 @@
 <script setup>
 import useglobalStore from "~/store";
 
-const { $fetchApi, $formatDateTime } = useNuxtApp();
+const { $fetchApi, $formatDateTime, $exportHymnary } = useNuxtApp();
 const router = useRouter();
 const globalStore = useglobalStore();
 
@@ -22,7 +22,6 @@ onMounted(() => {
   <v-card
     class="mb-2"
     v-for="hymnary in hymnaries"
-    @click="router.push(`/hymnary/${hymnary.id}`)"
   >
     <v-card-title primary-title>{{ hymnary.title }}</v-card-title>
     <v-card-text>
@@ -30,5 +29,10 @@ onMounted(() => {
       <p>Atualizado em: {{ $formatDateTime(hymnary.updated_at) }}</p>
       <p>Qtd de músicas: {{ hymnary.songs.length }}</p>
     </v-card-text>
+    <v-card-actions>
+      <v-btn color="primary" @click="router.push(`/hymnary/${hymnary.id}`)">Editar</v-btn>
+      <v-btn color="success" @click="$exportHymnary(hymnary)">Baixar</v-btn>
+      <v-btn color="error">Excluir</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
