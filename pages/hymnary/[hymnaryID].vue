@@ -88,7 +88,7 @@ function reorderSongs() {
 
 function addSong() {
   $fetchApi
-    .post('/hymnarysong/', {
+    .post("/hymnarysong/", {
       song: addSongSong.value,
       hymnary: route.params.hymnaryID,
       order: hymnary.songs.length + 1,
@@ -135,7 +135,9 @@ function removeSong(song) {
       </v-sheet>
       <v-sheet class="d-flex flex-column ga-2">
         <v-btn color="primary" @click="$exportHymnary(hymnary)">Exportar</v-btn>
-        <v-btn color="primary" @click="addSongDialog = true">Adicionar música</v-btn>
+        <v-btn color="primary" @click="addSongDialog = true">
+          Adicionar música
+        </v-btn>
       </v-sheet>
     </div>
     <v-sheet class="d-flex flex-column">
@@ -169,10 +171,10 @@ function removeSong(song) {
         item-key="id"
       >
         <template #item="{ element }">
-          <SongEditItem 
-            :song="element" 
-            :show-category="hymnary.print_category" 
-            @deleted="removeSong(element)" 
+          <SongEditItem
+            :song="element"
+            :show-category="hymnary.print_category"
+            @deleted="removeSong(element)"
           />
         </template>
       </draggable>
@@ -232,12 +234,7 @@ function removeSong(song) {
         </v-row>
         <v-row class="ga-4 pa-4">
           <v-spacer></v-spacer>
-          <v-btn
-            color="success"
-            @click="addSong"
-          >
-            Adicionar
-          </v-btn>
+          <v-btn color="success" @click="addSong"> Adicionar </v-btn>
           <v-btn color="error" @click="addSongDialog = false"> Cancelar </v-btn>
         </v-row>
       </v-container>
