@@ -73,15 +73,17 @@ const rules = {
 async function register() {
   if (!validateData()) return;
 
-  await $fetch("/user/register/", {
+  await $fetch(`${backendURL}/user/register/`, {
     method: "POST",
-    body: user,
+    body: JSON.stringify(user),
   })
     .then((res) => {
+      console.log(res)
       alert("Usuário criado com sucesso!");
       navigateTo("/auth/login");
     })
     .catch((err) => {
+      console.log(err);
       if (err.response.status === 400) {
         const errorMessages = err.response.data;
       } else if (err.response.status === 500) {
@@ -115,11 +117,11 @@ async function register() {
         />
         <v-btn color="primary" type="submit">Enviar</v-btn>
       </v-form>
-      <div v-if="errorMessages.length" class="mt-5">
+      <v-sheet v-if="errorMessages.length" class="mt-5">
         <v-alert type="error" dismissible>
           <p v-for="message in errorMessages">{{ message }}</p>
         </v-alert>
-      </div>
+      </v-sheet>
     </v-card-text>
   </v-card>
 </template>
