@@ -169,7 +169,11 @@ function removeSong(song) {
         item-key="id"
       >
         <template #item="{ element }">
-          <SongEditItem :song="element" @deleted="removeSong(element)" />
+          <SongEditItem 
+            :song="element" 
+            :show-category="hymnary.print_category" 
+            @deleted="removeSong(element)" 
+          />
         </template>
       </draggable>
     </v-sheet>

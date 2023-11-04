@@ -8,6 +8,10 @@ defineProps({
     type: Object,
     required: true,
   },
+  showCategory: {
+    type: Boolean,
+    required: true,
+  },
 });
 </script>
 
@@ -19,7 +23,7 @@ defineProps({
     </div>
     <div class="d-flex justify-space-between align-center">
       <p>{{ song.artist.name }}</p>
-      <p>{{ song.category.name }}</p>
+      <p>{{ showCategory ? song.category.name : "" }}</p>
     </div>
   </v-card>
 </template>
