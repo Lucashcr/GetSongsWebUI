@@ -23,6 +23,57 @@ onMounted(() => {
   globalStore.setAppBarTitle("Mãos à obra!");
 });
 
+const addSongDialog = ref(false);
+
+const categories = (await $fetchApi.get("/category/")).map((c) => ({
+  title: c.name,
+  value: c.id,
+}));
+categories.unshift({
+  title: "Todas",
+  value: 0,
+});
+const addSongCategory = ref(0);
+
+const artists = ref([{ title: "Todos", value: 0 }]);
+async function getArtists() {
+  const result = (
+    await $fetchApi.get(`/artist/?category_id=${addSongCategory.value}`)
+  ).map((a) => ({
+    title: a.name,
+    value: a.id,
+  }));
+  result.unshift({
+    title: "Todos",
+    value: 0,
+  });
+  artists.value = result;
+}
+getArtists();
+const addSongArtist = ref(0);
+
+const songs = ref([]);
+const addSongSong = ref(null);
+async function getSongs() {
+  const result = (
+    await $fetchApi.get(
+      `/song/?category_id=${addSongCategory.value}&artist_id=${addSongArtist.value}`
+    )
+  ).map((s) => ({
+    title: `${s.name} - ${s.artist.name}`,
+    value: s.id,
+  }));
+  songs.value = result;
+  addSongSong.value = null;
+}
+getSongs();
+
+const addSongPreview = ref(null);
+async function fetchSong() {
+  const result = await $fetchApi.get(`/song/${addSongSong.value}`);
+  addSongPreview.value = result;
+}
+
 async function updateHymnary(field, value) {
   await $fetchApi.patch(`/hymnary/${route.params.hymnaryID}/`, {
     [field]: value,
@@ -30,15 +81,29 @@ async function updateHymnary(field, value) {
 }
 
 function reorderSongs() {
-  console.log(hymnary.songs);
   $fetchApi.post(`/hymnary/${route.params.hymnaryID}/reorder/`, {
     songs: hymnary.songs,
-  })
+  });
 }
 
-function removeSong(songID) {
-  const index = hymnary.songs.findIndex((song) => song.id === songID);
-  hymnary.songs.splice(index, 1);
+function addSong() {
+  $fetchApi
+    .post('/hymnarysong/', {
+      song: addSongSong.value,
+      hymnary: route.params.hymnaryID,
+      order: hymnary.songs.length + 1,
+    })
+    .then(() => {
+      hymnary.songs.push(addSongPreview.value);
+      addSongDialog.value = false;
+    });
+}
+
+function removeSong(song) {
+  $fetchApi.delete(`/hymnarysong/${song.hymnarysong}/`).then(() => {
+    const index = hymnary.songs.findIndex((s) => s.id === song.id);
+    hymnary.songs.splice(index, 1);
+  });
 }
 </script>
 
@@ -63,18 +128,17 @@ function removeSong(songID) {
       </v-btn>
     </div>
     <div v-else class="pa-4 d-flex ga-4 align-center justify-space-between">
-      <h2 @click="editHymnaryTitle = true" style="cursor: pointer">
-        {{ hymnary.title }} <v-icon>mdi-note-edit-outline</v-icon>
-      </h2>
-      <v-btn color="primary" @click="$exportHymnary(hymnary)">
-        Exportar
-      </v-btn>
+      <v-sheet class="mb-4">
+        <h2 @click="editHymnaryTitle = true" style="cursor: pointer">
+          {{ hymnary.title }} <v-icon>mdi-note-edit-outline</v-icon>
+        </h2>
+      </v-sheet>
+      <v-sheet class="d-flex flex-column ga-2">
+        <v-btn color="primary" @click="$exportHymnary(hymnary)">Exportar</v-btn>
+        <v-btn color="primary" @click="addSongDialog = true">Adicionar música</v-btn>
+      </v-sheet>
     </div>
     <v-sheet class="d-flex flex-column">
-      <v-sheet class="mx-4 mb-6">
-        <p>Criado em: {{ $formatDateTime(hymnary.created_at) }}</p>
-        <p>Atualizado em: {{ $formatDateTime(hymnary.updated_at) }}</p>
-      </v-sheet>
       <v-sheet class="d-flex ga-4 mx-2">
         <v-select
           :items="templatesSelect"
@@ -105,11 +169,76 @@ function removeSong(songID) {
         item-key="id"
       >
         <template #item="{ element }">
-          <SongEditItem :song="element" @deleted="removeSong(element.id)" />
+          <SongEditItem :song="element" @deleted="removeSong(element)" />
         </template>
       </draggable>
     </v-sheet>
   </v-card>
+
+  <v-dialog
+    v-model="addSongDialog"
+    :overlay="true"
+    max-width="800px"
+    transition="dialog-transition"
+    eager
+  >
+    <v-sheet class="rounded-xl d-flex">
+      <v-container>
+        <v-row>
+          <v-col :cols="addSongPreview ? 6 : 12">
+            <v-card-title>Adicionar música</v-card-title>
+            <v-sheet class="pa-2">
+              <v-select
+                :items="categories"
+                v-model="addSongCategory"
+                label="Categoria"
+                @update:model-value="
+                  getArtists();
+                  getSongs();
+                "
+              ></v-select>
+              <v-select
+                :items="artists"
+                v-model="addSongArtist"
+                label="Artista"
+                @update:model-value="getSongs()"
+              ></v-select>
+              <v-select
+                :items="songs"
+                v-model="addSongSong"
+                label="Música"
+                @update:model-value="fetchSong()"
+              ></v-select>
+            </v-sheet>
+          </v-col>
+          <v-col :cols="addSongPreview ? 6 : 0" v-if="addSongPreview">
+            <v-card-title primary-title> Preview </v-card-title>
+            <div class="px-4">
+              <iframe
+                style="border-radius: 15px"
+                :src="addSongPreview.preview_url"
+                width="100%"
+                height="232"
+                frameborder="0"
+                allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </v-col>
+        </v-row>
+        <v-row class="ga-4 pa-4">
+          <v-spacer></v-spacer>
+          <v-btn
+            color="success"
+            @click="addSong"
+          >
+            Adicionar
+          </v-btn>
+          <v-btn color="error" @click="addSongDialog = false"> Cancelar </v-btn>
+        </v-row>
+      </v-container>
+    </v-sheet>
+  </v-dialog>
 </template>
 
 <style scoped lang="scss">
@@ -125,6 +254,10 @@ function removeSong(songID) {
 
 .drag-preview {
   scale: 0.5;
+}
+
+iframe body {
+  background-color: transparent !important;
 }
 </style>
 
