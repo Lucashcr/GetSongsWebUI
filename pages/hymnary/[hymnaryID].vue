@@ -8,7 +8,10 @@ const route = useRoute();
 const globalStore = useglobalStore();
 
 const hymnary = reactive(
-  await $fetchApi.get(`/hymnary/${route.params.hymnaryID}`)
+  await $fetchApi.get(`/hymnary/${route.params.hymnaryID}`).catch(() => {
+    navigateTo("/hymnary");
+    return {};
+  })
 );
 
 const editHymnaryTitle = ref(false);
