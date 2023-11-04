@@ -38,7 +38,9 @@ function deleteHymnary() {
 <template>
   <v-card
     class="mb-2"
+    v-if="hymnaries.length"
     v-for="hymnary in hymnaries"
+    :key="hymnary.id"
   >
     <v-card-title primary-title>{{ hymnary.title }}</v-card-title>
     <v-card-text>
@@ -51,6 +53,14 @@ function deleteHymnary() {
       <v-btn color="success" @click="$exportHymnary(hymnary)">Baixar</v-btn>
       <v-btn color="error" @click="deleteHymnaryDialogOpen(hymnary)">Excluir</v-btn>
     </v-card-actions>
+  </v-card>
+  <v-card v-else class="pa-4">
+    <v-card-title primary-title>
+      Ops, parece que você ainda não tem nenhum hinário cadastrado.
+    </v-card-title>
+    <v-card-text>
+      Que tal criar um agora? Basta acessar o menu lateral e clicar em "Novo hinário".
+    </v-card-text>
   </v-card>
 
   <v-dialog
