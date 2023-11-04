@@ -29,8 +29,11 @@ async function updateHymnary(field, value) {
   });
 }
 
-function reorderSongs(item) {
-  console.log(item);
+function reorderSongs() {
+  console.log(hymnary.songs);
+  $fetchApi.post(`/hymnary/${route.params.hymnaryID}/reorder/`, {
+    songs: hymnary.songs,
+  })
 }
 
 function removeSong(songID) {
@@ -97,7 +100,7 @@ function removeSong(songID) {
         @start="drag = true"
         @end="
           drag = false;
-          reorderSongs(item);
+          reorderSongs();
         "
         item-key="id"
       >
