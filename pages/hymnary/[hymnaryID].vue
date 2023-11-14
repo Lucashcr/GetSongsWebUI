@@ -248,10 +248,6 @@ function removeSong(song) {
 <style scoped lang="scss">
 @import "~/assets/variables.scss";
 
-// .sortable-chosen {
-//   opacity: 1 !important;
-// }
-
 .sortable-ghost {
   background: transparent !important;
   color: transparent !important;
