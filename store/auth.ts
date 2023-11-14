@@ -31,7 +31,7 @@ const useAuthStore = defineStore("auth", () => {
       })
       .catch((error) => {
         isAuthenticated.value = false;
-      })
+      });
   }
 
   function logout() {

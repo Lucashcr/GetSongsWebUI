@@ -5,7 +5,7 @@ const { resolve } = createResolver(import.meta.url);
 export default defineNuxtConfig({
   ssr: false,
 
-  devtools: { enabled: true },
+  // devtools: { enabled: true },
 
   css: ["vuetify/lib/styles/main.sass", "~/assets/global.css"],
 
@@ -30,7 +30,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      backendURL: process.env.BACKEND_BASE_URL,
+      backendURL: process.env.BACKEND_BASE_URL || "http://localhost:8000",
     },
   },
 });

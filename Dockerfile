@@ -11,7 +11,8 @@ RUN apk --no-cache add openssh g++ make python3 git
 COPY package.json /app/
 
 # install all depencies
-RUN npm ci && npm cache clean --force
+# RUN npm ci && npm cache clean --force
+RUN npm install
 
 # copy over all files to the work directory
 ADD . /app
