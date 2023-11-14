@@ -248,20 +248,14 @@ function removeSong(song) {
 <style scoped lang="scss">
 @import "~/assets/variables.scss";
 
+// .sortable-chosen {
+//   opacity: 1 !important;
+// }
+
 .sortable-ghost {
   background: transparent !important;
-}
-
-.sortable-ghost * {
-  opacity: 0;
-}
-
-.drag-preview {
-  scale: 0.5;
-}
-
-iframe body {
-  background-color: transparent !important;
+  color: transparent !important;
+  border: 2px dashed $lightgray;
 }
 </style>
 
