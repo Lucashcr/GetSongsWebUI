@@ -17,6 +17,9 @@ RUN npm install
 # copy over all files to the work directory
 ADD . /app
 
+ARG BACKEND_BASE_URL
+ENV BACKEND_BASE_URL=$BACKEND_BASE_URL
+
 # build the project
 RUN npm run build
 

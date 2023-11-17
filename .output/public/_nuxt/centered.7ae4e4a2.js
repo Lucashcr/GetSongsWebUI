@@ -1,0 +1,1 @@
+import{_ as t}from"./page.ba22e4dc.js";import{_ as n,r as o,i as c,w as a,o as s,b as r}from"./entry.057c6502.js";const p={};function d(m,f){const e=t,_=o("v-main");return s(),c(_,null,{default:a(()=>[r(e)]),_:1})}const u=n(p,[["render",d],["__scopeId","data-v-62a880fc"]]);export{u as default};
