@@ -3,6 +3,7 @@ import useglobalStore from "~/store";
 import useAuthStore from "~/store/auth";
 
 const backendURL = useRuntimeConfig().public.backendURL;
+console.log(process.env.BACKEND_BASE_URL);
 
 const auth = useAuthStore();
 const globalStore = useglobalStore();
