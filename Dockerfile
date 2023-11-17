@@ -24,5 +24,7 @@ RUN npm run build
 ENV HOST 0.0.0.0
 EXPOSE 3000
 
+ENV BACKEND_BASE_URL http://getsongs-api.up.railway.app
+
 # run the build project with node
 ENTRYPOINT ["node", ".output/server/index.mjs"]
