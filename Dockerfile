@@ -17,7 +17,7 @@ RUN npm install
 # copy over all files to the work directory
 ADD . /app
 
-ENV BACKEND_BASE_URL https://getsongs-api.up.railway.app
+ENV BACKEND_BASE_URL https://getsongs-api-test.up.railway.app
 
 # build the project
 RUN npm run build
