@@ -1,1 +1,0 @@
-import{_ as r,r as c,o,c as s,b as t}from"./entry.057c6502.js";const n={},a={class:"d-flex justify-center"};function _(i,d){const e=c("v-progress-circular");return o(),s("div",a,[t(e,{indeterminate:"",size:60,width:6,color:"primary",centered:"",class:"mt-16"})])}const m=r(n,[["render",_]]);export{m as default};

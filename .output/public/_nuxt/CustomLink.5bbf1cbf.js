@@ -1,1 +1,0 @@
-import{r as n,o as a,i as r,w as s,aX as p}from"./entry.057c6502.js";const l={__name:"CustomLink",props:{to:{type:String,required:!0}},setup(t){return(e,c)=>{const o=n("v-btn");return a(),r(o,{color:"gray",variant:"text",to:t.to,"append-icon":"mdi-open-in-new",size:"small",class:"py-0 px-1"},{default:s(()=>[p(e.$slots,"default")]),_:3},8,["to"])}}};export{l as default};

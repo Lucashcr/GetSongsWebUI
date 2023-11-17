@@ -1,1 +1,0 @@
-import{_ as t}from"./page.ba22e4dc.js";import{_ as o,r as n,i as a,w as c,o as s,b as r}from"./entry.057c6502.js";const p={};function d(l,m){const e=t,_=n("v-main");return s(),a(_,null,{default:c(()=>[r(e)]),_:1})}const i=o(p,[["render",d],["__scopeId","data-v-0a1e4915"]]);export{i as default};
