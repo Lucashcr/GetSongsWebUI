@@ -30,14 +30,16 @@ function deleteHymnaryDialogClose() {
 
 function deleteHymnary() {
   $fetchApi.delete(`/hymnary/${deleteHymnaryObject.value.id}`);
-  hymnaries.value = hymnaries.value.filter((h) => h.id !== deleteHymnaryObject.value.id)
+  hymnaries.value = hymnaries.value.filter(
+    (h) => h.id !== deleteHymnaryObject.value.id
+  );
   deleteHymnaryDialog.value = false;
 }
 </script>
 
 <template>
   <v-card
-    class="mb-2"
+    class="ma-2"
     v-if="hymnaries.length"
     v-for="hymnary in hymnaries"
     :key="hymnary.id"
@@ -49,9 +51,13 @@ function deleteHymnary() {
       <p>Qtd de músicas: {{ hymnary.songs.length }}</p>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary" @click="router.push(`/hymnary/${hymnary.id}`)">Editar</v-btn>
+      <v-btn color="primary" @click="router.push(`/hymnary/${hymnary.id}`)"
+        >Editar</v-btn
+      >
       <v-btn color="success" @click="$exportHymnary(hymnary)">Baixar</v-btn>
-      <v-btn color="error" @click="deleteHymnaryDialogOpen(hymnary)">Excluir</v-btn>
+      <v-btn color="error" @click="deleteHymnaryDialogOpen(hymnary)"
+        >Excluir</v-btn
+      >
     </v-card-actions>
   </v-card>
   <v-card v-else class="pa-4">
@@ -59,7 +65,8 @@ function deleteHymnary() {
       Ops, parece que você ainda não tem nenhum hinário cadastrado.
     </v-card-title>
     <v-card-text>
-      Que tal criar um agora? Basta acessar o menu lateral e clicar em "Novo hinário".
+      Que tal criar um agora? Basta acessar o menu lateral e clicar em "Novo
+      hinário".
     </v-card-text>
   </v-card>
 
@@ -77,7 +84,9 @@ function deleteHymnary() {
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="deleteHymnaryDialogClose()">Cancelar</v-btn>
+        <v-btn color="primary" @click="deleteHymnaryDialogClose()"
+          >Cancelar</v-btn
+        >
         <v-btn color="error" @click="deleteHymnary()">Excluir</v-btn>
       </v-card-actions>
     </v-card>
