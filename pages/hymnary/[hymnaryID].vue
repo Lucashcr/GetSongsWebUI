@@ -113,10 +113,14 @@ function removeSong(song) {
 
 <template>
   <v-card class="mb-2 pa-4">
-    <div v-if="editHymnaryTitle" class="pa-4 d-flex ga-4 align-center">
+    <div
+      v-if="editHymnaryTitle"
+      class="pa-4 d-flex ga-4 align-center responsive"
+    >
       <v-text-field
         v-model="hymnary.title"
         label="Título do Hinário"
+        class="edit-hymnary-title-field"
       ></v-text-field>
       <v-btn
         color="primary"
@@ -131,7 +135,10 @@ function removeSong(song) {
         Cancelar
       </v-btn>
     </div>
-    <div v-else class="pa-4 d-flex ga-4 align-center justify-space-between">
+    <div
+      v-else
+      class="pa-4 d-flex ga-4 align-center justify-space-between responsive"
+    >
       <v-sheet class="mb-4">
         <h2 @click="editHymnaryTitle = true" style="cursor: pointer">
           {{ hymnary.title }} <v-icon>mdi-note-edit-outline</v-icon>
@@ -145,7 +152,7 @@ function removeSong(song) {
       </v-sheet>
     </div>
     <v-sheet class="d-flex flex-column">
-      <v-sheet class="d-flex ga-4 mx-2">
+      <v-sheet class="d-flex mx-2 responsive">
         <v-select
           :items="templatesSelect"
           v-model="hymnary.template"
@@ -253,6 +260,21 @@ function removeSong(song) {
   background: transparent !important;
   color: transparent !important;
   border: 2px dashed $lightgray;
+}
+
+@media screen and (max-width: 800px) {
+  .v-select {
+    margin: 0 24px 0 8px;
+    padding: 0;
+  }
+  .v-sheet,
+  .v-btn,
+  .edit-hymnary-title-field {
+    width: 100%;
+  }
+  .responsive {
+    flex-direction: column;
+  }
 }
 </style>
 
