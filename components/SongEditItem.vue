@@ -20,7 +20,7 @@ defineProps({
     :elevation="2"
     rounded="lg"
     color="secondary"
-    class="d-flex align-center mb-2 pa-4"
+    class="d-flex align-center mx-2 mb-2 pa-4"
   >
     <div
       class="d-flex flex-column flex-grow-1 justify-space-between align-start"
