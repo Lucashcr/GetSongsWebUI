@@ -113,10 +113,14 @@ function removeSong(song) {
 
 <template>
   <v-card class="mb-2 pa-4">
-    <div v-if="editHymnaryTitle" class="pa-4 d-flex ga-4 align-center">
+    <div
+      v-if="editHymnaryTitle"
+      class="pa-4 d-flex ga-4 align-center responsive"
+    >
       <v-text-field
         v-model="hymnary.title"
         label="Título do Hinário"
+        class="edit-hymnary-title-field"
       ></v-text-field>
       <v-btn
         color="primary"
@@ -124,28 +128,46 @@ function removeSong(song) {
           updateHymnary('title', hymnary.title);
           editHymnaryTitle = false;
         "
+        class="full-width-btn"
       >
         Salvar
       </v-btn>
-      <v-btn color="secondary" @click="editHymnaryTitle = false">
+      <v-btn
+        color="secondary"
+        @click="editHymnaryTitle = false"
+        class="full-width-btn"
+      >
         Cancelar
       </v-btn>
     </div>
-    <div v-else class="pa-4 d-flex ga-4 align-center justify-space-between">
-      <v-sheet class="mb-4">
+    <div
+      v-else
+      class="pa-4 d-flex ga-4 align-center justify-space-between responsive"
+    >
+      <v-sheet class="mb-4 responsive">
         <h2 @click="editHymnaryTitle = true" style="cursor: pointer">
           {{ hymnary.title }} <v-icon>mdi-note-edit-outline</v-icon>
         </h2>
       </v-sheet>
-      <v-sheet class="d-flex flex-column ga-2">
-        <v-btn color="primary" @click="$exportHymnary(hymnary)">Exportar</v-btn>
-        <v-btn color="primary" @click="addSongDialog = true">
+      <v-sheet class="responsive d-flex flex-column ga-2">
+        <v-btn
+          color="primary"
+          @click="$exportHymnary(hymnary)"
+          class="full-width-btn"
+        >
+          Exportar
+        </v-btn>
+        <v-btn
+          color="primary"
+          @click="addSongDialog = true"
+          class="full-width-btn"
+        >
           Adicionar música
         </v-btn>
       </v-sheet>
     </div>
     <v-sheet class="d-flex flex-column">
-      <v-sheet class="d-flex ga-4 mx-2">
+      <v-sheet class="d-flex mx-2 responsive">
         <v-select
           :items="templatesSelect"
           v-model="hymnary.template"
@@ -172,6 +194,11 @@ function removeSong(song) {
           drag = false;
           reorderSongs();
         "
+        @touchstart.native="drag = true"
+        @touchend.native="
+          drag = false;
+          reorderSongs();
+        "
         item-key="id"
       >
         <template #item="{ element }">
@@ -192,56 +219,53 @@ function removeSong(song) {
     transition="dialog-transition"
     eager
   >
-    <v-sheet class="rounded-xl d-flex">
-      <v-container>
-        <v-row>
-          <v-col :cols="addSongPreview ? 6 : 12">
-            <v-card-title>Adicionar música</v-card-title>
-            <v-sheet class="pa-2">
-              <v-select
-                :items="categories"
-                v-model="addSongCategory"
-                label="Categoria"
-                @update:model-value="
-                  getArtists();
-                  getSongs();
-                "
-              ></v-select>
-              <v-select
-                :items="artists"
-                v-model="addSongArtist"
-                label="Artista"
-                @update:model-value="getSongs()"
-              ></v-select>
-              <v-select
-                :items="songs"
-                v-model="addSongSong"
-                label="Música"
-                @update:model-value="fetchSong()"
-              ></v-select>
-            </v-sheet>
-          </v-col>
-          <v-col :cols="addSongPreview ? 6 : 0" v-if="addSongPreview">
-            <v-card-title primary-title> Preview </v-card-title>
-            <div class="px-4">
-              <iframe
-                style="border-radius: 15px"
-                :src="addSongPreview.preview_url"
-                width="100%"
-                height="232"
-                frameborder="0"
-                allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </v-col>
-        </v-row>
-        <v-row class="ga-4 pa-4">
-          <v-spacer></v-spacer>
-          <v-btn color="success" @click="addSong"> Adicionar </v-btn>
-          <v-btn color="error" @click="addSongDialog = false"> Cancelar </v-btn>
-        </v-row>
-      </v-container>
+    <v-sheet class="rounded-xl">
+      <v-sheet class="responsive">
+        <v-sheet class="ma-4">
+          <v-card-title>Adicionar música</v-card-title>
+          <v-sheet class="pa-2">
+            <v-select
+              :items="categories"
+              v-model="addSongCategory"
+              label="Categoria"
+              @update:model-value="
+                getArtists();
+                getSongs();
+              "
+            ></v-select>
+            <v-select
+              :items="artists"
+              v-model="addSongArtist"
+              label="Artista"
+              @update:model-value="getSongs()"
+            ></v-select>
+            <v-select
+              :items="songs"
+              v-model="addSongSong"
+              label="Música"
+              @update:model-value="fetchSong()"
+            ></v-select>
+          </v-sheet>
+        </v-sheet>
+        <v-sheet class="ma-4" v-if="addSongPreview">
+          <v-card-title primary-title> Preview </v-card-title>
+          <div class="px-4">
+            <iframe
+              style="border-radius: 15px"
+              :src="addSongPreview.preview_url"
+              width="100%"
+              height="232"
+              frameborder="0"
+              allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </v-sheet>
+      </v-sheet>
+      <v-sheet class="mx-8 mb-8 d-flex justify-end ga-4">
+        <v-btn color="success" @click="addSong"> Adicionar </v-btn>
+        <v-btn color="error" @click="addSongDialog = false"> Cancelar </v-btn>
+      </v-sheet>
     </v-sheet>
   </v-dialog>
 </template>
@@ -253,6 +277,25 @@ function removeSong(song) {
   background: transparent !important;
   color: transparent !important;
   border: 2px dashed $lightgray;
+}
+
+.responsive {
+  flex-direction: row;
+}
+
+@media screen and (max-width: 800px) {
+  .v-select {
+    margin: 0 24px 0 8px;
+    padding: 0;
+  }
+  .responsive,
+  .full-width-btn,
+  .edit-hymnary-title-field {
+    width: 100%;
+  }
+  .responsive {
+    flex-direction: column;
+  }
 }
 </style>
 
