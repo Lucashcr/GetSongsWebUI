@@ -38,12 +38,6 @@ defineProps({
   </v-card>
 </template>
 
-<script>
-document.getElementById("drag-icon").addEventListener("touchstart", (e) => {
-  e.preventDefault();
-});
-</script>
-
 <style scoped>
 #drag-icon {
   display: none;

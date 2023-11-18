@@ -179,6 +179,11 @@ function removeSong(song) {
           drag = false;
           reorderSongs();
         "
+        @touchstart.native="drag = true"
+        @touchend.native="
+          drag = false;
+          reorderSongs();
+        "
         item-key="id"
       >
         <template #item="{ element }">
