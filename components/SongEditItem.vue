@@ -22,7 +22,6 @@ defineProps({
     color="secondary"
     class="d-flex align-center mb-2 pa-4"
   >
-    <v-icon id="drag-icon" class="mr-4">mdi-drag-vertical</v-icon>
     <div
       class="d-flex flex-column flex-grow-1 justify-space-between align-start"
     >
