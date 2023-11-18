@@ -80,6 +80,7 @@ async function fetchSong() {
 async function updateHymnary(field, value) {
   await $fetchApi.patch(`/hymnary/${route.params.hymnaryID}/`, {
     [field]: value,
+    updated: true,
   });
 }
 
