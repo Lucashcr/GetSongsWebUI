@@ -112,7 +112,7 @@ function removeSong(song) {
 </script>
 
 <template>
-  <v-card class="mb-4 mx-4 pa-4">
+  <v-card class="mb-2 mx-2 pa-4">
     <div
       v-if="editHymnaryTitle"
       class="pa-4 d-flex ga-4 align-center responsive-flex-dir"
