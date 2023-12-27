@@ -51,10 +51,10 @@ function deleteHymnary() {
       <p>Qtd de músicas: {{ hymnary.songs.length }}</p>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary" @click="router.push(`/hymnary/${hymnary.id}`)"
+      <v-btn color="accent" @click="router.push(`/hymnary/${hymnary.id}`)"
         >Editar</v-btn
       >
-      <v-btn color="success" @click="$exportHymnary(hymnary)">Baixar</v-btn>
+      <v-btn color="accent" @click="$exportHymnary(hymnary)">Baixar</v-btn>
       <v-btn color="error" @click="deleteHymnaryDialogOpen(hymnary)"
         >Excluir</v-btn
       >

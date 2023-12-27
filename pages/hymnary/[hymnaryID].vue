@@ -255,7 +255,7 @@ function removeSong(song) {
         </v-sheet>
       </v-sheet>
       <v-sheet class="mx-8 mb-8 d-flex justify-end ga-4">
-        <v-btn color="success" @click="addSong"> Adicionar </v-btn>
+        <v-btn color="primary" @click="addSong"> Adicionar </v-btn>
         <v-btn color="error" @click="addSongDialog = false"> Cancelar </v-btn>
       </v-sheet>
     </v-sheet>

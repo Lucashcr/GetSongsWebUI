@@ -29,7 +29,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           colors: {
             primary: "#2D4F7B",
             secondary: "#343434",
-            accent: "#82B1FF",
+            accent: "#72A1EF",
             error: "#FF5252",
             info: "#2196F3",
             success: "#4CAF50",
