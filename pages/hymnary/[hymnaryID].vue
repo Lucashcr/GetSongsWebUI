@@ -1,18 +1,13 @@
 <script setup>
-import useglobalStore from "~/store";
+import useGlobalStore from "~/store";
 import draggable from "vuedraggable";
 
 const { $fetchApi, $exportHymnary } = useNuxtApp();
 
 const route = useRoute();
-const globalStore = useglobalStore();
+const globalStore = useGlobalStore();
 
-const hymnary = reactive(
-  await $fetchApi.get(`/hymnary/${route.params.hymnaryID}`).catch(() => {
-    navigateTo("/hymnary");
-    return {};
-  })
-);
+let hymnary = reactive({});
 
 const editHymnaryTitle = ref(false);
 
@@ -22,8 +17,16 @@ definePageMeta({
   requiresAuth: true,
 });
 
-onMounted(() => {
+onMounted(async () => {
+  globalStore.setLoading(true);
   globalStore.setAppBarTitle("Mãos à obra!");
+  hymnary = await $fetchApi
+    .get(`/hymnary/${route.params.hymnaryID}`)
+    .catch(() => {
+      navigateTo("/hymnary");
+      return {};
+    });
+  globalStore.setLoading(false);
 });
 
 const addSongDialog = ref(false);
@@ -112,7 +115,8 @@ function removeSong(song) {
 </script>
 
 <template>
-  <v-card class="mb-2 mx-2 pa-4">
+  <Loading v-if="globalStore.isLoading" />
+  <v-card v-else class="mb-2 mx-2 pa-4">
     <div
       v-if="editHymnaryTitle"
       class="pa-4 d-flex ga-4 align-center responsive-flex-dir"

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import useAuthStore from "~/store/auth";
-import useglobalStore from "~/store";
+import useGlobalStore from "~/store";
 
 const auth = useAuthStore();
-const globalStore = useglobalStore();
+const globalStore = useGlobalStore();
 
 const message = reactive({
   name: auth.isAuthenticated ? auth.user.full_name : "",
@@ -12,6 +12,8 @@ const message = reactive({
 });
 
 function sendMessage() {
+  globalStore.setLoading(true);
+
   const data = {
     name: message.name,
     email: message.email,
@@ -23,7 +25,9 @@ function sendMessage() {
     return;
   }
 
-  navigateTo("/thanks");
+  globalStore.setLoading(false);
+
+  navigateTo("/contact/thanks");
 }
 
 const EMAIL_REGEX = /^.+@.+\..+$/;
@@ -46,7 +50,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <v-card class="pa-4 rounded-xl">
+  <Loading v-if="globalStore.isLoading" width="500px" />
+  <v-card v-else class="pa-4 rounded-xl">
     <v-card-title>
       Se você tem alguma dúvida ou sugestão, pode entrar em contato conosco
       através do formulário abaixo:

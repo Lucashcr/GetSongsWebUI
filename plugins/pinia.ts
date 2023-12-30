@@ -1,10 +1,10 @@
 import { Pinia } from "pinia";
-import useglobalStore from "~/store";
+import useGlobalStore from "~/store";
 
 export default defineNuxtPlugin(({ $pinia }) => {
   return {
     provide: {
-      store: useglobalStore($pinia as Pinia),
+      store: useGlobalStore($pinia as Pinia),
     },
   };
 });

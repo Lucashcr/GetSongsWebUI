@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import CustomLink from "~/components/CustomLink.vue";
 
-import useglobalStore from "~/store";
+import useGlobalStore from "~/store";
 
-const globalStore = useglobalStore();
+const globalStore = useGlobalStore();
 
 definePageMeta({
   name: "About",
@@ -71,4 +71,3 @@ p {
   margin-bottom: 1rem;
 }
 </style>
-

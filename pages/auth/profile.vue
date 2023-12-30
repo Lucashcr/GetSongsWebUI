@@ -1,9 +1,9 @@
 <script setup>
 import useAuthStore from "~/store/auth";
-import useglobalStore from "~/store";
+import useGlobalStore from "~/store";
 
 const auth = useAuthStore();
-const globalStore = useglobalStore();
+const globalStore = useGlobalStore();
 
 definePageMeta({
   name: "Profile",

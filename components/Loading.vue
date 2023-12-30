@@ -1,6 +1,21 @@
+<script setup>
+defineProps({
+  width: {
+    type: String,
+    default: "100%",
+  },
+});
+</script>
+
 <template>
-  <div class="d-flex justify-center">
-    <v-progress-circular indeterminate :size="60" :width="6" color="primary" centered class="mt-16">
-    </v-progress-circular>
-  </div>
+  <v-card class="pa-4">
+    <v-skeleton-loader type="paragraph" :width="width"></v-skeleton-loader>
+  </v-card>
 </template>
+
+<style scoped>
+.container {
+  padding: 15px;
+  background-color: white;
+}
+</style>
