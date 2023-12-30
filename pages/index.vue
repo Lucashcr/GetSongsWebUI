@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import useglobalStore from "~/store";
-
-const globalStore = useglobalStore();
+import useGlobalStore from "~/store";
+const globalStore = useGlobalStore();
 
 definePageMeta({
   name: "Home",

@@ -1,11 +1,11 @@
 <script setup>
-import useglobalStore from "~/store";
+import useGlobalStore from "~/store";
 
 const { $fetchApi, $formatDateTime, $exportHymnary } = useNuxtApp();
 const router = useRouter();
-const globalStore = useglobalStore();
+const globalStore = useGlobalStore();
 
-const hymnaries = ref(await $fetchApi.get("/hymnary"));
+const hymnaries = ref([]);
 
 definePageMeta({
   name: "HymnaryList",
@@ -13,8 +13,11 @@ definePageMeta({
   requiresAuth: true,
 });
 
-onMounted(() => {
+onMounted(async () => {
+  globalStore.setLoading(true);
   globalStore.setAppBarTitle("Aqui estão seus hinários!");
+  hymnaries.value = await $fetchApi.get("/hymnary");
+  globalStore.setLoading(false);
 });
 
 const deleteHymnaryDialog = ref(false);
@@ -29,37 +32,38 @@ function deleteHymnaryDialogClose() {
 }
 
 function deleteHymnary() {
+  globalStore.setLoading(true);
   $fetchApi.delete(`/hymnary/${deleteHymnaryObject.value.id}`);
-  hymnaries.value = hymnaries.value.filter(
-    (h) => h.id !== deleteHymnaryObject.value.id
-  );
+  hymnaries.value = $fetchApi.get("/hymnary");
   deleteHymnaryDialog.value = false;
+  globalStore.setLoading(false);
 }
 </script>
 
 <template>
-  <v-card
-    class="ma-2"
-    v-if="hymnaries.length"
-    v-for="hymnary in hymnaries"
-    :key="hymnary.id"
-  >
-    <v-card-title primary-title>{{ hymnary.title }}</v-card-title>
-    <v-card-text>
-      <p>Criado em: {{ $formatDateTime(hymnary.created_at) }}</p>
-      <p>Atualizado em: {{ $formatDateTime(hymnary.updated_at) }}</p>
-      <p>Qtd de músicas: {{ hymnary.songs.length }}</p>
-    </v-card-text>
-    <v-card-actions>
-      <v-btn color="accent" @click="router.push(`/hymnary/${hymnary.id}`)"
-        >Editar</v-btn
-      >
-      <v-btn color="accent" @click="$exportHymnary(hymnary)">Baixar</v-btn>
-      <v-btn color="error" @click="deleteHymnaryDialogOpen(hymnary)"
-        >Excluir</v-btn
-      >
-    </v-card-actions>
-  </v-card>
+  <template v-if="globalStore.isLoading">
+    <Loading class="ma-2" />
+    <Loading class="ma-2" />
+  </template>
+  <template v-else-if="hymnaries.length">
+    <v-card class="ma-2" v-for="hymnary in hymnaries" :key="hymnary.id">
+      <v-card-title primary-title>{{ hymnary.title }}</v-card-title>
+      <v-card-text>
+        <p>Criado em: {{ $formatDateTime(hymnary.created_at) }}</p>
+        <p>Atualizado em: {{ $formatDateTime(hymnary.updated_at) }}</p>
+        <p>Qtd de músicas: {{ hymnary.songs.length }}</p>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="accent" @click="router.push(`/hymnary/${hymnary.id}`)">
+          Editar
+        </v-btn>
+        <v-btn color="accent" @click="$exportHymnary(hymnary)">Baixar</v-btn>
+        <v-btn color="error" @click="deleteHymnaryDialogOpen(hymnary)"
+          >Excluir</v-btn
+        >
+      </v-card-actions>
+    </v-card>
+  </template>
   <v-card v-else class="pa-4">
     <v-card-title primary-title>
       Ops, parece que você ainda não tem nenhum hinário cadastrado.

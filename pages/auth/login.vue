@@ -1,11 +1,11 @@
 <script setup>
-import useglobalStore from "~/store";
+import useGlobalStore from "~/store";
 import useAuthStore from "~/store/auth";
 
 const backendURL = useRuntimeConfig().public.backendURL;
 
 const auth = useAuthStore();
-const globalStore = useglobalStore();
+const globalStore = useGlobalStore();
 
 definePageMeta({
   name: "Login",
@@ -22,6 +22,7 @@ const user = reactive({
 });
 
 async function login() {
+  globalStore.setLoading(true);
   try {
     const tokenData = await $fetch(`${backendURL}/user/token/`, {
       method: "POST",
@@ -44,12 +45,14 @@ async function login() {
     }
   } catch (error) {
     alert("Usuário ou senha incorretos");
+    globalStore.setLoading(false);
   }
 }
 </script>
 
 <template>
-  <v-card width="400px" class="pa-2 rounded-xl">
+  <Loading v-if="globalStore.isLoading" width="400px" />
+  <v-card v-else width="400px" class="pa-2 rounded-xl">
     <v-card-title>Entrar</v-card-title>
     <v-card-text>
       <v-form class="d-flex flex-column align-center" @submit.prevent="login">

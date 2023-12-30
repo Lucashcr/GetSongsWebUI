@@ -1,11 +1,14 @@
 <script setup>
+import useGlobalStore from "~/store";
+const globalStore = useGlobalStore();
+
 definePageMeta({
   name: "ThanksContactView",
   layout: "centered",
 });
 
 onMounted(() => {
-  this.$store.setAppBarTitle("Mensagem enviada!");
+  globalStore.setAppBarTitle("Mensagem enviada!");
 });
 </script>
 

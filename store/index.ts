@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-const useglobalStore = defineStore("main", {
+const useGlobalStore = defineStore("main", {
   state: () => ({
     appBarTitle: "",
     startItems: [
@@ -58,12 +58,16 @@ const useglobalStore = defineStore("main", {
         icon: "mdi-help",
       },
     ],
+    isLoading: false,
   }),
   actions: {
     setAppBarTitle(title: string) {
       this.appBarTitle = title;
     },
+    setLoading(isLoading: boolean) {
+      this.isLoading = isLoading;
+    },
   },
 });
 
-export default useglobalStore;
+export default useGlobalStore;

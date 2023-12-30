@@ -1,12 +1,14 @@
 <script setup>
 import useAuthStore from "~/store/auth";
-import useglobalStore from "~/store";
+import useGlobalStore from "~/store";
 
 const authStore = useAuthStore();
-const globalStore = useglobalStore();
+const globalStore = useGlobalStore();
 
 function logout() {
+  globalStore.setLoading(true);
   authStore.logout();
+  globalStore.setLoading(false);
   navigateTo("/");
 }
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import useglobalStore from "~/store";
-import Hymnary from "~/types/hymnary";
+import useGlobalStore from "~/store";
+import type Hymnary from "~/types/hymnary";
 
 const { $fetchApi } = useNuxtApp();
 
-const globalStore = useglobalStore();
+const globalStore = useGlobalStore();
 
 const newHymnary = reactive({
   title: "",
@@ -18,7 +18,8 @@ function setButtonDisabled() {
 }
 
 async function saveHymnary() {
-  const response = await $fetchApi.post("/hymnary/", newHymnary) as Hymnary;
+  globalStore.setLoading(true);
+  const response = (await $fetchApi.post("/hymnary/", newHymnary)) as Hymnary;
   navigateTo(`/hymnary/${response.id}`);
 }
 
@@ -29,15 +30,18 @@ definePageMeta({
 });
 
 onMounted(() => {
+  globalStore.setLoading(true);
   globalStore.setAppBarTitle("Vamos criar um novo hinário!");
   $fetchApi.get("/hymnary").then((res) => {
-    hymnaries.value = res as any[];
+    hymnaries.value = res as Hymnary[];
+    globalStore.setLoading(false);
   });
 });
 </script>
 
 <template>
-  <v-card width="500px" class="pa-4 rounded-xl">
+  <Loading v-if="globalStore.isLoading" width="500px" />
+  <v-card v-else width="500px" class="pa-4 rounded-xl">
     <v-form
       class="d-flex flex-column align-center"
       @submit.prevent="saveHymnary"
