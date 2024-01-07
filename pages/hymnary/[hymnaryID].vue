@@ -7,7 +7,12 @@ const { $fetchApi, $exportHymnary } = useNuxtApp();
 const route = useRoute();
 const globalStore = useGlobalStore();
 
-let hymnary = reactive({});
+const hymnary = reactive(
+  await $fetchApi.get(`/hymnary/${route.params.hymnaryID}`).catch(() => {
+    navigateTo("/hymnary");
+    return {};
+  })
+);
 
 const editHymnaryTitle = ref(false);
 
@@ -18,15 +23,7 @@ definePageMeta({
 });
 
 onMounted(async () => {
-  globalStore.setLoading(true);
   globalStore.setAppBarTitle("Mãos à obra!");
-  hymnary = await $fetchApi
-    .get(`/hymnary/${route.params.hymnaryID}`)
-    .catch(() => {
-      navigateTo("/hymnary");
-      return {};
-    });
-  globalStore.setLoading(false);
 });
 
 const addSongDialog = ref(false);

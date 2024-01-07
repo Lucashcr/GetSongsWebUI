@@ -4,7 +4,6 @@ import useAuthStore from "~/store/auth";
 
 const theme = useTheme();
 const auth = useAuthStore();
-const { $vuetify } = useNuxtApp();
 
 auth.verifyToken();
 
