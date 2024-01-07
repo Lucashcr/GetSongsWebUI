@@ -86,7 +86,7 @@ async function updateHymnary(field, value) {
 
 function reorderSongs() {
   $fetchApi.post(`/hymnary/${route.params.hymnaryID}/reorder/`, {
-    songs: hymnary.songs,
+    songs: hymnary.songs.map((s) => s.id),
   });
 }
 
