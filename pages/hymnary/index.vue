@@ -33,10 +33,13 @@ function deleteHymnaryDialogClose() {
 
 function deleteHymnary() {
   globalStore.setLoading(true);
-  $fetchApi.delete(`/hymnary/${deleteHymnaryObject.value.id}`);
-  hymnaries.value = $fetchApi.get("/hymnary");
-  deleteHymnaryDialog.value = false;
-  globalStore.setLoading(false);
+  $fetchApi
+    .delete(`/hymnary/${deleteHymnaryObject.value.id}`)
+    .then(async () => {
+      hymnaries.value = await $fetchApi.get("/hymnary");
+      globalStore.setLoading(false);
+    });
+  deleteHymnaryDialogClose();
 }
 </script>
 
