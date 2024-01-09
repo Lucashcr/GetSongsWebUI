@@ -10,7 +10,7 @@ export default defineNuxtPlugin(() => {
         async get(path: string) {
           const response = await $fetch(`${backendURL}/api${path}`, {
             headers: {
-              Authorization: `Bearer ${authStore.accessToken}`,
+              Authorization: `Bearer ${authStore.getAccessToken()}`,
             },
           });
           return response;
@@ -20,7 +20,7 @@ export default defineNuxtPlugin(() => {
           const response = await $fetch(`${backendURL}/api${path}`, {
             method: "POST",
             headers: {
-              Authorization: `Bearer ${authStore.accessToken}`,
+              Authorization: `Bearer ${authStore.getAccessToken()}`,
               "Content-Type": "application/json",
             },
             body: JSON.stringify(body),
@@ -32,7 +32,7 @@ export default defineNuxtPlugin(() => {
           const response = await $fetch(`${backendURL}/api${path}`, {
             method: "PUT",
             headers: {
-              Authorization: `Bearer ${authStore.accessToken}`,
+              Authorization: `Bearer ${authStore.getAccessToken()}`,
               "Content-Type": "application/json",
             },
             body: JSON.stringify(body),
@@ -44,7 +44,7 @@ export default defineNuxtPlugin(() => {
           const response = await $fetch(`${backendURL}/api${path}`, {
             method: "PATCH",
             headers: {
-              Authorization: `Bearer ${authStore.accessToken}`,
+              Authorization: `Bearer ${authStore.getAccessToken()}`,
               "Content-Type": "application/json",
             },
             body: JSON.stringify(body),
@@ -56,7 +56,7 @@ export default defineNuxtPlugin(() => {
           const response = await $fetch(`${backendURL}/api${path}`, {
             method: "DELETE",
             headers: {
-              Authorization: `Bearer ${authStore.accessToken}`,
+              Authorization: `Bearer ${authStore.getAccessToken()}`,
             },
           });
           return response;

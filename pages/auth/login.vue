@@ -35,7 +35,6 @@ async function login() {
       },
     });
     auth.setUser(userData);
-    auth.isAuthenticated = true;
 
     const next = useRoute().query.next;
     if (next) {

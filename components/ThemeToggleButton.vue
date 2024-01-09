@@ -1,11 +1,12 @@
 <script setup>
 import { useTheme } from "vuetify";
 
+const themeCookie = useCookie("theme");
 const theme = useTheme();
 
 function toggleTheme() {
   theme.global.name.value = theme.global.current.value.dark ? "light" : "dark";
-  localStorage.setItem("theme", theme.global.name.value);
+  themeCookie.value = theme.global.name.value;
 }
 
 const icon = computed(() => {

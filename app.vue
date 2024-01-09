@@ -2,14 +2,11 @@
 import { useTheme } from "vuetify";
 import useAuthStore from "~/store/auth";
 
-const theme = useTheme();
 const auth = useAuthStore();
+const themeCookie = useCookie("theme", { sameSite: "strict" });
+const theme = useTheme();
 
-auth.verifyToken();
-
-theme.global.name.value = localStorage.getItem("theme")
-  ? localStorage.getItem("theme")
-  : theme.global.name.value;
+theme.global.name.value = themeCookie.value || "light";
 
 useHead({
   title: "GetSongs",
