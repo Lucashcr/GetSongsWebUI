@@ -17,9 +17,7 @@ const useAuthStore = defineStore("auth", () => {
     maxAge: 60 * 60 * 24,
   });
 
-  const user = computed(() =>
-    userCookie.value ? JSON.parse(userCookie.value) : {}
-  );
+  const user = computed(() => (userCookie.value ? userCookie.value : {}));
 
   const backendURL = useRuntimeConfig().public.backendURL;
   const isAuthenticated = computed(() => !!accessTokenCookie.value);
