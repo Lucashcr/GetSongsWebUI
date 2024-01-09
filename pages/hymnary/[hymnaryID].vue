@@ -9,8 +9,7 @@ const globalStore = useGlobalStore();
 
 const hymnary = reactive(
   await $fetchApi.get(`/hymnary/${route.params.hymnaryID}`).catch(() => {
-    navigateTo("/hymnary");
-    return {};
+    return navigateTo("/hymnary");
   })
 );
 
@@ -22,8 +21,9 @@ definePageMeta({
   requiresAuth: true,
 });
 
-onMounted(async () => {
+onMounted(() => {
   globalStore.setAppBarTitle("Mãos à obra!");
+  globalStore.setLoading(false);
 });
 
 const addSongDialog = ref(false);

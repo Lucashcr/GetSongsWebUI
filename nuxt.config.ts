@@ -5,6 +5,10 @@ const { resolve } = createResolver(import.meta.url);
 export default defineNuxtConfig({
   ssr: true,
 
+  routeRules: {
+    "/hymnary/**": { ssr: false },
+  },
+
   // devtools: { enabled: true },
 
   css: ["vuetify/lib/styles/main.sass", "~/assets/global.css"],
