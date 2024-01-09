@@ -2,16 +2,19 @@ import { defineStore } from "pinia";
 
 const useAuthStore = defineStore("auth", () => {
   const accessTokenCookie = useCookie("access_token", {
+    httpOnly: true,
     secure: true,
     sameSite: "strict",
     maxAge: 60 * 60 * 24,
   });
   const refreshTokenCookie = useCookie("refresh_token", {
+    httpOnly: true,
     secure: true,
     sameSite: "strict",
     maxAge: 60 * 60 * 24,
   });
   const userCookie = useCookie("user", {
+    httpOnly: true,
     secure: true,
     sameSite: "strict",
     maxAge: 60 * 60 * 24,
