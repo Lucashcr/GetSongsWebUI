@@ -4,6 +4,7 @@ import useGlobalStore from "~/store";
 
 const auth = useAuthStore();
 const globalStore = useGlobalStore();
+const { $fetchApi } = useNuxtApp();
 
 const message = reactive({
   name: auth.isAuthenticated ? auth.user.full_name : "",
@@ -25,9 +26,16 @@ function sendMessage() {
     return;
   }
 
-  globalStore.setLoading(false);
-
-  navigateTo("/contact/thanks");
+  $fetchApi
+    .post("/sendmail/", data)
+    .then(() => {
+      navigateTo("/contact/thanks");
+    })
+    .catch((error) => {
+      alert("Ocorreu um erro ao enviar a mensagem!");
+      globalStore.setLoading(false);
+      console.error(error);
+    });
 }
 
 const EMAIL_REGEX = /^.+@.+\..+$/;
@@ -42,10 +50,12 @@ const rules = {
 definePageMeta({
   name: "Contact",
   layout: "centered",
+  requiresAuth: true,
 });
 
 onMounted(() => {
   globalStore.setAppBarTitle("Fale conosco!");
+  globalStore.setLoading(false);
 });
 </script>
 

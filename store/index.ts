@@ -29,6 +29,11 @@ const useGlobalStore = defineStore("main", {
         icon: "mdi-account",
       },
       {
+        title: "Contato",
+        to: "/contact",
+        icon: "mdi-email",
+      },
+      {
         title: "Sair",
         to: "/auth/logout",
         icon: "mdi-logout",
@@ -47,11 +52,6 @@ const useGlobalStore = defineStore("main", {
       },
     ],
     endItems: [
-      {
-        title: "Contato",
-        to: "/contact",
-        icon: "mdi-email",
-      },
       {
         title: "Sobre",
         to: "/about",

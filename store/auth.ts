@@ -1,26 +1,29 @@
 import { defineStore } from "pinia";
+import type User from "~/types/User";
 
 const useAuthStore = defineStore("auth", () => {
   const accessTokenCookie = useCookie("access_token", {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
-    maxAge: 60 * 60 * 24,
+    maxAge: 60 * 60 * 24 * 7,
   });
   const refreshTokenCookie = useCookie("refresh_token", {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
-    maxAge: 60 * 60 * 24,
+    maxAge: 60 * 60 * 24 * 7,
   });
   const userCookie = useCookie("user", {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
-    maxAge: 60 * 60 * 24,
+    maxAge: 60 * 60 * 24 * 7,
   });
 
-  const user = computed(() => (userCookie.value ? userCookie.value : {}));
+  const user = computed(() =>
+    userCookie.value ? (JSON.parse(userCookie.value) as User) : ({} as User)
+  );
 
   const backendURL = useRuntimeConfig().public.backendURL;
   const isAuthenticated = computed(() => !!accessTokenCookie.value);
