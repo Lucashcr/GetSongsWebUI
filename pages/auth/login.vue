@@ -34,7 +34,8 @@ async function login() {
         Authorization: `Bearer ${tokenData.access}`,
       },
     });
-    auth.setUser(userData);
+    console.log(userData);
+    auth.setUser(JSON.stringify(userData));
 
     const next = useRoute().query.next;
     if (next) {
