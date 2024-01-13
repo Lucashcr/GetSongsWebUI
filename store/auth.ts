@@ -46,12 +46,6 @@ const useAuthStore = defineStore("auth", () => {
     return accessTokenCookie.value;
   }
 
-  function login() {
-    accessTokenCookie.value = "";
-    refreshTokenCookie.value = "";
-    userCookie.value = "";
-  }
-
   function logout() {
     accessTokenCookie.value = "";
     refreshTokenCookie.value = "";
