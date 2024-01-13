@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import useAuthStore from "~/store/auth";
 import useGlobalStore from "~/store";
-import type User from "~/types/User";
+import type User from "~/types/user";
 
 const auth = useAuthStore();
 const globalStore = useGlobalStore();
@@ -9,9 +9,11 @@ const { $fetchApi } = useNuxtApp();
 
 const user = auth.user as User;
 
+console.log(user);
+
 const message = reactive({
-  name: auth.isAuthenticated ? user.full_name : "",
-  email: auth.isAuthenticated ? user.email : "",
+  name: user.full_name,
+  email: user.email,
   text: "",
 });
 

@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import type User from "~/types/User";
 
 const useAuthStore = defineStore("auth", () => {
   const accessTokenCookie = useCookie("access_token", {
