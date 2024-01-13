@@ -15,7 +15,6 @@ const useAuthStore = defineStore("auth", () => {
     maxAge: 60 * 60 * 24 * 7,
   });
   const userCookie = useCookie("user", {
-    httpOnly: true,
     secure: true,
     sameSite: "strict",
     maxAge: 60 * 60 * 24 * 7,
