@@ -4,7 +4,7 @@ import useGlobalStore from "~/store";
 
 const auth = useAuthStore();
 const globalStore = useGlobalStore();
-const { $fetchApi } = useNuxtApp();
+const backendURL = useRuntimeConfig().public.backendURL;
 
 const message = reactive({
   name: auth.user?.full_name || "",
@@ -26,8 +26,13 @@ function sendMessage() {
     return;
   }
 
-  $fetchApi
-    .post("/sendmail/", data)
+  $fetch(`${backendURL}/user/sendmail/`, {
+    method: "POST",
+    body: data,
+    headers: {
+      Authorization: `Bearer ${auth.getAccessToken()}`,
+    },
+  })
     .then(() => {
       navigateTo("/contact/thanks");
     })
