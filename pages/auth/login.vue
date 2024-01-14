@@ -34,7 +34,6 @@ async function login() {
         Authorization: `Bearer ${tokenData.access}`,
       },
     });
-    console.log(userData);
     auth.setUser(JSON.stringify(userData));
 
     const next = useRoute().query.next;
@@ -61,6 +60,12 @@ async function login() {
         <v-btn type="submit" color="primary">Entrar</v-btn>
       </v-form>
     </v-card-text>
+    <v-card-actions class="d-flex justify-center">
+      <v-btn color="grey lighten-3" to="/auth/register"> Registrar </v-btn>
+      <v-btn color="grey lighten-3" to="/auth/forgot-password">
+        Esqueci a senha
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
