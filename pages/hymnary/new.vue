@@ -17,7 +17,20 @@ function setButtonDisabled() {
   return hymnaries.value.some((hymnary) => hymnary.title === newHymnary.title);
 }
 
+const rules = [
+  (v: string | null) => !!v || "O título é obrigatório",
+  (v: string | null) =>
+    !hymnaries.value.some((hymnary) => hymnary.title === v) ||
+    "Já existe um hinário com esse título",
+];
+
 async function saveHymnary() {
+  for (const rule of rules) {
+    const result = rule(newHymnary.title);
+    if (typeof result === "string") {
+      return;
+    }
+  }
   globalStore.setLoading(true);
   const response = (await $fetchApi.post("/hymnary/", newHymnary)) as Hymnary;
   navigateTo(`/hymnary/${response.id}`);
@@ -49,11 +62,16 @@ onMounted(() => {
       <v-text-field
         v-model="newHymnary.title"
         label="Título"
-        required
+        :rules="[
+          (v) => !!v || 'O título é obrigatório',
+          (v) =>
+            !hymnaries.some((hymnary) => hymnary.title === v) ||
+            'Já existe um hinário com esse título',
+        ]"
       ></v-text-field>
-      <v-btn type="submit" :disabled="setButtonDisabled()" color="primary"
-        >Salvar</v-btn
-      >
+      <v-btn type="submit" :disabled="setButtonDisabled()" color="primary">
+        Salvar
+      </v-btn>
     </v-form>
   </v-card>
 </template>

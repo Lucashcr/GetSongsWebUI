@@ -14,6 +14,7 @@ const hymnary = reactive(
 );
 
 const editHymnaryTitle = ref(false);
+const newHymnaryTitle = ref(hymnary.title);
 
 definePageMeta({
   name: "HymnaryEdit",
@@ -77,6 +78,17 @@ async function fetchSong() {
   addSongPreview.value = result;
 }
 
+const hymnaries = (await $fetchApi.get("/hymnary/")).map((h) => h.title);
+
+const rules = {
+  name: [
+    (v) => !!v || "O título é obrigatório",
+    (v) =>
+      !hymnaries.some((hymnary) => hymnary === v) ||
+      "Já existe um hinário com esse título",
+  ],
+};
+
 async function updateHymnary(field, value) {
   await $fetchApi.patch(`/hymnary/${route.params.hymnaryID}/`, {
     [field]: value,
@@ -119,15 +131,24 @@ function removeSong(song) {
       class="pa-4 d-flex ga-4 align-center responsive-flex-dir"
     >
       <v-text-field
-        v-model="hymnary.title"
+        v-model="newHymnaryTitle"
         label="Título do Hinário"
         class="edit-hymnary-title-field"
+        :rules="rules.name"
       ></v-text-field>
       <v-btn
         color="primary"
         @click="
-          updateHymnary('title', hymnary.title);
-          editHymnaryTitle = false;
+          () => {
+            for (const rule of rules.name) {
+              const result = rule(newHymnaryTitle);
+              if (typeof result === 'string') {
+                return;
+              }
+            }
+            updateHymnary('title', newHymnaryTitle);
+            editHymnaryTitle = false;
+          }
         "
         class="full-width"
       >
@@ -135,7 +156,10 @@ function removeSong(song) {
       </v-btn>
       <v-btn
         color="secondary"
-        @click="editHymnaryTitle = false"
+        @click="
+          newHymnaryTitle = hymnary.title;
+          editHymnaryTitle = false;
+        "
         class="full-width"
       >
         Cancelar
