@@ -52,6 +52,9 @@ async function getArtists() {
     value: 0,
   });
   artists.value = result;
+  if (!result.some((a) => a.value === addSongArtist.value)) {
+    addSongArtist.value = 0;
+  }
 }
 getArtists();
 const addSongArtist = ref(0);
@@ -246,8 +249,10 @@ function removeSong(song) {
               v-model="addSongCategory"
               label="Categoria"
               @update:model-value="
-                getArtists();
-                getSongs();
+                async () => {
+                  await getArtists();
+                  await getSongs();
+                }
               "
             ></v-select>
             <v-select
