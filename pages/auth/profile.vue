@@ -14,17 +14,21 @@ definePageMeta({
 onMounted(() => {
   globalStore.setAppBarTitle("Deseja editar o seu perfil?");
 });
+
+const changoPasswordDialog = reactive({
+  show: false,
+});
+
+const messageDialog = reactive({
+  show: false,
+  title: "",
+  messages: [""],
+});
 </script>
 
 <template>
   <section>
     <v-card class="d-flex flex-column align-center rounded-lg pa-4">
-      <!-- <v-card-title>Perfil</v-card-title>
-      <v-card-text>
-        Nome: {{ auth.user.first_name }} {{ auth.user.last_name }}
-      </v-card-text>
-      <v-card-text>Usuário: {{ auth.user.username }}</v-card-text>
-      <v-card-text>Email: {{ auth.user.email }}</v-card-text> -->
       <v-card-title>Perfil</v-card-title>
       <v-card-text>
         <v-simple-table>
@@ -45,10 +49,26 @@ onMounted(() => {
         </v-simple-table>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="grey lighten-3">Trocar senha</v-btn>
+        <v-btn color="grey lighten-3" @click="changoPasswordDialog.show = true"
+          >Trocar senha</v-btn
+        >
         <v-btn color="grey lighten-3" to="/auth/logout">Sair</v-btn>
       </v-card-actions>
     </v-card>
+    <ChangePasswordDialog
+      v-model="changoPasswordDialog.show"
+      @on-close="
+        console.log('Password changed');
+        messageDialog.title = 'Prontinho!';
+        messageDialog.messages = ['Senha alterada com sucesso!'];
+        messageDialog.show = true;
+      "
+    />
+    <MessageDialog
+      v-model="messageDialog.show"
+      :title="messageDialog.title"
+      :messages="messageDialog.messages"
+    />
   </section>
 </template>
 
