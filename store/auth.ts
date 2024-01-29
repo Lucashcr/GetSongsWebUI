@@ -3,13 +3,11 @@ import type User from "~/types/user";
 
 const useAuthStore = defineStore("auth", () => {
   const accessTokenCookie = useCookie("access_token", {
-    httpOnly: true,
     secure: true,
     sameSite: "strict",
     maxAge: 60 * 60 * 24 * 7,
   });
   const refreshTokenCookie = useCookie("refresh_token", {
-    httpOnly: true,
     secure: true,
     sameSite: "strict",
     maxAge: 60 * 60 * 24 * 7,
@@ -27,6 +25,9 @@ const useAuthStore = defineStore("auth", () => {
     full_name: "",
     email: "",
   };
+
+  console.log(userCookie.value);
+  console.log(accessTokenCookie.value);
 
   const user = ref<User>(anonymousUser);
 
