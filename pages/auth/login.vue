@@ -61,8 +61,8 @@ async function login() {
       </v-form>
     </v-card-text>
     <v-card-actions class="d-flex justify-center">
-      <v-btn color="grey lighten-3" to="/auth/register"> Registrar </v-btn>
-      <v-btn color="grey lighten-3" to="/auth/forgot-password">
+      <v-btn color="gray" to="/auth/register"> Registrar </v-btn>
+      <v-btn color="gray" to="/auth/forgot-password">
         Esqueci a senha
       </v-btn>
     </v-card-actions>

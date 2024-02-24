@@ -22,7 +22,7 @@ export default defineNuxtPlugin((nuxtApp) => {
             info: "#2196F3",
             success: "#4CAF50",
             warning: "#FB8C00",
-            gray: "#3D3D3D",
+            gray: "#6D6D6D",
           },
         },
         dark: {
@@ -34,7 +34,7 @@ export default defineNuxtPlugin((nuxtApp) => {
             info: "#2196F3",
             success: "#4CAF50",
             warning: "#FB8C00",
-            gray: "#D1D1D1",
+            gray: "#717171",
           },
         },
       },
