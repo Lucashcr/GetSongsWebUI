@@ -58,7 +58,6 @@ const messageDialog = reactive({
     <ChangePasswordDialog
       v-model="changoPasswordDialog.show"
       @on-close="
-        console.log('Password changed');
         messageDialog.title = 'Prontinho!';
         messageDialog.messages = ['Senha alterada com sucesso!'];
         messageDialog.show = true;

@@ -26,9 +26,6 @@ const useAuthStore = defineStore("auth", () => {
     email: "",
   };
 
-  console.log(userCookie.value);
-  console.log(accessTokenCookie.value);
-
   const user = ref<User>(anonymousUser);
 
   const isAuthenticated = computed<Boolean>(() => !!accessTokenCookie.value);
