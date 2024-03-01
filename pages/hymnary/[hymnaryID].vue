@@ -61,6 +61,7 @@ const addSongArtist = ref(0);
 
 const songs = ref([]);
 const addSongSong = ref(null);
+const songByLyrics = ref([]);
 async function getSongs() {
   songByLyrics.value = "";
   const result = (
@@ -82,7 +83,6 @@ async function fetchSong() {
   addSongPreview.value = result;
 }
 
-const songByLyrics = ref([]);
 async function fetchByLyrics() {
   const queryParams = new URLSearchParams();
   queryParams.append("q", songByLyrics.value);
