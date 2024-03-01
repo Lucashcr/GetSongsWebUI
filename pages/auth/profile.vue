@@ -5,6 +5,8 @@ import useGlobalStore from "~/store";
 const auth = useAuthStore();
 const globalStore = useGlobalStore();
 
+console.log(auth.user);
+
 definePageMeta({
   name: "Profile",
   layout: "centered",
@@ -31,8 +33,8 @@ const messageDialog = reactive({
     <v-card class="d-flex flex-column align-center rounded-lg pa-4">
       <v-card-title>Perfil</v-card-title>
       <v-card-text>
-        <v-simple-table>
-          <template v-slot:default>
+        <v-table>
+        <template v-slot:default>
             <tr>
               <th class="text-left">Usuário</th>
               <td>{{ auth.user.username }}</td>
@@ -46,7 +48,7 @@ const messageDialog = reactive({
               <td>{{ auth.user.email }}</td>
             </tr>
           </template>
-        </v-simple-table>
+        </v-table>
       </v-card-text>
       <v-card-actions>
         <v-btn color="grey lighten-3" @click="changoPasswordDialog.show = true"

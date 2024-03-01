@@ -62,6 +62,7 @@ const addSongArtist = ref(0);
 const songs = ref([]);
 const addSongSong = ref(null);
 async function getSongs() {
+  songByLyrics.value = "";
   const result = (
     await $fetchApi.get(
       `/song/?category_id=${addSongCategory.value}&artist_id=${addSongArtist.value}`
@@ -79,6 +80,26 @@ const addSongPreview = ref(null);
 async function fetchSong() {
   const result = await $fetchApi.get(`/song/${addSongSong.value}`);
   addSongPreview.value = result;
+}
+
+const songByLyrics = ref([]);
+async function fetchByLyrics() {
+  const queryParams = new URLSearchParams();
+  queryParams.append("q", songByLyrics.value);
+  if (addSongArtist.value) {
+    queryParams.append("artist_id", addSongArtist.value);
+  }
+  if (addSongCategory.value) {
+    queryParams.append("category_id", addSongCategory.value);
+  }
+  const result = (
+    await $fetchApi.get(`/song-search?${queryParams.toString()}`)
+  ).map((s) => ({
+    title: `${s.name} - ${s.artist.name}`,
+    value: s.id,
+  }));
+  songs.value = result;
+  addSongSong.value = null;
 }
 
 const hymnaries = (await $fetchApi.get("/hymnary/")).map((h) => h.title);
@@ -214,8 +235,8 @@ function removeSong(song) {
           drag = false;
           reorderSongs();
         "
-        @touchstart.native="drag = true"
-        @touchend.native="
+        @touchstart="drag = true"
+        @touchend="
           drag = false;
           reorderSongs();
         "
@@ -235,16 +256,16 @@ function removeSong(song) {
   <v-dialog
     v-model="addSongDialog"
     :overlay="true"
-    max-width="800px"
+    max-width="1000px"
     transition="dialog-transition"
     eager
   >
     <v-sheet class="rounded-xl">
-      <v-sheet class="responsive-flex-dir">
-        <v-sheet class="ma-4">
+      <v-sheet class="d-flex responsive-flex-dir">
+        <v-sheet class="pa-4 flex-grow-1 h-100">
           <v-card-title>Adicionar música</v-card-title>
           <v-sheet class="pa-2">
-            <v-select
+            <v-autocomplete
               :items="categories"
               v-model="addSongCategory"
               label="Categoria"
@@ -254,39 +275,47 @@ function removeSong(song) {
                   await getSongs();
                 }
               "
-            ></v-select>
-            <v-select
+            ></v-autocomplete>
+            <v-autocomplete
               :items="artists"
               v-model="addSongArtist"
               label="Artista"
               @update:model-value="getSongs()"
-            ></v-select>
-            <v-select
+            ></v-autocomplete>
+            <v-autocomplete
               :items="songs"
               v-model="addSongSong"
               label="Música"
-              @update:model-value="fetchSong()"
-            ></v-select>
+              @update:model-value="fetchSong"
+            ></v-autocomplete>
+            <div class="d-flex flex-row align-center ga-4">
+              <v-text-field
+                v-model="songByLyrics"
+                label="Pesquisar trecho de música"
+                clearable
+                :hint="['Digite um trecho da música para pesquisar e clicar no botão ao lado.', 'O resultado será exibido no seletor de músicas.']"
+              ></v-text-field>
+              <v-btn color="secondary" @click="fetchByLyrics">
+                <v-icon>mdi-magnify</v-icon>
+              </v-btn>
+            </div>
+          </v-sheet>
+          <v-sheet class="mx-2 mb-2 d-flex justify-space-between ga-4">
+            <v-btn color="primary" @click="addSong"> Adicionar </v-btn>
+            <v-btn color="error" @click="addSongDialog = false"> Cancelar </v-btn>
           </v-sheet>
         </v-sheet>
-        <v-sheet class="ma-4" v-if="addSongPreview">
-          <v-card-title primary-title> Preview </v-card-title>
-          <div class="px-4">
-            <iframe
-              style="border-radius: 15px"
+        <v-sheet class="pa-4" v-if="addSongPreview">
+          <div class="pa-4 w-100 h-100">
+            <iframe 
+              class="w-100 h-100"
               :src="addSongPreview.preview_url"
-              width="100%"
-              height="232"
               frameborder="0"
               allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"
             ></iframe>
           </div>
         </v-sheet>
-      </v-sheet>
-      <v-sheet class="mx-8 mb-8 d-flex justify-end ga-4">
-        <v-btn color="primary" @click="addSong"> Adicionar </v-btn>
-        <v-btn color="error" @click="addSongDialog = false"> Cancelar </v-btn>
       </v-sheet>
     </v-sheet>
   </v-dialog>
