@@ -12,7 +12,7 @@ const useAuthStore = defineStore("auth", () => {
     sameSite: "strict",
     maxAge: 60 * 60 * 24 * 7,
   });
-  const userCookie = useCookie("user", {
+  const userCookie = useCookie<User>("user", {
     secure: true,
     sameSite: "strict",
     maxAge: 60 * 60 * 24 * 7,
@@ -27,6 +27,9 @@ const useAuthStore = defineStore("auth", () => {
   };
 
   const user = ref<User>(anonymousUser);
+  if (userCookie.value) {
+    user.value = userCookie.value;
+  }
 
   const isAuthenticated = computed<Boolean>(() => !!accessTokenCookie.value);
 
@@ -35,9 +38,9 @@ const useAuthStore = defineStore("auth", () => {
     refreshTokenCookie.value = tokenObj.refresh;
   }
 
-  function setUser(userValue: string) {
+  function setUser(userValue: User) {
     userCookie.value = userValue;
-    user.value = JSON.parse(userValue);
+    user.value = userValue;
   }
 
   function getAccessToken() {
@@ -47,7 +50,7 @@ const useAuthStore = defineStore("auth", () => {
   function logout() {
     accessTokenCookie.value = "";
     refreshTokenCookie.value = "";
-    userCookie.value = "";
+    userCookie.value = anonymousUser;
   }
 
   return {
