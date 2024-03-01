@@ -21,8 +21,8 @@ useHead({
 </script>
 
 <template>
-  <client-only>
-    <v-navigation-drawer app expand-on-hover rail permanent>
+  <v-navigation-drawer app expand-on-hover rail permanent>
+    <client-only>
       <v-container class="fill-height pa-0 flex-column">
         <v-col>
           <v-row>
@@ -91,8 +91,8 @@ useHead({
           </v-row>
         </v-col>
       </v-container>
-    </v-navigation-drawer>
-  </client-only>
+    </client-only>
+  </v-navigation-drawer>
 </template>
 
 <style scoped>
