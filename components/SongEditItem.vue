@@ -38,6 +38,10 @@ defineProps({
 </template>
 
 <style scoped>
+.v-card {
+  cursor: grab
+}
+
 #drag-icon {
   display: none;
 }
