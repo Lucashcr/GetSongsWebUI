@@ -1,13 +1,7 @@
 <script setup>
-import { useTheme } from "vuetify";
 import useAuthStore from "~/store/auth";
 
 const auth = useAuthStore();
-
-const themeCookie = useCookie("theme", { sameSite: "strict" });
-const theme = useTheme();
-
-theme.global.name.value = themeCookie.value || "light";
 
 useHead({
   title: "GetSongs",

@@ -1,5 +1,15 @@
+<script setup>
+import { useTheme } from "vuetify";
+
+const theme = useTheme();
+const themeCookie = useCookie("theme", { sameSite: "strict" });
+
+theme.global.name.value = themeCookie.value || "light";
+</script>
+
+
 <template>
-  <v-app>
+  <v-app :theme="theme.global.name.value">
     <NavigationMenu />
     <v-app-bar :elevation="2">
       <v-img
