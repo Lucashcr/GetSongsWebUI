@@ -31,24 +31,22 @@ const messageDialog = reactive({
     <v-card class="d-flex flex-column align-center rounded-lg pa-4">
       <v-card-title>Perfil</v-card-title>
       <v-card-text>
-        <client-only>
-          <v-table>
-            <template v-slot:default>
-              <tr>
-                <th class="text-left">Usuário</th>
-                <td>{{ auth.user.username }}</td>
-              </tr>
-              <tr>
-                <th class="text-left">Nome</th>
-                <td>{{ auth.user.first_name }} {{ auth.user.last_name }}</td>
-              </tr>
-              <tr>
-                <th class="text-left">Email</th>
-                <td>{{ auth.user.email }}</td>
-              </tr>
-            </template>
-          </v-table>
-        </client-only>
+        <v-table>
+          <template v-slot:default>
+            <tr>
+              <th class="text-left">Usuário</th>
+              <td>{{ auth.user.username }}</td>
+            </tr>
+            <tr>
+              <th class="text-left">Nome</th>
+              <td>{{ auth.user.first_name }} {{ auth.user.last_name }}</td>
+            </tr>
+            <tr>
+              <th class="text-left">Email</th>
+              <td>{{ auth.user.email }}</td>
+            </tr>
+          </template>
+        </v-table>
       </v-card-text>
       <v-card-actions>
         <v-btn color="grey lighten-3" @click="changoPasswordDialog.show = true"
