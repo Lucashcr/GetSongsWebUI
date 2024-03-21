@@ -19,7 +19,6 @@ const dialog = computed({
 const hymnary = computed(() => props.hymnary)
 
 const { $fetchApi } = useNuxtApp();
-const route = useRoute();
 
 const categories = (await $fetchApi.get("/category/")).map((c) => ({
   title: c.name,
@@ -95,16 +94,11 @@ async function fetchByLyrics() {
 }
 
 function addSong() {
-  console.log(hymnary.value)
   $fetchApi
-    .post("/hymnarysong/", {
-      song: addSongSong.value,
-      hymnary: route.params.hymnaryID,
-      order: hymnary.value.songs.length + 1,
-    })
-    .then(() => {
-      hymnary.value.songs.push(addSongPreview.value);
-      emit('update:modelValue', false)
+    .post(`/hymnary/${hymnary.value.id}/add/${addSongSong.value}/`, {})
+    .then((song) => {
+      hymnary.value.songs.push(song);
+      emit('update:modelValue', false);
     });
 }
 </script>
@@ -150,7 +144,7 @@ function addSong() {
                 v-model="songByLyrics"
                 label="Pesquisar trecho de música"
                 clearable
-                hint="Digite um trecho da música para pesquisar e clicar no botão ao lado.', 'O resultado será exibido no seletor de músicas."
+                hint="Digite um trecho da música para pesquisar e clicar no botão ao lado. O resultado será exibido no seletor de músicas."
               ></v-text-field>
               <v-btn color="secondary" @click="fetchByLyrics">
                 <v-icon>mdi-magnify</v-icon>

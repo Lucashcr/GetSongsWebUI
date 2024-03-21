@@ -27,13 +27,13 @@ onMounted(() => {
 const addSongDialog = ref(false);
 
 function reorderSongs() {
-  $fetchApi.post(`/hymnary/${route.params.hymnaryID}/reorder/`, {
+  $fetchApi.post(`/hymnary/${hymnary.id}/reorder/`, {
     songs: hymnary.songs.map((s) => s.id),
   });
 }
 
 function removeSong(song) {
-  $fetchApi.delete(`/hymnarysong/${song.hymnarysongs}/`).then(() => {
+  $fetchApi.delete(`/hymnary/${hymnary.id}/remove/${song.id}/`).then(() => {
     const index = hymnary.songs.findIndex((s) => s.id === song.id);
     hymnary.songs.splice(index, 1);
   });
