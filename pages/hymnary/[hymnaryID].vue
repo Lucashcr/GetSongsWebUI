@@ -33,9 +33,10 @@ function reorderSongs() {
 }
 
 function removeSong(song) {
-  $fetchApi.delete(`/hymnary/${hymnary.id}/remove/${song.id}/`).then(() => {
-    const index = hymnary.songs.findIndex((s) => s.id === song.id);
-    hymnary.songs.splice(index, 1);
+  const index = hymnary.songs.findIndex((s) => s.id === song.id);
+  hymnary.songs.splice(index, 1);
+  $fetchApi.delete(`/hymnary/${hymnary.id}/remove/${song.id}/`).catch(() => {
+    hymnary.songs.splice(index, 0, song);
   });
 }
 </script>
