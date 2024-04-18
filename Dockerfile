@@ -28,4 +28,4 @@ ENV HOST 0.0.0.0
 EXPOSE 3000
 
 # run the build project with node
-CMD ["node", ".output/server/index.mjs"]
+CMD ["npm", "run", "start"]
