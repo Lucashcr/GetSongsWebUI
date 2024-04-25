@@ -14,7 +14,7 @@ test("should login user", async ({ page }) => {
   await page.goto("/auth/login");
 
   for (const key in user) {
-    const input = page.locator(`input[id="${key}"]`);
+    const input = page.locator(`input[id="login-${key}-input"]`);
     await input.fill(user[key as keyof typeof user]);
   }
 

@@ -50,16 +50,19 @@ test("access pages by menu (logged user)", async ({ page }) => {
   page.route("*/**/user/token/", loginResolver);
   page.route("*/**/user/me/", currentUserResolver);
 
+  const user = {
+    username: "usertest",
+    password: "pass15973",
+  };
+
   await page.goto("/auth/login");
 
-  const usernameInput = page.locator("input[id='username']");
-  const passwordInput = page.locator("input[id='password']");
-  const submitButton = page.locator("button[type='submit']");
+  for (const key in user) {
+    const input = page.locator(`input[id="login-${key}-input"]`);
+    await input.fill(user[key as keyof typeof user]);
+  }
 
-  await Promise.all([
-    usernameInput.fill("usertest"),
-    passwordInput.fill("pass15973"),
-  ]);
+  const submitButton = page.locator("button[type='submit']");
   await submitButton.click();
 
   const pageTitle = page.locator("header.v-toolbar div.v-toolbar__content h2")

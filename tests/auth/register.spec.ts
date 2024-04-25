@@ -17,7 +17,7 @@ test("should register user", async ({ page }) => {
   await page.goto("/auth/register");
 
   for (const key in user) {
-    const input = page.locator(`input[id="${key}"]`);
+    const input = page.locator(`input[id="register-${key}-input"]`);
     await input.fill(user[key as keyof typeof user]);
   }
 
@@ -42,7 +42,7 @@ test("should not register user (empty first name)", async ({ page }) => {
   await page.goto("/auth/register");
 
   for (const key in user) {
-    const input = page.locator(`input[id="${key}"]`);
+    const input = page.locator(`input[id="register-${key}-input"]`);
     await input.fill(user[key as keyof typeof user]);
   }
 
@@ -67,7 +67,7 @@ test("should not register user (empty email)", async ({ page }) => {
   await page.goto("/auth/register");
 
   for (const key in user) {
-    const input = page.locator(`input[id="${key}"]`);
+    const input = page.locator(`input[id="register-${key}-input"]`);
     await input.fill(user[key as keyof typeof user]);
   }
 
@@ -92,7 +92,7 @@ test("should not register user (invalid email)", async ({ page }) => {
   await page.goto("/auth/register");
 
   for (const key in user) {
-    const input = page.locator(`input[id="${key}"]`);
+    const input = page.locator(`input[id="register-${key}-input"]`);
     await input.fill(user[key as keyof typeof user]);
   }
 
@@ -117,7 +117,7 @@ test("should not register user (empty password)", async ({ page }) => {
   await page.goto("/auth/register");
 
   for (const key in user) {
-    const input = page.locator(`input[id="${key}"]`);
+    const input = page.locator(`input[id="register-${key}-input"]`);
     await input.fill(user[key as keyof typeof user]);
   }
 
@@ -142,7 +142,7 @@ test("should not register user (password length)", async ({ page }) => {
   await page.goto("/auth/register");
 
   for (const key in user) {
-    const input = page.locator(`input[id="${key}"]`);
+    const input = page.locator(`input[id="register-${key}-input"]`);
     await input.fill(user[key as keyof typeof user]);
   }
 
@@ -167,7 +167,7 @@ test("should not register user (empty confirmation password)", async ({ page }) 
   await page.goto("/auth/register");
 
   for (const key in user) {
-    const input = page.locator(`input[id="${key}"]`);
+    const input = page.locator(`input[id="register-${key}-input"]`);
     await input.fill(user[key as keyof typeof user]);
   }
 
@@ -192,7 +192,7 @@ test("should not register user (confirmation password not match)", async ({ page
   await page.goto("/auth/register");
 
   for (const key in user) {
-    const input = page.locator(`input[id="${key}"]`);
+    const input = page.locator(`input[id="register-${key}-input"]`);
     await input.fill(user[key as keyof typeof user]);
   }
 

@@ -55,8 +55,8 @@ async function login() {
     <v-card-title>Entrar</v-card-title>
     <v-card-text>
       <v-form class="d-flex flex-column align-center" @submit.prevent="login">
-        <v-text-field id="username" label="Usuário" v-model="user.username" type="text" />
-        <v-text-field id="password" label="Senha" v-model="user.password" type="password" />
+        <v-text-field id="login-username-input" label="Usuário" v-model="user.username" type="text" />
+        <v-text-field id="login-password-input" label="Senha" v-model="user.password" type="password" />
         <v-btn type="submit" color="primary">Entrar</v-btn>
       </v-form>
     </v-card-text>
