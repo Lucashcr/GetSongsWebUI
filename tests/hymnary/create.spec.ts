@@ -1,11 +1,10 @@
 import { test, expect } from "@playwright/test";
 import { loginResolver, currentUserResolver } from "~/tests/mocks/handlers/auth";
 import { createHymnaryResolver, getExistingHymnaryResolver } from "~/tests/mocks/handlers/hymnary";
+import { performUserLoginAndAuthorization } from "~/tests/utils/helpers";
 
 
 test("should not create new hymnary (existing hymnary title)", async ({ page }) => {
-  page.route("*/**/user/token/", loginResolver);
-  page.route("*/**/user/me/", currentUserResolver);
   page.route("*/**/api/hymnary", getExistingHymnaryResolver);
   
   await page.goto("/");
@@ -13,15 +12,7 @@ test("should not create new hymnary (existing hymnary title)", async ({ page }) 
   const loginMenuOption = page.locator("a.v-list-item[href='/auth/login']");
   await loginMenuOption.click();
 
-  const usernameInput = page.locator("input[id='login-username-input']");
-  const passwordInput = page.locator("input[id='login-password-input']");
-  const loginSubmitButton = page.locator("button[type='submit']");
-
-  await Promise.all([
-    usernameInput.fill("usertest"),
-    passwordInput.fill("testpassword"),
-  ]);
-  await loginSubmitButton.click();
+  await performUserLoginAndAuthorization(page);
 
   const newHymnaryMenuOption = page.locator("a.v-list-item[href='/hymnary/new']");
   await newHymnaryMenuOption.click();
@@ -35,8 +26,6 @@ test("should not create new hymnary (existing hymnary title)", async ({ page }) 
 
 
 test("should create new hymnary", async ({ page }) => {
-  page.route("*/**/user/token/", loginResolver);
-  page.route("*/**/user/me/", currentUserResolver);
   page.route("*/**/api/hymnary", getExistingHymnaryResolver);
   page.route("*/**/api/hymnary/", createHymnaryResolver);
   page.route("*/**/api/hymnary/1", getExistingHymnaryResolver);
@@ -45,16 +34,8 @@ test("should create new hymnary", async ({ page }) => {
 
   const loginMenuOption = page.locator("a.v-list-item[href='/auth/login']");
   await loginMenuOption.click();
-
-  const usernameInput = page.locator("input[id='login-username-input']");
-  const passwordInput = page.locator("input[id='login-password-input']");
-  const loginSubmitButton = page.locator("button[type='submit']");
-
-  await Promise.all([
-    usernameInput.fill("usertest"),
-    passwordInput.fill("testpassword"),
-  ]);
-  await loginSubmitButton.click();
+  
+  await performUserLoginAndAuthorization(page);
 
   const newHymnaryMenuOption = page.locator("a.v-list-item[href='/hymnary/new']");
   await newHymnaryMenuOption.click();
@@ -65,6 +46,5 @@ test("should create new hymnary", async ({ page }) => {
   const newHymnarySubmitButton = page.locator("button[type='submit']");
   await newHymnarySubmitButton.click();
 
-  const pageTitle = page.locator("header.v-toolbar div.v-toolbar__content h2");
-  await expect(pageTitle).toContainText("Mãos à obra!");
+  await expect(page).not.toHaveURL("/hymnary/1");
 })

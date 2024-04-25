@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { loginResolver, currentUserResolver } from "~/tests/mocks/handlers/auth";
+import { performUserLoginAndAuthorization } from "../utils/helpers";
 
 
 test("should login user", async ({ page }) => {
@@ -21,6 +22,13 @@ test("should login user", async ({ page }) => {
   const submitButton = page.locator("button[type='submit']");
   await submitButton.click();
 
-  const pageTitle = page.locator("header.v-toolbar div.v-toolbar__content h2");
-  await expect(pageTitle).toContainText("Aqui estão seus hinários!");
+  await page.waitForTimeout(1000);
+  await expect(page).toHaveURL("/hymnary");
+});
+
+
+test("should login user (using helper)", async ({ page }) => {
+  await page.goto("/auth/login");
+  await performUserLoginAndAuthorization(page);
+  await expect(page).toHaveURL("/hymnary");
 });

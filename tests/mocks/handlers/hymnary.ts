@@ -33,3 +33,12 @@ export const getExistingHymnaryResolver = async (route: Route) => {
   ];
   await route.fulfill({ json });
 };
+
+export const getEmptyListHymnaryResolver = async (route: Route) => {
+  const json: any[] = [];
+  await route.fulfill({ json });
+};
+
+export const deleteHymnaryResolver = async (route: Route) => {
+  await route.fulfill({ status: 204 });
+}

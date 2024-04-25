@@ -57,13 +57,27 @@ function deleteHymnary() {
         <p>Qtd de músicas: {{ hymnary.songs.length }}</p>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="accent" @click="router.push(`/hymnary/${hymnary.id}`)">
+        <v-btn
+          color="accent"
+          @click="router.push(`/hymnary/${hymnary.id}`)"
+          :id="`hymnary-${hymnary.id}-edit-button`"
+        >
           Editar
         </v-btn>
-        <v-btn color="accent" @click="$exportHymnary(hymnary)">Baixar</v-btn>
-        <v-btn color="error" @click="deleteHymnaryDialogOpen(hymnary)"
-          >Excluir</v-btn
+        <v-btn
+          color="accent"
+          @click="$exportHymnary(hymnary)"
+          :id="`hymnary-${hymnary.id}-export-button`"
         >
+          Baixar
+        </v-btn>
+        <v-btn
+          color="error"
+          @click="deleteHymnaryDialogOpen(hymnary)"
+          :id="`hymnary-${hymnary.id}-delete-button`"
+        >
+          Excluir
+        </v-btn>
       </v-card-actions>
     </v-card>
   </template>
@@ -92,9 +106,10 @@ function deleteHymnary() {
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="primary" @click="deleteHymnaryDialogClose()"
+          id="cancel-delete-button"
           >Cancelar</v-btn
         >
-        <v-btn color="error" @click="deleteHymnary()">Excluir</v-btn>
+        <v-btn color="error" @click="deleteHymnary()" id="confirm-delete-button">Excluir</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
