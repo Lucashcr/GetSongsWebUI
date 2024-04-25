@@ -62,6 +62,7 @@ onMounted(() => {
       <v-text-field
         v-model="newHymnary.title"
         label="Título"
+        id="new-hymnary-title-input"
         :rules="[
           (v) => !!v || 'O título é obrigatório',
           (v) =>
