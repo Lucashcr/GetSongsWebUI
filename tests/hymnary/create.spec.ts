@@ -1,5 +1,4 @@
 import { test, expect } from "@playwright/test";
-import { loginResolver, currentUserResolver } from "~/tests/mocks/handlers/auth";
 import { createHymnaryResolver, getExistingHymnaryResolver } from "~/tests/mocks/handlers/hymnary";
 import { performUserLoginAndAuthorization } from "~/tests/utils/helpers";
 

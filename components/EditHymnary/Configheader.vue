@@ -49,7 +49,7 @@ async function updateHymnary(field, value) {
     <v-text-field
       v-model="newHymnaryTitle"
       label="Título do Hinário"
-      class="edit-hymnary-title-field"
+      id="edit-hymnary-title-input"
       :rules="rules.name"
     ></v-text-field>
     <v-btn
@@ -68,6 +68,7 @@ async function updateHymnary(field, value) {
           editHymnaryTitle = false;
         }
       "
+      id="edit-hymnary-title-confirm"
       class="full-width"
     >
       Salvar
@@ -88,7 +89,7 @@ async function updateHymnary(field, value) {
     class="pa-4 d-flex ga-4 align-center justify-space-between responsive-flex-dir"
   >
     <v-sheet class="full-width">
-      <h2 @click="editHymnaryTitle = true" style="cursor: pointer">
+      <h2 id="edit-hymnary-title" @click="editHymnaryTitle = true" style="cursor: pointer">
         {{ hymnary.title }} <v-icon>mdi-note-edit-outline</v-icon>
       </h2>
     </v-sheet>
@@ -127,7 +128,7 @@ async function updateHymnary(field, value) {
 
 @media screen and (max-width: 800px) {
   .full-width,
-  .edit-hymnary-title-field {
+  #edit-hymnary-title-input {
     width: 100%;
   }
   .responsive-flex-dir {
