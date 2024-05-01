@@ -1,75 +1,61 @@
-# Nuxt 3 Minimal Starter
+# GetSongsWebUI
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Somos uma plataforma de montagem e geração automática de hinários. Nosso serviço é especialmente projetado para ajudar músicos católicos a criar hinários personalizados com facilidade. Se você está procurando um hinário para um casamento, batizado, missa ou outro evento, o GetSongs é a escolha perfeita. Nosso compromisso de oferecer uma experiência de montagem de hinário fácil, rápida e conveniente para todos os tipos de eventos e ocasiões.
 
-## Setup
+Aqui você pode montar seu hinário escolhendo entre uma ampla variedade de músicas disponíveis em nossa biblioteca e personalizá-lo de acordo com as suas necessidades. Além disso, nossa equipe está sempre atualizando a biblioteca com as últimas músicas e tendências, para garantir que você tenha acesso às músicas mais recentes e populares.
 
-Make sure to install the dependencies:
+Após finalizar a montagem do hinário, o GetSongs pode, com apenas um clique, exportar automaticamente um documento em formato PDF com todas as letras das músicas na sequência estabelecida e com as configurações definidas pelo usuário. Isso significa que você pode ter acesso a seu hinário personalizado a qualquer momento, em qualquer lugar e em qualquer dispositivo, permitindo que você compartilhe seu hinário com facilidade.
 
-```bash
-# npm
-npm install
+Portanto, se você precisa de um hinário para uma ocasião especial, o GetSongs é a escolha perfeita. Obrigado por escolher o GetSongs. Experimente já nosso serviço e veja como é fácil criar seu próprio hinário personalizado.
 
-# pnpm
-pnpm install
+[![Nuxt.js](https://img.shields.io/badge/Nuxt.js-3.7-04C690.svg)](https://nuxtjs.org/) [![Vuetify](https://img.shields.io/badge/Vuetify-3.4-1867C0.svg)](https://vuetifyjs.com/en/)
 
-# yarn
-yarn install
+## Requisitos
 
-# bun
-bun install
-```
+|Dependência|Versão|
+|-|-|
+|Node|18|
+|NuxtJS|3.7|
+|Vue|3.3|
+|Vuetify|3.4|
+|Pinia|2.1|
 
-## Development Server
+_Vide package.json_
 
-Start the development server on `http://localhost:3000`:
+## Instalação
 
-```bash
-# npm
-npm run dev
+1. Clone o repositório:
 
-# pnpm
-pnpm run dev
+> git clone https://github.com/Lucashcr/GetSongsWebUI.git
 
-# yarn
-yarn dev
+2. Entre no diretório do projeto:
 
-# bun
-bun run dev
-```
+> cd GetSongsWebUI
 
-## Production
+3. Instale as dependências:
 
-Build the application for production:
+> npm install
 
-```bash
-# npm
-npm run build
+## Uso
 
-# pnpm
-pnpm run build
+Execute o servidor de desenvolvimento:
 
-# yarn
-yarn build
+> npm run dev
 
-# bun
-bun run build
-```
+Acesse o projeto em [http://localhost:3000/](http://localhost:3000/)
 
-Locally preview production build:
+## Contribuição
 
-```bash
-# npm
-npm run preview
+1. Faça o fork do projeto (https://github.com/seu_usuario/seu_projeto/fork)
+2. Crie uma branch para sua modificação (`git checkout -b feature/sua_feature`)
+3. Faça o commit (`git commit -am 'Adicione sua feature'`)
+4. Faça o push para a branch (`git push origin feature/sua_feature`)
+5. Crie um novo Pull Request
 
-# pnpm
-pnpm run preview
+## Licença
 
-# yarn
-yarn preview
+Este projeto é distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
-# bun
-bun run preview
-```
+## Contato
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Se você tiver dúvidas ou sugestões, por favor entre em contato.
