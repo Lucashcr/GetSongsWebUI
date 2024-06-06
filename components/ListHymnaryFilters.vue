@@ -35,6 +35,16 @@ function applyFilter() {
   });
 }
 
+function cleanFilters() {
+  search.value = "";
+  dateFilter.value = "created_at";
+  fromDate.value = null;
+  toDate.value = null;
+  tags.value = [];
+  currentPage.value = 1;
+  applyFilter();
+}
+
 function applyPagination(page) {
   emit("goToPage", page);
 }
@@ -100,6 +110,7 @@ onMounted(async () => {
       </v-row>
     </v-card-text>
     <v-card-actions>
+      <v-btn color="gray" @click="cleanFilters">Limpar</v-btn>
       <v-spacer></v-spacer>
       <v-pagination
         rounded
