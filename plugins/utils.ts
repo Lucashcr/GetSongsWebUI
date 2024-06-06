@@ -10,6 +10,11 @@ export default defineNuxtPlugin(() => {
         const parsedDateTime = new Date(datetime);
         return `${parsedDateTime.toLocaleDateString()} às ${parsedDateTime.toLocaleTimeString()}`;
       },
+
+      formatDate: (datetime: Date) => {
+        const parsedDateTime = new Date(datetime);
+        return parsedDateTime.toLocaleDateString();
+      },
       
       exportHymnary: async (hymnary: Hymnary) => {
         const globalStore = useGlobalStore();

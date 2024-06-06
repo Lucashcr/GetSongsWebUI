@@ -16,10 +16,7 @@ const props = defineProps({
   modelValue: Boolean,
 });
 
-const emit = defineEmits([
-  "update:modelValue",
-  "openAddSongDialog",
-]);
+const emit = defineEmits(["update:modelValue", "openAddSongDialog"]);
 
 const newHymnaryTitle = ref(props.hymnary.title);
 const editHymnaryTitle = ref(false);
@@ -89,7 +86,11 @@ async function updateHymnary(field, value) {
     class="pa-4 d-flex ga-4 align-center justify-space-between responsive-flex-dir"
   >
     <v-sheet class="full-width">
-      <h2 id="edit-hymnary-title" @click="editHymnaryTitle = true" style="cursor: pointer">
+      <h2
+        id="edit-hymnary-title"
+        @click="editHymnaryTitle = true"
+        style="cursor: pointer"
+      >
         {{ hymnary.title }} <v-icon>mdi-note-edit-outline</v-icon>
       </h2>
     </v-sheet>
@@ -119,6 +120,7 @@ async function updateHymnary(field, value) {
       ></v-checkbox>
     </v-sheet>
   </v-sheet>
+  <EditHymnaryTagsContainer v-model="hymnary.tags" />
 </template>
 
 <style>

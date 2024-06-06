@@ -6,6 +6,8 @@ export default defineNuxtConfig({
 
   // devtools: { enabled: true },
 
+  debug: true,
+
   css: ["vuetify/lib/styles/main.sass", "~/assets/global.css"],
 
   modules: ["@pinia/nuxt"],
@@ -14,11 +16,11 @@ export default defineNuxtConfig({
     transpile: ["vuetify"],
   },
 
-  vite: {
-    define: {
-      "process.env.DEBUG": false,
-    },
-  },
+  // vite: {
+  //   define: {
+  //     "process.env.DEBUG": false,
+  //   },
+  // },
 
   runtimeConfig: {
     public: {

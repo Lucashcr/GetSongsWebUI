@@ -21,6 +21,11 @@ const useGlobalStore = defineStore("main", {
         to: "/hymnary",
         icon: "mdi-note-multiple-outline",
       },
+      {
+        title: "Minhas tags",
+        to: "/tags",
+        icon: "mdi-tag-outline",
+      }
     ],
     authItems: [
       {
