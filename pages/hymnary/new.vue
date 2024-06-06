@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import useGlobalStore from "~/store";
+import type HymnariesListResponse from "~/types/HymnariesListResponse";
 import type Hymnary from "~/types/hymnary";
 
 const { $fetchApi } = useNuxtApp();
@@ -46,7 +47,7 @@ onMounted(() => {
   globalStore.setLoading(true);
   globalStore.setAppBarTitle("Vamos criar um novo hinário!");
   $fetchApi.get("/hymnary").then((res) => {
-    hymnaries.value = res as Hymnary[];
+    hymnaries.value = (res as HymnariesListResponse).results;
     globalStore.setLoading(false);
   });
 });
