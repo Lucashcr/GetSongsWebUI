@@ -11,17 +11,17 @@ const newHymnary = reactive({
   title: "",
 });
 
-const hymnaries = ref([] as Hymnary[]);
+const hymnaries = ref([] as string[]);
 
 function setButtonDisabled() {
   if (newHymnary.title === "") return true;
-  return hymnaries.value.some((hymnary) => hymnary.title === newHymnary.title);
+  return hymnaries.value.some((hymnary) => hymnary === newHymnary.title);
 }
 
 const rules = [
   (v: string | null) => !!v || "O título é obrigatório",
   (v: string | null) =>
-    !hymnaries.value.some((hymnary) => hymnary.title === v) ||
+    !hymnaries.value.some((hymnary) => hymnary === v) ||
     "Já existe um hinário com esse título",
 ];
 
@@ -46,8 +46,8 @@ definePageMeta({
 onMounted(() => {
   globalStore.setLoading(true);
   globalStore.setAppBarTitle("Vamos criar um novo hinário!");
-  $fetchApi.get("/hymnary").then((res) => {
-    hymnaries.value = (res as HymnariesListResponse).results;
+  $fetchApi.get("/hymnary/list_titles").then((res) => {
+    hymnaries.value = res as string[];
     globalStore.setLoading(false);
   });
 });
@@ -67,7 +67,7 @@ onMounted(() => {
         :rules="[
           (v) => !!v || 'O título é obrigatório',
           (v) =>
-            !hymnaries.some((hymnary) => hymnary.title === v) ||
+            !hymnaries.some((hymnary) => hymnary === v) ||
             'Já existe um hinário com esse título',
         ]"
       ></v-text-field>
