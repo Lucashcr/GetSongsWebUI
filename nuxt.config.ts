@@ -1,11 +1,12 @@
-import { createResolver } from "@nuxt/kit";
-const { resolve } = createResolver(import.meta.url);
+import { defineNuxtConfig } from "nuxt/config";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: false,
 
   // devtools: { enabled: true },
+
+  debug: true,
 
   css: ["vuetify/lib/styles/main.sass", "~/assets/global.css"],
 
@@ -15,18 +16,11 @@ export default defineNuxtConfig({
     transpile: ["vuetify"],
   },
 
-  components: [
-    {
-      path: resolve("./components"),
-      global: true,
-    },
-  ],
-
-  vite: {
-    define: {
-      "process.env.DEBUG": false,
-    },
-  },
+  // vite: {
+  //   define: {
+  //     "process.env.DEBUG": false,
+  //   },
+  // },
 
   runtimeConfig: {
     public: {

@@ -122,26 +122,40 @@ async function register() {
           v-model="user.first_name"
           type="text"
           :rules="rules.first_name"
+          id="register-first_name-input"
         />
-        <v-text-field label="Sobrenome" v-model="user.last_name" type="text" />
-        <v-text-field label="Usuário" v-model="user.username" type="text" />
+        <v-text-field
+          label="Sobrenome"
+          v-model="user.last_name"
+          type="text"
+          id="register-last_name-input"
+        />
+        <v-text-field
+          label="Usuário"
+          v-model="user.username"
+          type="text"
+          id="register-username-input"
+        />
         <v-text-field
           label="E-mail"
           v-model="user.email"
           type="email"
           :rules="rules.email"
+          id="register-email-input"
         />
         <v-text-field
           label="Senha"
           v-model="user.password"
           type="password"
           :rules="rules.password"
+          id="register-password-input"
         />
         <v-text-field
           label="Confirme a senha"
           v-model="user.password_confirmation"
           type="password"
           :rules="rules.password_confirmation"
+          id="register-confirm_password-input"
         />
         <v-btn color="primary" type="submit">Enviar</v-btn>
       </v-form>

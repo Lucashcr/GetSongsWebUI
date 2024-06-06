@@ -1,6 +1,17 @@
 node_modules/
+.nuxt/
+.output/
+
 *.log
 *.lock
 *.sh
-*.nuxt
 .env
+
+# Custom
+.aliases.sh
+
+# Playwright test results
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
