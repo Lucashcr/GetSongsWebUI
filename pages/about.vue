@@ -20,14 +20,10 @@ onMounted(() => {
     <section>
       <p>
         A plataforma
-        <CustomLink to="https://github.com/Lucashcr/GetSongsWeb"
-          >GetSongs</CustomLink
-        >
+        <CustomLink to="https://github.com/Lucashcr/GetSongsWeb">GetSongs</CustomLink>
         foi desenvolvida com a intenção de tornar a montagem de hinários mais
         fácil e rápida. A ideia surgiu a partir da experiência do seu criador,
-        <CustomLink to="https://www.linkedin.com/in/lucas-rocha-8b6655216/"
-          >Lucas Rocha</CustomLink
-        >
+        <CustomLink to="https://www.linkedin.com/in/lucas-rocha-8b6655216/">Lucas Rocha</CustomLink>
         , em igrejas e outras organizações religiosas, onde era comum encontrar
         dificuldades para criar hinários personalizados para eventos, missas,
         entre outros. Além disso, com a ajuda da tecnologia, o GetSongs foi
@@ -39,9 +35,7 @@ onMounted(() => {
       <p>
         Para criar a aplicação, foram utilizados o framework
         <CustomLink to="https://www.djangoproject.com/">Django</CustomLink> e
-        <CustomLink to="https://www.django-rest-framework.org/"
-          >Django REST Framework</CustomLink
-        >
+        <CustomLink to="https://www.django-rest-framework.org/">Django REST Framework</CustomLink>
         para construção do <em>back-end</em> e
         <CustomLink to="https://v2.nuxt.com/">Nuxt</CustomLink>,
         <CustomLink to="https://v2.vuejs.org/">Vuejs</CustomLink> e
