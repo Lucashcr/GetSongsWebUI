@@ -64,7 +64,7 @@ onMounted(async () => {
   <v-card class="mx-2 pa-2">
     <v-card-title primary-title>Filtrar por:</v-card-title>
     <v-card-text>
-      <v-row>
+      <v-row class="responsive-flex-dir">
         <v-col>
           <v-text-field
             v-model="search"
@@ -74,7 +74,7 @@ onMounted(async () => {
             hide-details
           />
         </v-col>
-        <v-col cols="4">
+        <v-col>
           <v-autocomplete
             v-model="tags"
             :items="tagOptions"
@@ -86,7 +86,7 @@ onMounted(async () => {
           ></v-autocomplete>
         </v-col>
       </v-row>
-      <v-row class="align-center">
+      <v-row class="responsive-flex-dir align-center">
         <v-col>
           <v-radio-group v-model="dateFilter" hide-details>
             <v-radio label="Data de criação" value="created_at"></v-radio>
