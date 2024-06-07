@@ -3,7 +3,7 @@ import useGlobalStore from "~/store";
 import type Tag from "~/types/tag";
 
 definePageMeta({
-  name: "Home",
+  name: "Tags",
   layout: "default",
   requiresAuth: true,
 });
