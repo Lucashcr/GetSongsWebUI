@@ -64,8 +64,8 @@ onMounted(async () => {
   <v-card class="mx-2 pa-2">
     <v-card-title primary-title>Filtrar por:</v-card-title>
     <v-card-text>
-      <v-row class="responsive-flex-dir">
-        <v-col>
+      <v-row>
+        <v-col cols="12" sm="6">
           <v-text-field
             v-model="search"
             label="Título do hinário"
@@ -74,7 +74,7 @@ onMounted(async () => {
             hide-details
           />
         </v-col>
-        <v-col>
+        <v-col cols="12" sm="6">
           <v-autocomplete
             v-model="tags"
             :items="tagOptions"
@@ -86,21 +86,21 @@ onMounted(async () => {
           ></v-autocomplete>
         </v-col>
       </v-row>
-      <v-row class="responsive-flex-dir align-center">
-        <v-col>
+      <v-row>
+        <v-col cols="12" sm="4">
           <v-radio-group v-model="dateFilter" hide-details>
             <v-radio label="Data de criação" value="created_at"></v-radio>
             <v-radio label="Data de atualização" value="updated_at"></v-radio>
           </v-radio-group>
         </v-col>
-        <v-col>
+        <v-col cols="12" sm="4">
           <DateTimeSelector
             label="A partir de"
             v-model="fromDate"
             :max-value="toDate || new Date()"
           />
         </v-col>
-        <v-col>
+        <v-col cols="12" sm="4">
           <DateTimeSelector
             label="Até"
             v-model="toDate"
