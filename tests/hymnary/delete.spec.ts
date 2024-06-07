@@ -4,8 +4,8 @@ import { performUserLoginAndAuthorization } from "../utils/helpers";
 
 
 test("should not delete hymnary (canceled by user)", async ({ page }) => {
-  page.route("*/**/api/hymnary", getExistingHymnaryResolver);
-  
+  page.route("*/**/api/hymnary?dateFilter=created_at&page=1", getExistingHymnaryResolver);
+
   await page.goto("/auth/login");
   await performUserLoginAndAuthorization(page);
   await expect(page).toHaveURL("/hymnary");
@@ -24,7 +24,7 @@ test("should not delete hymnary (canceled by user)", async ({ page }) => {
 
 
 test("should delete hymnary", async ({ page }) => {
-  page.route("*/**/api/hymnary", getExistingHymnaryResolver);
+  page.route("*/**/api/hymnary?dateFilter=created_at&page=1", getExistingHymnaryResolver);
   
   await page.goto("/auth/login");
   await performUserLoginAndAuthorization(page);

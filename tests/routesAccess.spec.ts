@@ -74,6 +74,7 @@ test("access pages by menu (logged user)", async ({ page }) => {
     "/": "Bem-vindo ao GetSongs!",
     "/hymnary/new": "Vamos criar um novo hinário!",
     "/hymnary": "Aqui estão seus hinários!",
+    "/tags": "Vamos gerenciar suas tags!",
     "/auth/profile": "Deseja editar o seu perfil?",
     "/contact": "Fale conosco!",
     "/auth/logout": "Já vai?",

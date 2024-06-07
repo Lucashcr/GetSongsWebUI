@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test";
-import { createHymnaryResolver, getExistingHymnaryResolver } from "~/tests/mocks/handlers/hymnary";
+import { createHymnaryResolver, getExistingHymnaryResolver, getExistingHymnaryTitlesResolver } from "~/tests/mocks/handlers/hymnary";
 import { performUserLoginAndAuthorization } from "~/tests/utils/helpers";
 
 
 test("should not create new hymnary (existing hymnary title)", async ({ page }) => {
-  page.route("*/**/api/hymnary", getExistingHymnaryResolver);
+  page.route("*/**/api/hymnary/list_titles", getExistingHymnaryTitlesResolver);
   
   await page.goto("/");
 
@@ -25,7 +25,7 @@ test("should not create new hymnary (existing hymnary title)", async ({ page }) 
 
 
 test("should create new hymnary", async ({ page }) => {
-  page.route("*/**/api/hymnary", getExistingHymnaryResolver);
+  page.route("*/**/api/hymnary/list_titles", getExistingHymnaryTitlesResolver);
   page.route("*/**/api/hymnary/", createHymnaryResolver);
   page.route("*/**/api/hymnary/1", getExistingHymnaryResolver);
   
