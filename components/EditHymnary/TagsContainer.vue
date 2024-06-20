@@ -37,9 +37,13 @@ function onDragStart(action: 'add' | 'remove', tagId: number) {
 }
 
 async function onDrop() {
-  const response = await $fetchApi.post(`/hymnary/${route.params.hymnaryID}/${dragTagInfo.action}_tag/`, {
-    tag: dragTagInfo.tagId,
-  });
+  let response;
+  const url = `/hymnary/${route.params.hymnaryID}/${dragTagInfo.action}_tag/${dragTagInfo.tagId}/`;
+  if (dragTagInfo.action === 'add') {
+    response = await $fetchApi.post(url, {});
+  } else {
+    response = await $fetchApi.delete(url);
+  }
   emit('update:modelValue', response);
 }
 
