@@ -31,7 +31,7 @@ async function login() {
     auth.setToken(tokenData);
     const userData = await $fetch(`${backendURL}/user/me/`, {
       headers: {
-        Authorization: `Bearer ${tokenData.access}`,
+        Authorization: `Token ${auth.getSessionToken()}`,
       },
     });
     auth.setUser(userData);

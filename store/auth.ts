@@ -2,12 +2,7 @@ import { defineStore } from "pinia";
 import type User from "~/types/user";
 
 const useAuthStore = defineStore("auth", () => {
-  const accessTokenCookie = useCookie("access_token", {
-    secure: true,
-    sameSite: "strict",
-    maxAge: 60 * 60 * 24 * 7,
-  });
-  const refreshTokenCookie = useCookie("refresh_token", {
+  const sessionTokenCookie = useCookie("token", {
     secure: true,
     sameSite: "strict",
     maxAge: 60 * 60 * 24 * 7,
@@ -31,11 +26,10 @@ const useAuthStore = defineStore("auth", () => {
     user.value = userCookie.value;
   }
 
-  const isAuthenticated = computed<Boolean>(() => !!accessTokenCookie.value);
+  const isAuthenticated = computed<Boolean>(() => !!sessionTokenCookie.value);
 
-  function setToken(tokenObj: { access: string; refresh: string }) {
-    accessTokenCookie.value = tokenObj.access;
-    refreshTokenCookie.value = tokenObj.refresh;
+  function setToken(tokenObj: { token: string }) {
+    sessionTokenCookie.value = tokenObj.token;
   }
 
   function setUser(userValue: User) {
@@ -43,13 +37,13 @@ const useAuthStore = defineStore("auth", () => {
     user.value = userValue;
   }
 
-  function getAccessToken() {
-    return accessTokenCookie.value;
+  function getSessionToken() {
+    console.log(sessionTokenCookie.value)
+    return sessionTokenCookie.value;
   }
 
   function logout() {
-    accessTokenCookie.value = "";
-    refreshTokenCookie.value = "";
+    sessionTokenCookie.value = "";
     userCookie.value = anonymousUser;
   }
 
@@ -58,7 +52,7 @@ const useAuthStore = defineStore("auth", () => {
     isAuthenticated,
     setUser,
     setToken,
-    getAccessToken,
+    getSessionToken,
     logout,
   };
 });
