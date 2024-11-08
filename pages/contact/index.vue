@@ -39,7 +39,6 @@ function sendMessage() {
     .catch((error) => {
       alert("Ocorreu um erro ao enviar a mensagem!");
       globalStore.setLoading(false);
-      console.error(error);
     });
 }
 

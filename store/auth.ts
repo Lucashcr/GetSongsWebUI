@@ -38,7 +38,6 @@ const useAuthStore = defineStore("auth", () => {
   }
 
   function getSessionToken() {
-    console.log(sessionTokenCookie.value)
     return sessionTokenCookie.value;
   }
 
