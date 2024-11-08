@@ -30,7 +30,7 @@ function sendMessage() {
     method: "POST",
     body: data,
     headers: {
-      Authorization: `Bearer ${auth.getAccessToken()}`,
+      Authorization: `Token ${auth.getSessionToken()}`,
     },
   })
     .then(() => {

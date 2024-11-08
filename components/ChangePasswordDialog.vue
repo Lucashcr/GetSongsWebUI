@@ -44,7 +44,7 @@ async function onSubmit() {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${auth.getAccessToken()}`,
+      Authorization: `Token ${auth.getSessionToken()}`,
     },
     body: JSON.stringify({
       old_password: oldPassword.value,
