@@ -74,7 +74,7 @@ function deleteHymnaryDialogClose() {
 function deleteHymnary() {
   globalStore.setLoading(true);
   $fetchApi
-    .delete(`/hymnary/${deleteHymnaryObject.value.id}`)
+    .delete(`/hymnary/${deleteHymnaryObject.value.id}/`)
     .then(async () => {
       hymnaries.value = await $fetchApi.get("/hymnary");
       globalStore.setLoading(false);
