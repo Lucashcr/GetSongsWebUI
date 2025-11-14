@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@mdi/font": "^7.3.67",
-    "@nuxt/devtools": "^1.0.6",
+    "@nuxt/devtools": "^2.6.4",
     "@playwright/test": "^1.43.1",
     "@types/node": "^20.12.7",
     "sass": "^1.69.3",
