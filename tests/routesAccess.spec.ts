@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test";
-import { loginResolver, currentUserResolver } from "~/tests/mocks/handlers/auth";
+import { expect, test } from "@playwright/test";
+import { currentUserResolver, loginResolver } from "~/tests/mocks/handlers/auth";
 
 
 test("should access index page", async ({ page }) => {
@@ -65,7 +65,7 @@ test("access pages by menu (logged user)", async ({ page }) => {
   const submitButton = page.locator("button[type='submit']");
   await submitButton.click();
 
-  const pageTitle = page.locator("header.v-toolbar div.v-toolbar__content h2")
+  const pageTitle = page.locator("header.v-toolbar div.v-toolbar__content h2");
   await expect(pageTitle).toHaveText("Aqui estão seus hinários!");
 
   const menuLinks = await page.locator("a.v-list-item").all();

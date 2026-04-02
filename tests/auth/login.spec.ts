@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test";
-import { loginResolver, currentUserResolver } from "~/tests/mocks/handlers/auth";
+import { expect, test } from "@playwright/test";
+import { currentUserResolver, loginResolver } from "~/tests/mocks/handlers/auth";
 import { performUserLoginAndAuthorization } from "../utils/helpers";
 
 
