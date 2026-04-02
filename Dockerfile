@@ -25,7 +25,7 @@ FROM node:24-alpine
 # create work directory in app folder
 WORKDIR /app
 
-# copy over package.json files
+# copy over output folder from builder stage
 COPY --from=builder .output .
 
-ENTRYPOINT [ "node", "./output/server/index.mjs" ]
+ENTRYPOINT [ "node", ".output/server/index.mjs" ]
