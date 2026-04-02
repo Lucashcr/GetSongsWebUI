@@ -12,7 +12,7 @@ COPY package.json /app/
 RUN npm install
 
 # copy over all files to the work directory
-ADD . /app
+COPY . /app
 
 ARG BACKEND_BASE_URL
 ENV BACKEND_BASE_URL=$BACKEND_BASE_URL
@@ -26,6 +26,6 @@ FROM node:24-alpine
 WORKDIR /app
 
 # copy over output folder from builder stage
-COPY --from=builder /app/.output .
+COPY --from=builder /app/.output .output
 
-ENTRYPOINT [ "node", "/app/.output/server/index.mjs" ]
+ENTRYPOINT [ "node", ".output/server/index.mjs" ]
