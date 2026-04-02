@@ -26,6 +26,6 @@ FROM node:24-alpine
 WORKDIR /app
 
 # copy over output folder from builder stage
-COPY --from=builder .output .
+COPY --from=builder /app/.output .
 
-ENTRYPOINT [ "node", ".output/server/index.mjs" ]
+ENTRYPOINT [ "node", "/app/.output/server/index.mjs" ]
