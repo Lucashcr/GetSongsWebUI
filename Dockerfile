@@ -1,5 +1,5 @@
 # use node 18 alpine image
-FROM node:20-alpine
+FROM node:24-alpine AS builder
 
 # create work directory in app folder
 WORKDIR /app
@@ -20,9 +20,12 @@ ENV BACKEND_BASE_URL=$BACKEND_BASE_URL
 # build the project
 RUN npm run build
 
-# expose the host and port 3000 to the server
-ENV HOST 0.0.0.0
-EXPOSE 3000
+FROM node:24-alpine
 
-# run the build project with node
-CMD ["npm", "run", "start"]
+# create work directory in app folder
+WORKDIR /app
+
+# copy over package.json files
+COPY --from=builder .output .
+
+ENTRYPOINT [ "node", "./output/server/index.mjs" ]
