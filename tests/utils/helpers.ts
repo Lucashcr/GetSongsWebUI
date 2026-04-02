@@ -1,6 +1,6 @@
 import type { Page } from "playwright";
 
-import { loginResolver, currentUserResolver } from "~/tests/mocks/handlers/auth";
+import { currentUserResolver, loginResolver } from "~/tests/mocks/handlers/auth";
 
 
 export async function performUserLoginAndAuthorization(page: Page) {

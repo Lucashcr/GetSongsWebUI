@@ -1,4 +1,4 @@
-import { Pinia } from "pinia";
+import { type Pinia } from "pinia";
 import useGlobalStore from "~/store";
 
 export default defineNuxtPlugin(({ $pinia }) => {

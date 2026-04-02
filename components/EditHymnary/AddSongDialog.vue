@@ -94,58 +94,42 @@ async function fetchByLyrics() {
 }
 
 function addSong() {
+  if (hymnary.value.songs.some((song) => song.id == addSongSong.value)) {
+    alert("Esta música já foi adicionada a este hinário");
+    return;
+  }
+
   $fetchApi
     .post(`/hymnary/${hymnary.value.id}/add/${addSongSong.value}/`, {})
     .then((song) => {
       hymnary.value.songs.push(song);
       emit('update:modelValue', false);
+    }).catch((error) => {
+      alert(error.data)
     });
 }
 </script>
 
 <template>
-  <v-dialog
-    v-model="dialog"
-    :overlay="true"
-    max-width="1000px"
-    transition="dialog-transition"
-    eager
-  >
+  <v-dialog v-model="dialog" :overlay="true" max-width="1000px" transition="dialog-transition" eager>
     <v-sheet class="rounded-xl">
       <v-sheet class="d-flex responsive-flex-dir">
         <v-sheet class="pa-4 flex-grow-1 h-100">
           <v-card-title>Adicionar música</v-card-title>
           <v-sheet class="pa-2">
-            <v-autocomplete
-              :items="categories"
-              v-model="addSongCategory"
-              label="Categoria"
-              @update:model-value="
-                async () => {
-                  await getArtists();
-                  await getSongs();
-                }
-              "
-            ></v-autocomplete>
-            <v-autocomplete
-              :items="artists"
-              v-model="addSongArtist"
-              label="Artista"
-              @update:model-value="getSongs()"
-            ></v-autocomplete>
-            <v-autocomplete
-              :items="songs"
-              v-model="addSongSong"
-              label="Música"
-              @update:model-value="fetchSong"
-            ></v-autocomplete>
+            <v-autocomplete :items="categories" v-model="addSongCategory" label="Categoria" @update:model-value="
+              async () => {
+                await getArtists();
+                await getSongs();
+              }
+            "></v-autocomplete>
+            <v-autocomplete :items="artists" v-model="addSongArtist" label="Artista"
+              @update:model-value="getSongs()"></v-autocomplete>
+            <v-autocomplete :items="songs" v-model="addSongSong" label="Música"
+              @update:model-value="fetchSong"></v-autocomplete>
             <div class="d-flex flex-row align-center ga-4">
-              <v-text-field
-                v-model="songByLyrics"
-                label="Pesquisar trecho de música"
-                clearable
-                hint="Digite um trecho da música para pesquisar e clicar no botão ao lado. O resultado será exibido no seletor de músicas."
-              ></v-text-field>
+              <v-text-field v-model="songByLyrics" label="Pesquisar trecho de música" clearable
+                hint="Digite um trecho da música para pesquisar e clicar no botão ao lado. O resultado será exibido no seletor de músicas."></v-text-field>
               <v-btn color="secondary" @click="fetchByLyrics">
                 <v-icon>mdi-magnify</v-icon>
               </v-btn>
@@ -158,13 +142,8 @@ function addSong() {
         </v-sheet>
         <v-sheet class="pa-4" v-if="addSongPreview">
           <div class="pa-4 w-100 h-100">
-            <iframe 
-              class="w-100 h-100"
-              :src="addSongPreview.preview_url"
-              frameborder="0"
-              allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-            ></iframe>
+            <iframe class="w-100 h-100" :src="addSongPreview.preview_url" frameborder="0"
+              allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
           </div>
         </v-sheet>
       </v-sheet>

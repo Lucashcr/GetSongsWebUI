@@ -2,8 +2,7 @@ import type { Route } from "@playwright/test";
 
 export const loginResolver = async (route: Route) => {
   const json = {
-    access: "testaccesstoken",
-    refresh: "testrefreshtoken",
+    token: "testtoken",
   };
   await route.fulfill({ json });
 };
