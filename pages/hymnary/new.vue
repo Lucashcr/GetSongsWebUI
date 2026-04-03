@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import useGlobalStore from "~/store";
-import type HymnariesListResponse from "~/types/HymnariesListResponse";
 import type Hymnary from "~/types/hymnary";
 
 const { $fetchApi } = useNuxtApp();
@@ -56,21 +55,13 @@ onMounted(() => {
 <template>
   <Loading v-if="globalStore.isLoading" width="500px" />
   <v-card v-else width="500px" class="pa-4 rounded-xl">
-    <v-form
-      class="d-flex flex-column align-center"
-      @submit.prevent="saveHymnary"
-    >
-      <v-text-field
-        v-model="newHymnary.title"
-        label="Título"
-        id="new-hymnary-title-input"
-        :rules="[
-          (v) => !!v || 'O título é obrigatório',
-          (v) =>
-            !hymnaries.some((hymnary) => hymnary === v) ||
-            'Já existe um hinário com esse título',
-        ]"
-      ></v-text-field>
+    <v-form class="d-flex flex-column align-center" @submit.prevent="saveHymnary">
+      <v-text-field v-model="newHymnary.title" label="Título" id="new-hymnary-title-input" :rules="[
+        (v) => !!v || 'O título é obrigatório',
+        (v) =>
+          !hymnaries.some((hymnary) => hymnary === v) ||
+          'Já existe um hinário com esse título',
+      ]"></v-text-field>
       <v-btn type="submit" :disabled="setButtonDisabled()" color="primary">
         Salvar
       </v-btn>

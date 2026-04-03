@@ -9,14 +9,17 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue", "openAddSongDialog"]);
 
+let hymnaries = reactive([]);
+async function getHymnariesTitle() {
+  hymnaries = await $fetchApi.get("/hymnary/list_titles");
+}
+
+onMounted(() => {
+  getHymnariesTitle();
+});
+
 const newHymnaryTitle = ref(props.hymnary.title);
 const editHymnaryTitle = ref(false);
-
-const rules = {
-  name: [
-    (v) => !!v || "O título é obrigatório",
-  ],
-};
 
 async function updateHymnary(field, value) {
   await $fetchApi.patch(`/hymnary/${route.params.hymnaryID}/`, {
@@ -24,61 +27,44 @@ async function updateHymnary(field, value) {
     updated: true,
   });
 }
+
+async function saveHymnaryTitle() {
+  updateHymnary('title', newHymnaryTitle);
+  hymnary.title = newHymnaryTitle;
+  getHymnariesTitle();
+  editHymnaryTitle = false;
+}
+
+function setButtonDisabled() {
+  if (newHymnaryTitle.value === "") return true;
+  return hymnaries.some((hymnary) => hymnary === newHymnaryTitle.value);
+}
 </script>
 
 <template>
-  <div
-    v-if="editHymnaryTitle"
-    class="pa-4 d-flex ga-4 align-center responsive-flex-dir"
-  >
-    <v-text-field
-      v-model="newHymnaryTitle"
-      label="Título do Hinário"
-      id="edit-hymnary-title-input"
-      :rules="rules.name"
-    ></v-text-field>
-    <v-btn
-      color="primary"
-      @click="
-        () => {
-          for (const rule of rules.name) {
-            const result = rule(newHymnaryTitle);
-            if (typeof result === 'string') {
-              return;
-            }
-          }
-          updateHymnary('title', newHymnaryTitle);
-          hymnary.title = newHymnaryTitle;
-          getHymnariesTitle();
-          editHymnaryTitle = false;
-        }
-      "
-      id="edit-hymnary-title-confirm"
-      class="full-width"
-    >
-      Salvar
-    </v-btn>
-    <v-btn
-      color="secondary"
-      @click="
+  <div v-if="editHymnaryTitle" class="pa-4 d-flex ga-4 align-center responsive-flex-dir">
+    <v-form class="w-100 d-flex ga-4 align-center" @submit.prevent="saveHymnaryTitle">
+      <v-text-field class="w-full" v-model="newHymnaryTitle" label="Título do Hinário"
+        id="edit-hymnary-title-input" :rules="[
+          (v) => !!v || 'O título é obrigatório',
+          (v) =>
+            !hymnaries.some((hymnary) => hymnary === v) ||
+            'Já existe um hinário com esse título',
+        ]"></v-text-field>
+      <v-btn color="primary" type="submit" :disabled="setButtonDisabled()" id="edit-hymnary-title-confirm">
+        Salvar
+      </v-btn>
+      <v-btn color="secondary" @click="
         newHymnaryTitle = hymnary.title;
-        editHymnaryTitle = false;
-      "
-      class="full-width"
-    >
-      Cancelar
-    </v-btn>
+      editHymnaryTitle = false;
+      ">
+        Cancelar
+      </v-btn>
+    </v-form>
   </div>
-  <div
-    v-else
-    class="pa-4 d-flex ga-4 align-center justify-space-between responsive-flex-dir"
-  >
+  <div v-else class="pa-4 d-flex ga-4 align-center justify-space-between responsive-flex-dir">
     <v-sheet class="full-width">
-      <h2
-        id="edit-hymnary-title"
-        @click="editHymnaryTitle = true"
-        style="cursor: pointer"
-      >
+      <h2 id="edit-hymnary-title" @click="editHymnaryTitle = true" style="cursor: pointer">
         {{ hymnary.title }} <v-icon>mdi-note-edit-outline</v-icon>
       </h2>
     </v-sheet>
@@ -91,21 +77,11 @@ async function updateHymnary(field, value) {
   </div>
   <v-sheet class="d-flex flex-column">
     <v-sheet class="d-flex mx-2 responsive-flex-dir">
-      <v-select
-        :items="templatesSelect"
-        v-model="hymnary.template"
-        label="Template"
-        @update:model-value="updateHymnary('template', hymnary.template)"
-        class="flex-1-1 mx-2"
-      ></v-select>
-      <v-checkbox
-        label="Exibir categoria"
-        v-model="hymnary.print_category"
-        @update:model-value="
-          updateHymnary('print_category', hymnary.print_category)
-        "
-        class="flex-0-0"
-      ></v-checkbox>
+      <v-select :items="templatesSelect" v-model="hymnary.template" label="Template"
+        @update:model-value="updateHymnary('template', hymnary.template)" class="flex-1-1 mx-2"></v-select>
+      <v-checkbox label="Exibir categoria" v-model="hymnary.print_category" @update:model-value="
+        updateHymnary('print_category', hymnary.print_category)
+        " class="flex-0-0"></v-checkbox>
     </v-sheet>
   </v-sheet>
   <EditHymnaryTagsContainer v-model="hymnary.tags" />
@@ -117,10 +93,12 @@ async function updateHymnary(field, value) {
 }
 
 @media screen and (max-width: 800px) {
+
   .full-width,
   #edit-hymnary-title-input {
     width: 100%;
   }
+
   .responsive-flex-dir {
     flex-direction: column;
   }
