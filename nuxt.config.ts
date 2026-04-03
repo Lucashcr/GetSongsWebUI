@@ -2,7 +2,9 @@ import { defineNuxtConfig } from "nuxt/config";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
+
+  compatibilityDate: "2026-04-02",
 
   // devtools: { enabled: true },
 
@@ -16,11 +18,15 @@ export default defineNuxtConfig({
     transpile: ["vuetify"],
   },
 
-  // vite: {
-  //   define: {
-  //     "process.env.DEBUG": false,
-  //   },
-  // },
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        'pinia',
+      ]
+    }
+  },
 
   runtimeConfig: {
     public: {

@@ -4,20 +4,15 @@ import { useTheme } from "vuetify";
 const theme = useTheme();
 const themeCookie = useCookie("theme", { sameSite: "strict" });
 
-theme.global.name.value = themeCookie.value || "light";
+theme.change(themeCookie.value || 'light')
 </script>
 
 
 <template>
-  <v-app :theme="theme.global.name.value">
+  <v-app>
     <NavigationMenu />
     <v-app-bar :elevation="2">
-      <v-img
-        src="/logo.png"
-        :height="40"
-        :width="40"
-        class="flex-grow-0 mx-4"
-      ></v-img>
+      <v-img src="/logo.png" :height="40" :width="40" class="flex-grow-0 mx-4"></v-img>
       <h2>{{ $store.appBarTitle }}</h2>
       <v-spacer></v-spacer>
       <ThemeToggleButton />
@@ -25,4 +20,3 @@ theme.global.name.value = themeCookie.value || "light";
     <NuxtLayout />
   </v-app>
 </template>
-

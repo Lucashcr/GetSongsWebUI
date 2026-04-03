@@ -1,5 +1,5 @@
-import type Hymnary from "~/types/hymnary";
 import useGlobalStore from "~/store";
+import type Hymnary from "~/types/hymnary";
 
 
 export default defineNuxtPlugin(() => {

@@ -2,15 +2,6 @@
 const { $fetchApi } = useNuxtApp();
 const route = useRoute();
 
-let hymnaries = reactive([]);
-async function getHymnariesTitle() {
-  hymnaries.value = (await $fetchApi.get("/hymnary/")).map((h) => h.title);
-}
-
-onMounted(() => {
-  getHymnariesTitle();
-});
-
 const props = defineProps({
   hymnary: Object,
   modelValue: Boolean,
@@ -24,9 +15,6 @@ const editHymnaryTitle = ref(false);
 const rules = {
   name: [
     (v) => !!v || "O título é obrigatório",
-    (v) =>
-      !hymnaries.some((hymnary) => hymnary === v) ||
-      "Já existe um hinário com esse título",
   ],
 };
 
