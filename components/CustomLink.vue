@@ -17,6 +17,7 @@ function openClickedLink(to: string) {
     color="gray"
     variant="text"
     target="_blank"
+    rel="noopener noreferrer"
     append-icon="mdi-open-in-new"
     size="small"
     class="py-0 px-1"

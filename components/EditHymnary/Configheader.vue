@@ -9,9 +9,9 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue", "openAddSongDialog"]);
 
-let hymnaries = reactive([]);
+const hymnaries = ref([]);
 async function getHymnariesTitle() {
-  hymnaries = await $fetchApi.get("/hymnary/list_titles");
+  hymnaries.value = await $fetchApi.get("/hymnary/list_titles");
 }
 
 onMounted(() => {
@@ -29,15 +29,15 @@ async function updateHymnary(field, value) {
 }
 
 async function saveHymnaryTitle() {
-  updateHymnary('title', newHymnaryTitle);
-  hymnary.title = newHymnaryTitle;
+  await updateHymnary('title', newHymnaryTitle.value);
+  props.hymnary.title = newHymnaryTitle.value;
   getHymnariesTitle();
-  editHymnaryTitle = false;
+  editHymnaryTitle.value = false;
 }
 
 function setButtonDisabled() {
   if (newHymnaryTitle.value === "") return true;
-  return hymnaries.some((hymnary) => hymnary === newHymnaryTitle.value);
+  return hymnaries.value.some((h) => h === newHymnaryTitle.value);
 }
 </script>
 
@@ -55,8 +55,8 @@ function setButtonDisabled() {
         Salvar
       </v-btn>
       <v-btn color="secondary" @click="
-        newHymnaryTitle = hymnary.title;
-      editHymnaryTitle = false;
+        newHymnaryTitle.value = props.hymnary.title;
+        editHymnaryTitle.value = false;
       ">
         Cancelar
       </v-btn>

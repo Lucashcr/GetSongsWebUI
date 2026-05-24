@@ -22,11 +22,14 @@ function deleteHymnary(hymnary) {
   globalStore.setLoading(true);
   $fetchApi
     .delete(`/hymnary/${hymnary.id}/`)
-    .then(async () => {
+    .then(() => {
+      emit("deleted", hymnary.id);
+      close();
+    })
+    .catch(() => {})
+    .finally(() => {
       globalStore.setLoading(false);
-      emit("deleted", hymnary.id)
     });
-  close();
 }
 </script>
 

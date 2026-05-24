@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 const useGlobalStore = defineStore("main", {
   state: () => ({
     appBarTitle: "",
-    isLoading: true,
+    isLoading: false,
   }),
   actions: {
     setAppBarTitle(title: string) {
