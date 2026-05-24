@@ -21,6 +21,15 @@ const user = reactive({
   password: "",
 });
 
+function isSafeNext(value) {
+  return (
+    typeof value === "string" &&
+    value.startsWith("/") &&
+    !value.startsWith("//") &&
+    !value.includes(":")
+  );
+}
+
 async function login() {
   globalStore.setLoading(true);
   try {
@@ -37,7 +46,7 @@ async function login() {
     auth.setUser(userData);
 
     const next = useRoute().query.next;
-    if (next) {
+    if (isSafeNext(next)) {
       return navigateTo(next);
     } else {
       navigateTo("/hymnary");
