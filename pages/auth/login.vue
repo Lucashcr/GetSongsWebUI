@@ -12,6 +12,8 @@ definePageMeta({
   layout: "centered",
 });
 
+globalStore.setLoading(false);
+
 onMounted(() => {
   globalStore.setAppBarTitle("Bem-vindo de volta!");
 });
@@ -20,6 +22,15 @@ const user = reactive({
   username: "",
   password: "",
 });
+
+function isSafeNext(value) {
+  return (
+    typeof value === "string" &&
+    value.startsWith("/") &&
+    !value.startsWith("//") &&
+    !value.includes(":")
+  );
+}
 
 async function login() {
   globalStore.setLoading(true);
@@ -37,7 +48,7 @@ async function login() {
     auth.setUser(userData);
 
     const next = useRoute().query.next;
-    if (next) {
+    if (isSafeNext(next)) {
       return navigateTo(next);
     } else {
       navigateTo("/hymnary");
