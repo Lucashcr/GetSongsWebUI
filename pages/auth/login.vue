@@ -12,6 +12,8 @@ definePageMeta({
   layout: "centered",
 });
 
+globalStore.setLoading(false);
+
 onMounted(() => {
   globalStore.setAppBarTitle("Bem-vindo de volta!");
 });
