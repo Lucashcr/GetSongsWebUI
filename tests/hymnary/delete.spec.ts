@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { deleteHymnaryResolver, getEmptyListHymnaryResolver, getExistingHymnaryResolver } from "~/tests/mocks/handlers/hymnary";
+import { deleteHymnaryResolver, getEmptyListHymnaryResolver, getEmptyPaginatedHymnaryResolver, getExistingHymnaryResolver } from "~/tests/mocks/handlers/hymnary";
 import { performUserLoginAndAuthorization } from "../utils/helpers";
 
 
@@ -33,11 +33,11 @@ test("should delete hymnary", async ({ page }) => {
   const deleteButton = page.locator("button[id='hymnary-1-delete-button']");
   await deleteButton.click();
   
-  page.route("*/**/api/hymnary/1", deleteHymnaryResolver);
+  page.route("*/**/api/hymnary/1/", deleteHymnaryResolver);
   const confirmButton = page.locator("button[id='confirm-delete-button']");
   await confirmButton.click();
 
-  page.route("*/**/api/hymnary", getEmptyListHymnaryResolver);
+  page.route("*/**/api/hymnary?dateFilter=created_at&page=1", getEmptyPaginatedHymnaryResolver);
   const deleteButton2 = page.locator("button[id='hymnary-1-delete-button']");
   await expect(deleteButton2).not.toBeVisible();
 })

@@ -75,16 +75,18 @@ function setButtonDisabled() {
       <v-btn color="primary" @click="$exportHymnary(hymnary)"> Exportar </v-btn>
     </v-sheet>
   </div>
-  <v-sheet class="d-flex flex-column">
-    <v-sheet class="d-flex mx-2 responsive-flex-dir">
-      <v-select :items="templatesSelect" v-model="hymnary.template" label="Template"
-        @update:model-value="updateHymnary('template', hymnary.template)" class="flex-1-1 mx-2"></v-select>
-      <v-checkbox label="Exibir categoria" v-model="hymnary.print_category" @update:model-value="
-        updateHymnary('print_category', hymnary.print_category)
-        " class="flex-0-0"></v-checkbox>
+  <v-no-ssr>
+    <v-sheet class="d-flex flex-column">
+      <v-sheet class="d-flex mx-2 responsive-flex-dir">
+        <v-select :items="templatesSelect" v-model="hymnary.template" label="Template"
+          @update:model-value="updateHymnary('template', hymnary.template)" class="flex-1-1 mx-2"></v-select>
+        <v-checkbox label="Exibir categoria" v-model="hymnary.print_category" @update:model-value="
+          updateHymnary('print_category', hymnary.print_category)
+          " class="flex-0-0"></v-checkbox>
+      </v-sheet>
     </v-sheet>
-  </v-sheet>
-  <EditHymnaryTagsContainer v-model="hymnary.tags" />
+    <EditHymnaryTagsContainer v-model="hymnary.tags" />
+  </v-no-ssr>
 </template>
 
 <style>

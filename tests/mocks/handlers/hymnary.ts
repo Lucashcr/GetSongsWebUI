@@ -61,6 +61,11 @@ export const getEmptyListHymnaryResolver = async (route: Route) => {
   await route.fulfill({ json });
 };
 
+export const getEmptyPaginatedHymnaryResolver = async (route: Route) => {
+  const json = { count: 0, results: [] };
+  await route.fulfill({ json });
+};
+
 export const deleteHymnaryResolver = async (route: Route) => {
   await route.fulfill({ status: 204 });
 }

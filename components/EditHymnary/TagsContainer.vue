@@ -46,8 +46,6 @@ async function onDrop() {
   }
   emit('update:modelValue', response);
 }
-
-const manageTagsDialog = ref(false);
 </script>
 
 
