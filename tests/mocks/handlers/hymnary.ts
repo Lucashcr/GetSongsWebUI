@@ -74,3 +74,20 @@ export const getExistingHymnaryTitlesResolver = async (route: Route) => {
   const json = ["existing test hymnary",];
   await route.fulfill({ json });
 }
+
+export const updatedTitleDetailHymnaryResolver = async (route: Route) => {
+  const json = {
+    id: 1,
+    songs: [],
+    title: "new title",
+    created_at: "2024-04-24T22:13:00.888727-03:00",
+    updated_at: "2024-04-24T22:13:00.888773-03:00",
+    updated: true,
+    print_category: true,
+    template: "single-column",
+    file: null,
+    owner: 1,
+    tags: [],
+  };
+  await route.fulfill({ json, status: 200 });
+};

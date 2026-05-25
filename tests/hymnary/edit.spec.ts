@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { createHymnaryResolver, detailHymnaryResolver, getExistingHymnaryResolver, getExistingHymnaryTitlesResolver } from "~/tests/mocks/handlers/hymnary";
+import { createHymnaryResolver, detailHymnaryResolver, getExistingHymnaryResolver, getExistingHymnaryTitlesResolver, updatedTitleDetailHymnaryResolver } from "~/tests/mocks/handlers/hymnary";
 import { performUserLoginAndAuthorization } from "~/tests/utils/helpers";
 import { categoryResolver } from "../mocks/handlers/api";
 import { getTagsResolver } from "../mocks/handlers/tag";
@@ -8,7 +8,7 @@ test("should change hymnary title", async ({ page }) => {
   page.route("*/**/api/hymnary?dateFilter=created_at&page=1", getExistingHymnaryResolver);
   page.route("*/**/api/hymnary/", createHymnaryResolver);
   page.route("*/**/api/hymnary/1", detailHymnaryResolver);
-  page.route("*/**/api/hymnary/1/", detailHymnaryResolver);
+  page.route("*/**/api/hymnary/1/", updatedTitleDetailHymnaryResolver);
   page.route("*/**/api/hymnary/list_titles", getExistingHymnaryTitlesResolver);
   page.route("*/**/api/category/", categoryResolver);
   page.route("*/**/api/tag/", getTagsResolver);

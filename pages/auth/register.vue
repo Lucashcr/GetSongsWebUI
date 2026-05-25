@@ -11,6 +11,7 @@ definePageMeta({
 
 onMounted(() => {
   globalStore.setAppBarTitle("Junte-se a nós!");
+  globalStore.setLoading(false);
 });
 
 const user = reactive({
