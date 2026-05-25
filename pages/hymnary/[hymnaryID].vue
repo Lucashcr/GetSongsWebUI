@@ -49,29 +49,31 @@ function removeSong(song) {
       @openAddSongDialog="addSongDialog = true"
     />
     <v-sheet class="ma-2">
-      <draggable
-        v-model="hymnary.songs"
-        animation="200"
-        @start="drag = true"
-        @end="
-          drag = false;
-          reorderSongs();
-        "
-        @touchstart="drag = true"
-        @touchend="
-          drag = false;
-          reorderSongs();
-        "
-        item-key="id"
-      >
-        <template #item="{ element }">
-          <SongEditItem
-            :song="element"
-            :show-category="hymnary.print_category"
-            @deleted="removeSong(element)"
-          />
-        </template>
-      </draggable>
+      <v-no-ssr>
+        <draggable
+          v-model="hymnary.songs"
+          animation="200"
+          @start="drag = true"
+          @end="
+            drag = false;
+            reorderSongs();
+          "
+          @touchstart="drag = true"
+          @touchend="
+            drag = false;
+            reorderSongs();
+          "
+          item-key="id"
+        >
+          <template #item="{ element }">
+            <SongEditItem
+              :song="element"
+              :show-category="hymnary.print_category"
+              @deleted="removeSong(element)"
+            />
+          </template>
+        </draggable>
+      </v-no-ssr>
     </v-sheet>
   </v-card>
   <EditHymnaryAddSongDialog

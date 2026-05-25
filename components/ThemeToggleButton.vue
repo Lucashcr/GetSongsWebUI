@@ -5,12 +5,12 @@ const themeCookie = useCookie("theme");
 const theme = useTheme();
 
 function toggleTheme() {
-  theme.global.name.value = theme.global.current.value.dark ? "light" : "dark";
+  theme.toggle();
   themeCookie.value = theme.global.name.value;
 }
 
 const icon = computed(() => {
-  return theme.global.name.value === "dark"
+  return themeCookie.value === "dark"
     ? "mdi-white-balance-sunny"
     : "mdi-weather-night";
 });

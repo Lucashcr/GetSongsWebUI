@@ -16,10 +16,12 @@ function openClickedLink(to: string) {
   <v-btn
     color="gray"
     variant="text"
-    @click="openClickedLink(to)"
+    target="_blank"
+    rel="noopener noreferrer"
     append-icon="mdi-open-in-new"
     size="small"
     class="py-0 px-1"
+    :href="to"
   >
     <slot />
   </v-btn>

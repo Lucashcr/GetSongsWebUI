@@ -62,43 +62,32 @@ async function onSubmit() {
 </script>
 
 <template>
-  <v-dialog v-model="dialog" max-width="500px" transition="dialog-transition">
-    <v-card class="pa-4 rounded-xl">
-      <v-card-title>Alterar senha</v-card-title>
-      <v-card-text>
-        <v-form v-model="formValid">
-          <v-text-field
-            v-model="oldPassword"
-            :rules="rules.oldPassword"
-            label="Senha antiga"
-            type="password"
-          ></v-text-field>
-          <v-text-field
-            v-model="password"
-            :rules="rules.password"
-            label="Senha nova"
-            type="password"
-          ></v-text-field>
-          <v-text-field
-            v-model="confirmPassword"
-            :rules="rules.confirmPassword"
-            label="Confirmação da senha nova"
-            type="password"
-          ></v-text-field>
-          <p v-for="message in messages" :key="message" class="error-message">
-            {{ message }}
-          </p>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" :disabled="!formValid" @click="onSubmit">
-              Alterar
-            </v-btn>
-            <v-btn color="error" @click="dialog = false">Cancelar</v-btn>
-          </v-card-actions>
-        </v-form>
-      </v-card-text>
-    </v-card>
-  </v-dialog>
+  <v-no-ssr>
+    <v-dialog v-model="dialog" max-width="500px" transition="dialog-transition">
+      <v-card class="pa-4 rounded-xl">
+        <v-card-title>Alterar senha</v-card-title>
+        <v-card-text>
+          <v-form v-model="formValid">
+            <v-text-field v-model="oldPassword" :rules="rules.oldPassword" label="Senha antiga"
+              type="password"></v-text-field>
+            <v-text-field v-model="password" :rules="rules.password" label="Senha nova" type="password"></v-text-field>
+            <v-text-field v-model="confirmPassword" :rules="rules.confirmPassword" label="Confirmação da senha nova"
+              type="password"></v-text-field>
+            <p v-for="message in messages" :key="message" class="error-message">
+              {{ message }}
+            </p>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" :disabled="!formValid" @click="onSubmit">
+                Alterar
+              </v-btn>
+              <v-btn color="error" @click="dialog = false">Cancelar</v-btn>
+            </v-card-actions>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+  </v-no-ssr>
 </template>
 
 <style scoped>
