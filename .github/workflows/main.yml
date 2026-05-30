@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v6
         with:
@@ -20,6 +22,14 @@ jobs:
 
       - name: Install deps
         run: npm install
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+      - name: Scan for secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
